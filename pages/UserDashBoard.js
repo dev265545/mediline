@@ -5,7 +5,7 @@ function UserDashBoard() {
   const { data: session } = useSession();
   console.log(session);
 
-  return <div>UserDashBoard</div>;
+  return <div className="text-3xl">UserDashBoard</div>;
 }
 
 export default UserDashBoard;
