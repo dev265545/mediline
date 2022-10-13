@@ -5,3 +5,6 @@ function DiseasePredictor() {
 }
 
 export default DiseasePredictor;
+
+
+// Archit
