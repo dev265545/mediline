@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
-import axios from "axios";
 import { Router, useRouter } from "next/router";
-function NewUserRegistration() {
+import axios from "axios";
+function NewDoctorRegistration() {
   const router = useRouter();
   const { data: session } = useSession();
   const [address, setAddress] = useState("");
@@ -18,10 +18,10 @@ function NewUserRegistration() {
       city: city,
       photo_url: session?.user?.image,
     };
-    axios.post("/api/patients_users", databody).then(function (response) {
+    axios.post("/api/doctors", databody).then(function (response) {
       console.log(response);
     });
-    router.push("/UserDashBoard");
+    router.push("/DoctorDashBoard");
   };
 
   return (
@@ -240,4 +240,4 @@ function NewUserRegistration() {
   );
 }
 
-export default NewUserRegistration;
+export default NewDoctorRegistration;
