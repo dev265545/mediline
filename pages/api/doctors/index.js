@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import PatientUser from "../../../util/Models/PatientUser";
-import { connectToDatabase, initMongoose } from "../../../util/mongodb";
+import Doctor from "../../../util/Models/Doctor";
+import { initMongoose } from "../../../util/mongodb";
 export default async function handler(req, res) {
   const {
     body,
@@ -11,16 +11,15 @@ export default async function handler(req, res) {
   await initMongoose();
 
   if (method === "GET") {
+    // try {
+    //   const user = await Doctor.find({});
+    //   res.json({ status: 200, data: user });
+    // } catch (err) {
+    //   res.status(500).json(err);
+    // }
+
     try {
-      const user = await PatientUser.findOne({ email: email });
-      res.json({ status: 200, data: user });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  }
-  if (method === "GET") {
-    try {
-      const user = await PatientUser.find();
+      const user = await Doctor.findOne({ email: email });
       res.json({ status: 200, data: user });
     } catch (err) {
       res.status(500).json(err);
@@ -42,7 +41,7 @@ export default async function handler(req, res) {
   // }
   if (method === "POST") {
     try {
-      const newUser = new PatientUser(body);
+      const newUser = new Doctor(body);
       const order = await newUser.save();
       res.status(200).json(order);
     } catch (err) {
@@ -61,5 +60,5 @@ export default async function handler(req, res) {
   // }
   if (method === "DELETE") {
   }
-  res.json(await PatientUser.find().exec());
+  res.json(await Doctor.find().exec());
 }
