@@ -18,11 +18,11 @@ function UserDashBoard() {
       .catch((error) => {
         console.error("error fetching", error);
       });
+    if (user === null) {
+      router.push("/NewUserRegistration");
+    }
   }, [session?.user.email]);
   console.log(user);
-  if (user === null) {
-    router.push("/NewUserRegistration");
-  }
 
   return <div className="text-3xl">UserDashBoard</div>;
 }
