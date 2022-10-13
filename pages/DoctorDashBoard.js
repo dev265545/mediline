@@ -16,11 +16,14 @@ function DoctorDashBoard() {
       .catch((error) => {
         console.error("error fetching", error);
       });
+    if (user === null && user != undefined) {
+      router.push("/NewDoctorRegistration");
+    }
   }, [session?.user.email]);
   console.log(user);
-  if (user === null) {
-    router.push("/NewDoctorRegistration");
-  }
+  // if (user === null) {
+  //   router.push("/NewDoctorRegistration");
+  // }
 
   return <div className="text-3xl">DoctorDashBoard</div>;
 }

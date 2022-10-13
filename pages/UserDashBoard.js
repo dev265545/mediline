@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSession, signIn, signOut, getSession } from "next-auth/react";
 import axios from "axios";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 function UserDashBoard() {
   const router = useRouter();
@@ -18,7 +18,7 @@ function UserDashBoard() {
       .catch((error) => {
         console.error("error fetching", error);
       });
-    if (user === null) {
+    if (user === null && user != undefined) {
       router.push("/NewUserRegistration");
     }
   }, [session?.user.email]);
