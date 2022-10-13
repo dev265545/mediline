@@ -1,4 +1,5 @@
 import React from "react";
+import { signIn } from "next-auth/react";
 
 function DoctorvsPatient({ handleClick }) {
   return (

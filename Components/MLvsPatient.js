@@ -1,6 +1,8 @@
 import React from "react";
-
+import { Router, useRouter } from "next/router";
+import { signIn } from "next-auth/react";
 function MLvsPatient() {
+  const router = useRouter();
   return (
     <div>
       {" "}
