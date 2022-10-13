@@ -20,7 +20,7 @@ function UserDashBoard() {
       });
   }, [session?.user.email]);
   console.log(user);
-  if (user === null && user != undefined) {
+  if (user === null) {
     router.push("/NewUserRegistration");
   }
 
