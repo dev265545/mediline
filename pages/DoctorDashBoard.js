@@ -21,7 +21,7 @@ function DoctorDashBoard() {
     }
   }, [session?.user.email]);
   console.log(user);
-  // if (user === null) {
+  // if (user === null)
   //   router.push("/NewDoctorRegistration");
   // }
 
