@@ -1,5 +1,10 @@
 import React from "react";
+import SideNavbar from "../../Components/Sidebar";
 
 export default function UserProfileDashBoard() {
-  return <div>dashboard</div>;
+  return (
+    <div>
+      <SideNavbar />
+    </div>
+  );
 }

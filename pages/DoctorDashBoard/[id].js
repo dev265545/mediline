@@ -1,5 +1,6 @@
 import React from "react";
+import Sidebar from "../../Components/Sidebar";
 
 export default function ProfileDoctorDashBoard() {
-  return <div>dashboard</div>;
+  return <div></div>;
 }
