@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function ProfileDashBoard() {
+export default function UserProfileDashBoard() {
   return <div>dashboard</div>;
 }
