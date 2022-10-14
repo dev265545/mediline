@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSession, signIn, signOut, getSession } from "next-auth/react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { CircleLoaderComponent } from "../../Components/Loader";
 
 function UserDashBoard() {
   const router = useRouter();
@@ -29,7 +30,7 @@ function UserDashBoard() {
     }
   }, [router, user?.data?.uid]);
 
-  return <div className="text-3xl">UserDashBoard</div>;
+  return <div className="text-3xl"><CircleLoaderComponent /></div>;
 }
 
 export default UserDashBoard;

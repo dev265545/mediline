@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSession, signIn, signOut, getSession } from "next-auth/react";
 import axios from "axios";
 import { Router, useRouter } from "next/router";
+import { CircleLoaderComponent } from "../../Components/Loader";
 
 function DoctorDashBoard() {
   const router = useRouter();
@@ -38,7 +39,7 @@ function DoctorDashBoard() {
   //   router.push("/NewDoctorRegistration");
   // }
 
-  return <div className="text-3xl">DoctorDashBoard</div>;
+  return <div className="text-3xl"><CircleLoaderComponent /></div>;
 }
 
 //Ekansh Panwar

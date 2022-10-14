@@ -6,7 +6,13 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "gradient-radial": 
+"linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%)"
+      },
+    },
   },
-  plugins: [   require("flowbite/plugin")],
+
+  plugins: [require("flowbite/plugin")],
 };
