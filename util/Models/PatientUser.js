@@ -5,6 +5,10 @@ const PatientUserSchema = new Schema({
     type: String,
     required: true,
   },
+  uid: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,

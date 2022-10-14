@@ -5,22 +5,21 @@ export default async function handler(req, res) {
   const {
     body,
     method,
-    query: { email },
+    query: { uid },
   } = req;
   console.log(body);
   await initMongoose();
-
+  // try {
+  //   const user = await Doctor.find({});
+  //   res.json({ status: 200, data: user });
+  // } catch (err) {
+  //   res.status(500).json(err);
+  // }
   if (method === "GET") {
-    // try {
-    //   const user = await Doctor.find({});
-    //   res.json({ status: 200, data: user });
-    // } catch (err) {
-    //   res.status(500).json(err);
-    // }
-
     try {
-      const user = await Doctor.findOne({ email: email });
-      res.json({ status: 200, data: user });
+      const user = await Doctor.findOne({ uid: uid });
+
+      return res.json({ status: 200, data: user });
     } catch (err) {
       res.status(500).json(err);
     }

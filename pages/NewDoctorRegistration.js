@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { Router, useRouter } from "next/router";
 import axios from "axios";
@@ -8,9 +8,11 @@ function NewDoctorRegistration() {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [age, setAge] = useState("");
-  console.log(address);
+  const [user, setUser] = useState("");
+
   const addTodoHandler = async () => {
     let databody = {
+      uid: session?.user?.id,
       name: session?.user?.name,
       email: session?.user?.email,
       age: age,
@@ -39,7 +41,7 @@ function NewDoctorRegistration() {
                 <div className="lg:col-span-2">
                   <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                     <div className="md:col-span-5">
-                      <label for="full_name">Full Name</label>
+                      <label htmlFor="full_name">Full Name</label>
                       <input
                         type="text"
                         name="full_name"
@@ -98,7 +100,7 @@ function NewDoctorRegistration() {
                           value=""
                         />
                         <button
-                          tabindex="-1"
+                          tabIndex="-1"
                           className="cursor-pointer outline-none focus:outline-none transition-all text-gray-300 hover:text-red-600"
                         >
                           <svg
@@ -115,7 +117,7 @@ function NewDoctorRegistration() {
                           </svg>
                         </button>
                         <button
-                          tabindex="-1"
+                          tabIndex="-1"
                           for="show_more"
                           className="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-blue-600"
                         >
@@ -145,7 +147,7 @@ function NewDoctorRegistration() {
                           value=""
                         />
                         <button
-                          tabindex="-1"
+                          tabIndex="-1"
                           className="cursor-pointer outline-none focus:outline-none transition-all text-gray-300 hover:text-red-600"
                         >
                           <svg
@@ -162,7 +164,7 @@ function NewDoctorRegistration() {
                           </svg>
                         </button>
                         <button
-                          tabindex="-1"
+                          tabIndex="-1"
                           for="show_more"
                           className="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-blue-600"
                         >

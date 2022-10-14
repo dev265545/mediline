@@ -5,27 +5,27 @@ export default async function handler(req, res) {
   const {
     body,
     method,
-    query: { email },
+    query: { uid },
   } = req;
   console.log(body);
   await initMongoose();
 
   if (method === "GET") {
     try {
-      const user = await PatientUser.findOne({ email: email });
+      const user = await PatientUser.findOne({ uid: uid });
       res.json({ status: 200, data: user });
     } catch (err) {
       res.status(500).json(err);
     }
   }
-  if (method === "GET") {
-    try {
-      const user = await PatientUser.find();
-      res.json({ status: 200, data: user });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  }
+  // if (method === "GET") {
+  //   try {
+  //     const user = await PatientUser.find();
+  //     res.json({ status: 200, data: user });
+  //   } catch (err) {
+  //     res.status(500).json(err);
+  //   }
+  // }
   // if (method === "POST") {
   //   try {
   //     const order = await PatientUser.updateOne(
@@ -61,5 +61,4 @@ export default async function handler(req, res) {
   // }
   if (method === "DELETE") {
   }
-  res.json(await PatientUser.find().exec());
 }

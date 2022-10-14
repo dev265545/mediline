@@ -1,6 +1,10 @@
 import mongoose, { model, models, Schema } from "mongoose";
 
 const DoctorSchema = new Schema({
+  uid: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
