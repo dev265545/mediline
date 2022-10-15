@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import DoctorCard from "../Components/DoctorCard";
-import SideNavbar from "../Components/Sidebar";
+import DoctorCard from "../Components/UserPatientComponents/DoctorCard";
+import SideNavbar from "../Components/UserPatientComponents/Sidebar";
 
 function Search() {
   const [listdoctors, setlistdoctors] = useState([]);
