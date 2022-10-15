@@ -66,7 +66,7 @@ function Search() {
               </button>
               <div
                 id="dropdown"
-                class=" z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
+                class=" hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
                 data-popper-reference-hidden=""
                 data-popper-escaped=""
                 data-popper-placement="top"
@@ -157,6 +157,7 @@ function Search() {
           <DoctorCard key={index} doctor={doctor} />
         ))}
       </div>
+      
     </div>
   );
 }
