@@ -1,10 +1,20 @@
-import React, { useState } from 'react'
+
 import AppointmentList from '../../../Components/DoctorComponents/AppointmentList';
 import DoctorSidebar from '../../../Components/DoctorComponents/DoctorSidebar'
 import SlotGenerator from '../../../Components/DoctorComponents/SlotGenerator';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 function Appointments() {
-    
+     const router = useRouter();
+     const { id } = router.query;
+     const [doctor, setdoctor] = useState();
+     useEffect(() => {
+       axios.get(`http://localhost:3000/api/doctors?uid=${id}`).then((resp) => {
+         setdoctor(resp.data.data);
+       });
+     }, [id]);
   const date = new Date();
   const currentTime = date.getHours();
 
@@ -24,7 +34,7 @@ function Appointments() {
         <div className="flex-grow px-3 w-full sm:ml-[73px] md:ml-[250px] xl:ml-[250px]">
           <div className="text-3xl pt-6 pb-4   border-b text-gray-800 font-thin ">
             {greeting}{" "}
-            <p className=" text-gray-900 font-bold inline-block">Dr. Emily</p>
+            <p className=" text-gray-900 font-bold inline-block">Dr. {doctor?.name}</p>
             <p className="py-1 text-xl text-gray-600">
               Here is the information of your Appointments.
             </p>
