@@ -19,6 +19,15 @@ function NewDoctorRegistration() {
       address: address,
       city: city,
       photo_url: session?.user?.image,
+      slotsfornext7days: {
+        day1: [ "8:00 AM","9:00AM","10:00 AM","11:00AM","12:00 PM","1:00PM","2:00PM","3:00PM","4:00PM","5:00PM","6:00PM","7:00PM","8:00PM"],
+        day2: ["8:00 AM","9:00AM","10:00 AM","11:00AM","12:00 PM","1:00PM","2:00PM","3:00PM","4:00PM","5:00PM","6:00PM","7:00PM","8:00PM"],
+        day3: ["8:00 AM","9:00AM","10:00 AM","11:00AM","12:00 PM","1:00PM","2:00PM","3:00PM","4:00PM","5:00PM","6:00PM","7:00PM","8:00PM"],
+        day4: ["8:00 AM","9:00AM","10:00 AM","11:00AM","12:00 PM","1:00PM","2:00PM","3:00PM","4:00PM","5:00PM","6:00PM","7:00PM","8:00PM"],
+        day5: ["8:00 AM","9:00AM","10:00 AM","11:00AM","12:00 PM","1:00PM","2:00PM","3:00PM","4:00PM","5:00PM","6:00PM","7:00PM","8:00PM"],
+        day6: ["8:00 AM","9:00AM","10:00 AM","11:00AM","12:00 PM","1:00PM","2:00PM","3:00PM","4:00PM","5:00PM","6:00PM","7:00PM","8:00PM"],
+        day7: ["8:00 AM","9:00AM","10:00 AM","11:00AM","12:00 PM","1:00PM","2:00PM","3:00PM","4:00PM","5:00PM","6:00PM","7:00PM","8:00PM"],
+      },
     };
     axios.post("/api/doctors", databody).then(function (response) {
       console.log(response);

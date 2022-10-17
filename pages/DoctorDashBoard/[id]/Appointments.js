@@ -1,7 +1,7 @@
 
 import AppointmentList from '../../../Components/DoctorComponents/AppointmentList';
 import DoctorSidebar from '../../../Components/DoctorComponents/DoctorSidebar'
-import SlotGenerator from '../../../Components/DoctorComponents/SlotGenerator';
+import SlotGenerator from '../../../Components/DoctorComponents/Slots';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -29,7 +29,7 @@ function Appointments() {
   }
   return (
     <div>
-      <main className="bg-purple-50 min-h-screen flex max-w-[1500px] mx-auto">
+      <main className="bg-white min-h-screen flex max-w-[1500px] mx-auto">
         <DoctorSidebar />
         <div className="flex-grow px-3 w-full sm:ml-[73px] md:ml-[250px] xl:ml-[250px]">
           <div className="text-3xl pt-6 pb-4   border-b text-gray-800 font-thin ">
@@ -39,13 +39,13 @@ function Appointments() {
               Here is the information of your Appointments.
             </p>
           </div>
-          <div className="flex flex-row gap-10 mt-10 ">
+          <div className="flex lg:flex-row flex-col gap-1 mt-10 ">
             <div className='flex-1'>
-              <AppointmentList />
+              <AppointmentList doctor={doctor} />
             </div>
 
-            <div className="flex-1 ">
-              <SlotGenerator />
+            <div className=" flex-1  ">
+              <SlotGenerator doctor={doctor}/>
             </div>
           </div>
         </div>

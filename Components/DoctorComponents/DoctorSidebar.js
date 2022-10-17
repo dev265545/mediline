@@ -53,12 +53,12 @@ function DoctorSidebar() {
                 </h3>
               </div>
               <div
-                onClick={() => router.push("/Search")}
+                // onClick={() => router.push("")}
                 className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
               >
                 <MdOutlineExplore className="text-2xl text-purple-600 group-hover:text-white  " />
                 <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
-                  Search for Doctors
+                  Patients
                 </h3>
               </div>
               <div className="flex   mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
