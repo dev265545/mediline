@@ -1,5 +1,5 @@
 import React from "react";
-import SideNavbar from "../../../Components/Sidebar";
+import SideNavbar from "../../Components/UserPatientComponents/Sidebar";
 
 export default function UserProfileDashBoard() {
   return (
