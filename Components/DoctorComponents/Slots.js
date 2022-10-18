@@ -5,6 +5,7 @@ import { MdOutlineEditAttributes, MdSettings } from "react-icons/md";
 import { CgAdd, CgEditContrast } from "react-icons/cg";
 import { FaEdit } from "react-icons/fa";
 import { BiEdit, BiPencil } from "react-icons/bi";
+import SlotEditModal from "./SlotEditModal";
 
 
 function classNames(...classes) {
@@ -15,8 +16,11 @@ function SlotGenerator({doctor}) {
    
     let days = [];
     let daysRequired = 7;
-// const [deleteModal,SetDeleteModal] = useState(false)
-// const [deleteModal, SetDeleteModal] = useState(false);
+const [EditModal,SetEditModal] = useState(false)
+const modaltoggle = ()=>{
+  SetEditModal(!EditModal);
+}
+
     for (let i = 0; i < daysRequired; i++) {
       days.push(moment().add(i, "days").format("dddd  Do MMM"));
     }
@@ -26,7 +30,10 @@ function SlotGenerator({doctor}) {
     <div class="p-4 w-full  bg-slate-200   rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
       <div className=" p-1 flex justify-end">
         {" "}
-        <CgAdd className="text-3xl hover:bg-gradient-to-tr text-purple-900  " />
+        <CgAdd
+          onClick={(e) => {modaltoggle()}}
+          className="text-3xl hover:bg-gradient-to-tr text-purple-900  "
+        />
       </div>
       <Tab.Group>
         {/* TO DO -database actions onclick - delete the time slot, inset a new slot  disable all the slots a disable a  day */}
@@ -53,9 +60,6 @@ function SlotGenerator({doctor}) {
           <Tab.Panel className=" grid grid-cols-4 gap-3 pt-5 ">
             {doctor?.slotsfornext7days?.day1.map((slot, index) => (
               <button
-                onClick={() => {
-                  handleOnClick();
-                }}
                 key={index}
                 className="text-white shadow-lg rounded-full p-1  border border-blue-600 bg-blue-400 "
               >
@@ -125,6 +129,7 @@ function SlotGenerator({doctor}) {
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
+      {/* <SlotEditModal modaltoggle= {modaltoggle} /> */}
     </div>
   );
 }
