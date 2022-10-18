@@ -2,15 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-bodY {
+
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 .wavy{
-  background-color: #e5e5f7;
-opacity: 0.8;
-background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e5e5f7 10px ), repeating-linear-gradient( #444cf755, #444cf7 );
+  background-color: #000000;
+opacity: 1;
+background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #000000 40px ), repeating-linear-gradient( #00cda655, #00cda6 );
 }
 .center {
   height: 100vh;

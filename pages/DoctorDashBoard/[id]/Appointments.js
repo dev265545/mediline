@@ -5,6 +5,7 @@ import SlotGenerator from '../../../Components/DoctorComponents/Slots';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import NewAppointment from '../../../Components/DoctorComponents/NewAppointment.js';
 
 function Appointments() {
      const router = useRouter();
@@ -34,18 +35,23 @@ function Appointments() {
         <div className="flex-grow px-3 w-full sm:ml-[73px] md:ml-[250px] xl:ml-[250px]">
           <div className="text-3xl pt-6 pb-4   border-b text-gray-800 font-thin ">
             {greeting}{" "}
-            <p className=" text-gray-900 font-bold inline-block">Dr. {doctor?.name}</p>
+            <p className=" text-gray-900 font-bold inline-block">
+              Dr. {doctor?.name}
+            </p>
             <p className="py-1 text-xl text-gray-600">
               Here is the information of your Appointments.
             </p>
           </div>
-          <div className="flex lg:flex-row flex-col gap-1 mt-10 ">
-            <div className='flex-1'>
-              <AppointmentList doctor={doctor} />
-            </div>
+          <div className="flex flex-col gap-4 mt-10 ">
+            <NewAppointment />
+            <div className='flex  lg:flex-row flex-col '>
+              <div className="flex-1">
+                <AppointmentList doctor={doctor} />
+              </div>
 
-            <div className=" flex-1  ">
-              <SlotGenerator doctor={doctor}/>
+              <div className=" flex-1  ">
+                <SlotGenerator doctor={doctor} />
+              </div>
             </div>
           </div>
         </div>
