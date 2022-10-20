@@ -6,6 +6,7 @@ import { CgAdd, CgEditContrast } from "react-icons/cg";
 import { FaEdit } from "react-icons/fa";
 import { BiEdit, BiPencil } from "react-icons/bi";
 import SlotEditModal from "./SlotEditModal";
+import axios from "axios";
 
 
 function classNames(...classes) {
@@ -17,14 +18,17 @@ function SlotGenerator({doctor}) {
     let days = [];
     let daysRequired = 7;
 const [EditModal,SetEditModal] = useState(false)
-const modaltoggle = ()=>{
-  SetEditModal(!EditModal);
-}
+
 
     for (let i = 0; i < daysRequired; i++) {
       days.push(moment().add(i, "days").format("dddd  Do MMM"));
     }
+const handleOnclick = (index,slot)=>{
+  if(EditOn){
+      axios.delete("")
+  }
 
+}
   
   return (
     <div class="p-4 w-full  bg-slate-200   rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -70,6 +74,7 @@ const modaltoggle = ()=>{
           <Tab.Panel className=" grid grid-cols-4 gap-3 pt-5 ">
             {doctor?.slotsfornext7days?.day2.map((slot, index) => (
               <button
+              onClick={()=>{handleOnclick({index},{slot})}}
                 key={index}
                 className="text-white shadow-lg rounded-full p-1  border border-blue-600 bg-blue-400 "
               >

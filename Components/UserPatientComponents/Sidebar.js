@@ -11,8 +11,9 @@ import {
   MdOutlineSettings,
   MdOutlineLogout,
   MdOutlineExplore,
+  MdReport,
 } from "react-icons/md";
-import { CgProfile } from "react-icons/cg";
+import { CgFileDocument, CgProfile } from "react-icons/cg";
 import { FaPills, FaRegComments } from "react-icons/fa";
 import { BiCalendarEvent, BiMessageSquareDots } from "react-icons/bi";
 
@@ -34,7 +35,13 @@ function SideNavbar() {
               MEDILINE
             </h1>
             <div className=" my-4 border-b border-gray-100 pb-4">
-              <div on onClick={()=>router.push(`/UserDashBoard/${session?.user?.id}`)} className="flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
+              <div
+                on
+                onClick={() =>
+                  router.push(`/UserDashBoard/${session?.user?.id}`)
+                }
+                className="flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
+              >
                 <MdOutlineSpaceDashboard className="text-2xl text-purple-600 group-hover:text-white " />
                 <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
                   Dashboard
@@ -52,7 +59,7 @@ function SideNavbar() {
               >
                 <MdOutlineExplore className="text-2xl text-purple-600 group-hover:text-white  " />
                 <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
-                Search for Doctors
+                  Search for Doctors
                 </h3>
               </div>
               <div className="flex   mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
@@ -64,13 +71,13 @@ function SideNavbar() {
               <div className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
                 <BiCalendarEvent className="text-2xl text-purple-600 group-hover:text-white " />
                 <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
-                 Appointments
+                  Appointments
                 </h3>
               </div>
-              <div className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
-                <MdOutlineIntegrationInstructions className="text-2xl text-purple-600 group-hover:text-white " />
+              <div onClick={()=>router.push(`/UserDashBoard/${session?.user?.id}/Documents`)} className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
+                <CgFileDocument className="text-2xl text-purple-600 group-hover:text-white " />
                 <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
-                  Integration
+                  Documents
                 </h3>
               </div>
             </div>

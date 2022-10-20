@@ -60,3 +60,10 @@ export default async function handler(req, res) {
   }
   res.json(await Doctor.find().exec());
 }
+// delete a slot button - if true {onclick will delete}
+// add button
+// update button
+// delete all the slots button
+
+//Appointemtnmodel 
+//with acceptorreject toggle
