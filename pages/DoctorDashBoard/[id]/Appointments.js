@@ -12,7 +12,7 @@ function Appointments() {
      const { id } = router.query;
      const [doctor, setdoctor] = useState();
      useEffect(() => {
-       axios.get(`https://mediline.vercel.app/api/doctors?uid=${id}`).then((resp) => {
+       axios.get(`http://localhost:3000/api/doctors?uid=${id}`).then((resp) => {
          setdoctor(resp.data.data);
        });
      }, [id]);
