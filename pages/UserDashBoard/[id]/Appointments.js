@@ -1,21 +1,19 @@
 
-import AppointmentList from '../../../Components/DoctorComponents/AppointmentList';
-import DoctorSidebar from '../../../Components/DoctorComponents/DoctorSidebar'
-import SlotGenerator from '../../../Components/DoctorComponents/Slots';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import NewAppointment from '../../../Components/DoctorComponents/NewAppointment.js';
+import NewAppointment from "../../../Components/DoctorComponents/NewAppointment.js";
+import SideNavbar from "../../../Components/UserPatientComponents/Sidebar.js";
 
 function Appointments() {
-     const router = useRouter();
-     const { id } = router.query;
-     const [doctor, setdoctor] = useState();
-     useEffect(() => {
-       axios.get(`http://localhost:3000/api/doctors?uid=${id}`).then((resp) => {
-         setdoctor(resp.data.data);
-       });
-     }, [id]);
+  const router = useRouter();
+  const { id } = router.query;
+  const [user, setUser] = useState();
+  useEffect(() => {
+    axios.get(`http://localhost:3000/api/patients_users?uid=${id}`).then((resp) => {
+      setUser(resp.data.data);
+    });
+  }, [id]);
   const date = new Date();
   const currentTime = date.getHours();
 
@@ -31,12 +29,12 @@ function Appointments() {
   return (
     <div>
       <main className="bg-white min-h-screen flex max-w-[1500px] mx-auto">
-        <DoctorSidebar />
+<SideNavbar />
         <div className="flex-grow px-3 w-full sm:ml-[73px] md:ml-[250px] xl:ml-[250px]">
           <div className="text-3xl pt-6 pb-4   border-b text-gray-800 font-thin ">
             {greeting}{" "}
             <p className=" text-gray-900 font-bold inline-block">
-              Dr. {doctor?.name}
+           {user?.name}
             </p>
             <p className="py-1 text-xl text-gray-600">
               Here is the information of your Appointments.
@@ -44,13 +42,13 @@ function Appointments() {
           </div>
           <div className="flex flex-col gap-4 mt-10 ">
             <NewAppointment />
-            <div className='flex  lg:flex-row flex-col '>
+            <div className="flex  lg:flex-row flex-col ">
               <div className="flex-1">
-                <AppointmentList doctor={doctor} />
+       
               </div>
 
               <div className=" flex-1  ">
-                <SlotGenerator id={id} />
+            
               </div>
             </div>
           </div>
@@ -60,4 +58,4 @@ function Appointments() {
   );
 }
 
-export default Appointments
+export default Appointments;

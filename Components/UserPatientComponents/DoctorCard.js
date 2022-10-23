@@ -52,7 +52,7 @@ function DoctorCard({ doctor }) {
         >
           +
         </button>
-        {modal && <Modal modalhandle={onclickmodal} />}
+        {modal && <Modal modalhandle={onclickmodal} doctor = {doctor} />}
       </a>
     </>
   );

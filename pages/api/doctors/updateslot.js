@@ -55,7 +55,7 @@ export default async function handler(req, res) {
     try {
       const order = await Doctor.updateOne({uid :uid},
     {$set : {
-        "slotsfornext7days": req.body 
+        "Availableslotsfornext7days": req.body 
     }})
       res.status(200).json(order);
     } catch (err) {
@@ -72,7 +72,8 @@ export default async function handler(req, res) {
   //     res.status(500).json(err);
   //   }
   // }
-  if (method === "DELETE") {
-  }
+  // if (method === "DELETE") {
+  //   Doctor.deleteOne({ slotsfornext7days: { day1 :"Brad Pitt" }});
+  // }
 
 }
