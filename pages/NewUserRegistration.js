@@ -8,6 +8,11 @@ function NewUserRegistration() {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [age, setAge] = useState("");
+  //Archit - -- - ---------------------------------
+  const [blood_group,setBloodGroup] = useState("");
+  const [phone_no,setPhoneNo] = useState();
+  const [diabetic,setDiabetic] = useState("");
+  //Archit---------------------------------------------
   console.log(address);
   const addTodoHandler = async () => {
     let databody = {
@@ -15,9 +20,11 @@ function NewUserRegistration() {
       name: session?.user?.name,
       email: session?.user?.email,
       age: age,
+      phone_no: phone_no,
       address: address,
       city: city,
       photo_url: session?.user?.image,
+
     };
     axios.post("/api/patients_users", databody).then(function (response) {
       console.log(response);
@@ -205,21 +212,55 @@ function NewUserRegistration() {
                       </div>
                     </div>
 
+                  <div className = " flex  justify-between p-5 w-9">   
+
+
+
                     <div className="md:col-span-2">
                       <label htmlFor="soda">Age</label>
-                      <div className="h-10 w-28 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
+                      <div className="h-10 w-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
                         <input
                           onChange={(e) => setAge(e.target.value)}
                           type="number"
                           name="soda"
                           id="soda"
                           placeholder="0"
-                          className="px-2 text-center appearance-none outline-none text-gray-800 w-full bg-transparent"
+                          className="px-2 text-center appearance-none outline-none rounded text-gray-800 w-full bg-transparent"
                           value={age}
                         />
                       </div>
                     </div>
-
+                    {/* //Archit-------------------------------------------------- */}
+                    <div className="md:col-span-2">
+                      <label htmlFor="soda">Age</label>
+                      <div className="h-10 w-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
+                        <input
+                          onChange={(e) => setAge(e.target.value)}
+                          type="number"
+                          name="soda"
+                          id="soda"
+                          placeholder="0"
+                          className="px-2 text-center appearance-none outline-none rounded text-gray-800 w-full bg-transparent"
+                          value={age}
+                        />
+                      </div>
+                    </div>
+                    <div className="md:col-span-2">
+                      <label htmlFor="pnum">Mob No.</label>
+                      <div className="h-10 w-30 bg-gray-50 flex border border-gray-200   items-center mt-1">
+                      <input
+                          onChange={(e) => setPhoneNo(e.target.value)}
+                          type="tel"
+                          name="pnum"
+                          id="pnum"
+                          placeholder=""
+                          className="px-2 text-center appearance-none outline-none  rounded text-gray-800 w-full bg-transparent"
+                          value={phone_no}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                    {/* //Archit------------------------------------------------------- */}
                     <div className="md:col-span-5 text-right">
                       <div className="inline-flex items-end">
                         <button

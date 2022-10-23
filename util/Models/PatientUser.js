@@ -25,6 +25,27 @@ const PatientUserSchema = new Schema({
   age: {
     type: Number,
   },
+  //Archit--------------------------------
+  blood_group: {
+    type: String,
+  },
+  
+  phone_no: {
+    type: Number,
+  },
+  allergies: {
+    type: String,
+  },
+  diabetic: {
+    type: Boolean,
+  },
+  dobirth: {
+    type: String,
+  },
+  bp_pateint: {
+    type: Boolean,
+  }
+//archit------------------------------------
 });
 const PatientUser =
   models?.PatientUsers || model("PatientUsers", PatientUserSchema);
