@@ -9,6 +9,7 @@ export default function Home() {
   const { data: session } = useSession();
   const [doctor,setdoctor] = useState()
   const [patient, setpatient] = useState();
+
   useEffect(() => {
      axios
        .get(`http://localhost:3000/api/doctors?uid=${session?.user?.id}`)
