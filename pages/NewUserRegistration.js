@@ -7,6 +7,7 @@ function NewUserRegistration() {
   const { data: session } = useSession();
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
+   const [pincode, setPincode] = useState("");
   const [age, setAge] = useState("");
   //Archit - -- - ---------------------------------
   const [blood_group,setBloodGroup] = useState("");
@@ -20,10 +21,14 @@ function NewUserRegistration() {
       name: session?.user?.name,
       email: session?.user?.email,
       age: age,
+      blood_group : blood_group,
       phone_no: phone_no,
       address: address,
       city: city,
       photo_url: session?.user?.image,
+      documents : [],
+  
+    
 
     };
     axios.post("/api/patients_users", databody).then(function (response) {
@@ -99,46 +104,15 @@ function NewUserRegistration() {
                       <label htmlFor="country">Country / region</label>
                       <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
                         <input
+                        type= "text"
                           name="country"
                           id="country"
                           placeholder="Country"
                           className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
                           value=""
                         />
-                        <button
-                          tabindex="-1"
-                          className="cursor-pointer outline-none focus:outline-none transition-all text-gray-300 hover:text-red-600"
-                        >
-                          <svg
-                            className="w-4 h-4 mx-2 fill-current"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                          </svg>
-                        </button>
-                        <button
-                          tabindex="-1"
-                          htmlFor="show_more"
-                          className="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-blue-600"
-                        >
-                          <svg
-                            className="w-4 h-4 mx-2 fill-current"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <polyline points="18 15 12 9 6 15"></polyline>
-                          </svg>
-                        </button>
+                       
+                        
                       </div>
                     </div>
 
@@ -152,40 +126,7 @@ function NewUserRegistration() {
                           className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
                           value=""
                         />
-                        <button
-                          tabindex="-1"
-                          className="cursor-pointer outline-none focus:outline-none transition-all text-gray-300 hover:text-red-600"
-                        >
-                          <svg
-                            className="w-4 h-4 mx-2 fill-current"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                          </svg>
-                        </button>
-                        <button
-                          tabindex="-1"
-                          htmlFor="show_more"
-                          className="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-blue-600"
-                        >
-                          <svg
-                            className="w-4 h-4 mx-2 fill-current"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <polyline points="18 15 12 9 6 15"></polyline>
-                          </svg>
-                        </button>
+                        
                       </div>
                     </div>
 
@@ -212,54 +153,39 @@ function NewUserRegistration() {
                       </div>
                     </div>
 
-                  <div className = " flex  justify-between p-5 w-9">   
-
-
-
-                    <div className="md:col-span-2">
-                      <label htmlFor="soda">Age</label>
-                      <div className="h-10 w-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                        <input
-                          onChange={(e) => setAge(e.target.value)}
-                          type="number"
-                          name="soda"
-                          id="soda"
-                          placeholder="0"
-                          className="px-2 text-center appearance-none outline-none rounded text-gray-800 w-full bg-transparent"
-                          value={age}
-                        />
+                  
+                      <div className="md:col-span-3">
+                        <label htmlFor="soda">Age</label>
+                        <div className="h-10 w-20 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
+                          <input
+                            onChange={(e) => setAge(e.target.value)}
+                            type="number"
+                            name="soda"
+                            id="soda"
+                            placeholder="0"
+                            className="px-2 text-center appearance-none outline-none rounded text-gray-800 w-full bg-transparent"
+                            value={age}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    {/* //Archit-------------------------------------------------- */}
-                    <div className="md:col-span-2">
-                      <label htmlFor="soda">Age</label>
-                      <div className="h-10 w-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                        <input
-                          onChange={(e) => setAge(e.target.value)}
-                          type="number"
-                          name="soda"
-                          id="soda"
-                          placeholder="0"
-                          className="px-2 text-center appearance-none outline-none rounded text-gray-800 w-full bg-transparent"
-                          value={age}
-                        />
+
+                      {/* //Archit-------------------------------------------------- */}
+
+                      <div className="md:col-span-2">
+                        <label htmlFor="pnum">Phone No.</label>
+                        <div className="h-10 w-30 bg-gray-50 flex border border-gray-200   items-center mt-1">
+                          <input
+                            onChange={(e) => setPhoneNo(e.target.value)}
+                            type="tel"
+                            name="pnum"
+                            id="pnum"
+                            placeholder=""
+                            className="px-2 text-center appearance-none outline-none  rounded text-gray-800 w-1/3 bg-transparent"
+                            value={phone_no}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="md:col-span-2">
-                      <label htmlFor="pnum">Mob No.</label>
-                      <div className="h-10 w-30 bg-gray-50 flex border border-gray-200   items-center mt-1">
-                      <input
-                          onChange={(e) => setPhoneNo(e.target.value)}
-                          type="tel"
-                          name="pnum"
-                          id="pnum"
-                          placeholder=""
-                          className="px-2 text-center appearance-none outline-none  rounded text-gray-800 w-full bg-transparent"
-                          value={phone_no}
-                        />
-                      </div>
-                    </div>
-                  </div>
+         
                     {/* //Archit------------------------------------------------------- */}
                     <div className="md:col-span-5 text-right">
                       <div className="inline-flex items-end">

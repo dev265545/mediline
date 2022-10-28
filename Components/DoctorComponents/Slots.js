@@ -1,9 +1,12 @@
 import { Tab } from "@headlessui/react";
 import React, { useEffect, useState } from "react";
 import moment from "moment"
-import { MdOutlineDeleteOutline, MdOutlineEditAttributes, MdSettings } from "react-icons/md";
+import { MdOutlineDeleteOutline, MdOutlineEditAttributes, MdOutlineModeEditOutline, MdSettings } from "react-icons/md";
 
 import axios from "axios";
+import NewAppointment from "./NewAppointment";
+import AddEditSlot from "./AddEditSlot";
+import { CgAdd } from "react-icons/cg";
 
 
 function classNames(...classes) {
@@ -27,9 +30,13 @@ function SlotGenerator({id}) {
      
     let days = [];
     let daysRequired = 7;
-const [EditModal,SetEditModal] = useState(false)
+const [DeleteModal,SetDeleteModal] = useState(false)
+const [EditModal, SetEditModal] = useState(false);
+const handleoff = ()=>{
+  SetEditModal(!EditModal)
+}
 const deleteSlot = (index,slot,day)=>{
-  if(EditModal){
+  if(DeleteModal){
     console.log(slot.slot);
     //  for (var i = 0; i < day[].length; i++) {
     //    if (arr[i] === slot.slot ) {
@@ -117,10 +124,13 @@ const deleteSlot = (index,slot,day)=>{
       day6: day6 ,
       day7:day7 
     };
-     axios.post(`/api/doctors/updateslot?uid=${doctor?.uid}`, databody).then(function (response) {
-       console.log(response);
-     });
+     axios
+       .post(` http://localhost:3000/api/doctors/updateslot?uid=${doctor?.uid}`, databody)
+       .then(function (response) {
+         console.log(response);
+       });
   }
+  
 }
 
 
@@ -129,19 +139,25 @@ const deleteSlot = (index,slot,day)=>{
     }
 
   return (
-    <div class="p-4 w-full  bg-slate-200   rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div class="p-4 w-full  bg-white  rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
       <div className=" p-1 flex justify-end">
         {" "}
-        <MdOutlineDeleteOutline
+        <CgAdd
           onClick={() => {
             SetEditModal(!EditModal);
+          }}
+          className="text-3xl hover:bg-gradient-to-tr text-purple-900  "
+        />
+        <MdOutlineDeleteOutline
+          onClick={() => {
+            SetDeleteModal(!DeleteModal);
           }}
           className="text-3xl hover:bg-gradient-to-tr text-purple-900  "
         />
       </div>
 
       <Tab.Group>
-        {EditModal && <div>DELETE MODE IS ON</div>}
+        {DeleteModal && <div>DELETE MODE IS ON</div>}
         {/* TO DO -database actions onclick - delete the time slot, inset a new slot  disable all the slots a disable a  day */}
         <Tab.List className="flex justify-between  ">
           {days.map((day, index) => (
@@ -256,8 +272,10 @@ const deleteSlot = (index,slot,day)=>{
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
-      {/* <SlotEditModal modaltoggle= {modaltoggle} /> */}
+      {/* <SlotDeleteModal modaltoggle= {modaltoggle} /> */}
+      { EditModal &&<AddEditSlot handleoff={handleoff} doctor = {doctor} />}
     </div>
+
   );
 }
 

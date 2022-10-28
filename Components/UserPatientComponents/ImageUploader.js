@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Head from "next/head";
+import axios from "axios";
 export default function ImageUploader
-() {
+({uid,links}) {
   const [imageSrc, setImageSrc] = useState();
   const [uploadData, setUploadData] = useState();
+  
 
   /**
    * handleOnChange
@@ -52,6 +54,14 @@ export default function ImageUploader
 
     setImageSrc(data.secure_url);
     setUploadData(data);
+    links.push(data.secure_url);
+    let databody = links
+    console.log(databody)
+      axios
+        .post(` http://localhost:3000/api/patients_users/upload?uid=${uid}`, databody)
+        .then(function (response) {
+          console.log(response);
+        });
   }
 
   return (
@@ -73,19 +83,13 @@ export default function ImageUploader
             <input type="file" name="file" />
           </p>
 
-          <img src={imageSrc} />
-
+          
           {imageSrc && !uploadData && (
             <p>
               <button>Upload Files</button>
             </p>
           )}
 
-          {uploadData && (
-            <code>
-              <pre>{JSON.stringify(uploadData, null, 2)}</pre>
-            </code>
-          )}
         </form>
       </main>
 

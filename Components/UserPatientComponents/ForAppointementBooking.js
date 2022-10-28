@@ -1,14 +1,18 @@
 import Select from "react-select";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import axios from "axios";
+import { uuid } from "uuidv4";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 function ForAppointementBooking({ handleonoff, doctor }) {
-  const [selectedday,SetSelectedDay] = useState()
+
+  const { data: session } = useSession();
+
   let days = [];
   let daysRequired = 7;
   for (let i = 0; i < daysRequired; i++) {
@@ -26,11 +30,16 @@ function ForAppointementBooking({ handleonoff, doctor }) {
     let optionsslots = [];
   const [timeoptions,settimeoptions] = useState()
 
+ const [selectedday, SetSelectedDay] = useState("day1");
+ const [selectedtime, SetSelectedTime] = useState("");
   const handleChangetime = (selectedOption)=>{
     console.log(selectedOption.value)
+    SetSelectedDay(selectedOption.value)
+
   }
  const handleChange = (selectedOption) => {
   console.log(selectedOption.value)
+   SetSelectedTime(selectedOption.value)
    if (selectedOption.value === "day1") {
      settimeoptions(doctor?.Availableslotsfornext7days?.day1);
      console.log(timeoptions);
@@ -69,6 +78,30 @@ function ForAppointementBooking({ handleonoff, doctor }) {
 
   
  };
+
+ console.log(selectedday)
+ const unique_id = uuid();
+
+ const small_id = unique_id.slice(0, 8);
+ const handleconfirm = ()=>{
+let databody = {
+  patient_doctor_id : small_id,
+  patient_id : session?.user?.id,
+  doctor_id  : doctor?.uid,
+  typeofmeeting : "Consultation",
+  time : selectedtime,
+  date : selectedday,
+  verifiedbydoctor:false,
+  verifiedbypatient:true
+};
+ axios
+   .post(`/api/appointments`, databody)
+   .then(function (response) {
+     console.log(response);
+   });
+
+   handleonoff()
+ }
  useEffect(()=>{
 for (var i = 0; i < timeoptions?.length; i++) {
   optionsslots[i] = { value: timeoptions[i], label: timeoptions[i] };
@@ -132,24 +165,21 @@ console.log(optionsslots);
               >
                 Select a Time Slot
               </label>
-             <Select
-                onChange={handleChangetime}
-         
-                options={optionsslots}
-              />
+              <Select onChange={handleChangetime} options={optionsslots} />
               <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                 This Booking is not final can change as per doctor&apos;s
                 requirement
               </p>
             </p>
 
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              
-            </p>
+            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400"></p>
           </div>
           {/* <!-- Modal footer --> */}
           <div className="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
             <button
+              onClick={() => {
+                handleconfirm();
+              }}
               data-modal-toggle="small-modal"
               type="button"
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -158,7 +188,7 @@ console.log(optionsslots);
             </button>
             <button
               onClick={() => {
-                handleonoff()
+                handleonoff();
               }}
               data-modal-toggle="small-modal"
               type="button"

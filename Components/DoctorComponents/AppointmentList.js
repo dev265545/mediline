@@ -1,20 +1,49 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-function AppointmentList() {
+import axios from 'axios';
+
+function AppointmentList({doctor}) {
+   const [theArray, setTheArray] = useState([]);
+
+
+let AMRAS = [];
+
+   axios
+     .get(
+       `http://localhost:3000/api/appointments?id=${doctor?.uid}`
+     )
+     .then((resp) => {
+       setList(resp.data.data);
+     });
+     const [list, setList] = useState();
+  useEffect(()=>{
+      setList([])
+for (let i = 0; i < list?.length; i++) {
+  const x = list[i]?.patient_id;
+  axios
+    .get(`http://localhost:3000/api/patients_users?uid=${x}`)
+    .then((resp) => setTheArray((prevArray) => [...prevArray, resp.data]));
+}
+  },[])
+    
+
+console.log(theArray)
+
+
+
   return (
     <div class="p-4 w-full max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
       <div class="flex justify-between items-center mb-4">
         <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
-          Latest Customers
+          Appointment List
         </h5>
         <a
           href="#"
           class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
-        >
-          View all
-        </a>
+        ></a>
       </div>
       <div class="flow-root">
+       
         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
           <li class="py-3 sm:py-4">
             <div class="flex items-center space-x-4">

@@ -19,6 +19,9 @@ const DoctorSchema = new Schema({
   city: {
     type: String,
   },
+  post : {
+    type : String
+  },
   address: {
     type: String,
   },

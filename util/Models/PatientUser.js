@@ -16,6 +16,7 @@ const PatientUserSchema = new Schema({
   photo_url: {
     type: String,
   },
+  documents: [{type : String}],
   city: {
     type: String,
   },
@@ -29,7 +30,7 @@ const PatientUserSchema = new Schema({
   blood_group: {
     type: String,
   },
-  
+
   phone_no: {
     type: Number,
   },
@@ -44,8 +45,8 @@ const PatientUserSchema = new Schema({
   },
   bp_pateint: {
     type: Boolean,
-  }
-//archit------------------------------------
+  },
+  //archit------------------------------------
 });
 const PatientUser =
   models?.PatientUsers || model("PatientUsers", PatientUserSchema);
