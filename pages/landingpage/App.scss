@@ -87,6 +87,18 @@ section {
   display: inline-block;
 }
 
+.watch-video-cta {
+  display: block;
+  margin-top: 1em;
+}
+
+.watch-video-cta img {
+  display: line-block;
+  margin-top: -0.5em;
+  margin-right: 0.5em;
+  vertical-align: middle;
+  width: 2.5em;
+}
 
 .hero-img {
   width: 80%;
@@ -187,6 +199,10 @@ input[type="submit"] {
   cursor: pointer;
 }
 
+iframe {
+  width: 100%;
+  height: 300px;
+}
 
 nav.menu-btn {
   display: block;
