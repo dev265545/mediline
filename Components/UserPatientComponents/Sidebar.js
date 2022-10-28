@@ -1,5 +1,5 @@
 import React from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { GiArtificialIntelligence, GiHamburgerMenu } from "react-icons/gi";
 import { Disclosure } from "@headlessui/react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -13,7 +13,7 @@ import {
   MdOutlineExplore,
   MdReport,
 } from "react-icons/md";
-import { CgFileDocument, CgProfile } from "react-icons/cg";
+import { CgFileDocument, CgProfile, CgToolbarLeft, CgToolbox } from "react-icons/cg";
 import { FaPills, FaRegComments } from "react-icons/fa";
 import { BiCalendarEvent, BiMessageSquareDots } from "react-icons/bi";
 
@@ -70,7 +70,9 @@ function SideNavbar() {
               </div>
               <div
                 onClick={() =>
-                  router.push(`/UserDashBoard/${session?.user?.id}/Appointments`)
+                  router.push(
+                    `/UserDashBoard/${session?.user?.id}/Appointments`
+                  )
                 }
                 className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
               >
@@ -99,10 +101,15 @@ function SideNavbar() {
                   Settings
                 </h3>
               </div>
-              <div className="flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
-                <MdOutlineMoreHoriz className="text-2xl text-purple-600 group-hover:text-white " />
+              <div
+                onClick={() =>
+                  router.push(`/DiseasePredictor`)
+                }
+                className="flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
+              >
+                <GiArtificialIntelligence className="text-2xl text-purple-600 group-hover:text-white " />
                 <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
-                  More
+                  DiseasePredictor
                 </h3>
               </div>
             </div>

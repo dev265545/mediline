@@ -9,9 +9,13 @@ const DoctorSchema = new Schema({
     type: String,
     required: true,
   },
+
   email: {
     type: String,
     required: true,
+  },
+  hospitalemail: {
+    type: String,
   },
   photo_url: {
     type: String,
@@ -19,13 +23,52 @@ const DoctorSchema = new Schema({
   city: {
     type: String,
   },
-  post : {
-    type : String
+  hospitalcity: {
+    type: String,
+  },
+  post: {
+    type: String,
   },
   address: {
     type: String,
   },
+  hospitalname: {
+    type: String,
+  },
+  hospitaladdress: {
+    type: String,
+  },
+  info: {
+    type: String,
+  },
+  services: {
+    type: String,
+  },
+  timings: {
+    type: String,
+  },
+  fees: {
+    type: String,
+  },
+  registrationnumber: {
+    type: String,
+  },
+  pincode: {
+    type: String,
+  },
+  hospitalpincode: {
+    type: String,
+  },
+  state: {
+    type: String,
+  },
+  hospitalstate: {
+    type: String,
+  },
   phone: {
+    type: Number,
+  },
+  hospitalphone: {
     type: Number,
   },
   Qualification: {
@@ -34,7 +77,7 @@ const DoctorSchema = new Schema({
   Specialization: {
     type: String,
   },
-  PatientList : [{type:String}],
+  PatientList: [{ type: String }],
   slotsfornext7days: {
     day1: [{ type: String }],
     day2: [{ type: String }],

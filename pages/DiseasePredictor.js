@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 
@@ -408,36 +409,148 @@ function DiseasePredictor() {
     "worry",
     "yellow sputum",
   ];
+    let list=[];
+  symptoms.map((symptom,index)=>{
+    list?.push({label:symptom,value:symptom})
+      
+  })
  
-  let numbers = ["1"]
-  console.log(numbers)
-  const [times,settimes] = useState(1);
-  
-  
+  const[option1,setoption1]=useState("")
+  const [option2, setoption2] = useState("");
+  const [option3, setoption3] = useState("");
+  const [option4, setoption4] = useState("");
+
+  const [option5, setoption5] = useState("");
+
+ 
+  console.log(list)
+  const colourStyles = {
+    control: (base) => ({
+      ...base,
+      background: "#152033",
+    }),
+    singleValue: (base) => ({
+      ...base,
+      color: "#fff",
+    }),
+    input: (base) => ({
+      ...base,
+      color: "#fff",
+    }),
+  };
+ 
+  const [disease,setDisease] =useState()
+  const addsymptom = ()=>{
+   
+      const s = option1+","+option2+","+option3+","+option4;
+     console.log(s)
+      axios
+        .post(
+          "https://disease-prediction-app-12.herokuapp.com/predict",
+          {
+            text: s,
+          },
+          
+        )
+        .then(function (response) {
+          console.log(response);
+          setDisease(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+     }
+     
   return (
-    <div className="bg-gradient-radial w-screen h-screen flex justify-center items-center">
-      <div className="bg-gray-50 rounded-lg border border-white p-4 w-5/12 shadow-2xl">
-        <h1 className="font-bold text-2xl  text-gray-800">
-          {" "}
-          Disease Predictor
-        </h1>
+    <div className="bg-gradient-radial w-screen h-screen flex flex-col justify-center items-center">
+      <div className="bg-gray-900 rounded-lg border border-white p-4 w-5/12 shadow-2xl shadow-black">
+        <h1 className="font-bold text-2xl  text-white"> Disease Predictor</h1>
+        <div className="pt-3 bg-gray-900">
+          <Select
+            styles={colourStyles}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                primary25: "hotpink",
+                primary: "black",
+              },
+            })}
+            onChange={(selectedOption) => setoption1(selectedOption.value)}
+            autoFocus={true}
+            options={list}
+          ></Select>
+        </div>
         <div className="pt-3">
-          {numbers.map((numb, index) => (
-            <select className="pt-1" key={index}>
-              {symptoms.map((choice) => (
-                <option className="" key={choice}>
-                  {choice.toUpperCase()}
-                </option>
-              ))}
-            </select>
-          ))}
+          <Select
+            styles={colourStyles}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                primary25: "hotpink",
+                primary: "black",
+              },
+            })}
+            onChange={(selectedOption) => setoption2(selectedOption.value)}
+            autoFocus={true}
+            options={list}
+          ></Select>
+        </div>
+        <div className="pt-3">
+          <Select
+            styles={colourStyles}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                primary25: "hotpink",
+                primary: "black",
+              },
+            })}
+            onChange={(selectedOption) => setoption3(selectedOption.value)}
+            autoFocus={true}
+            options={list}
+          ></Select>
+        </div>
+        <div className="pt-3">
+          <Select
+            styles={colourStyles}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                primary25: "hotpink",
+                primary: "black",
+              },
+            })}
+            onChange={(selectedOption) => setoption4(selectedOption.value)}
+            autoFocus={true}
+            options={list}
+          ></Select>
         </div>
       </div>
-      <button className="text-2xl"
-        onClick={() => {
-          numbers.push("1");
-        }}
-      > Submit</button>
+      <div className="p-4">
+        {" "}
+        <button
+          className=" p-5  shadow-white border border-white shadow-lg text-4xl rounded-full text-white  bg-green-400 "
+          onClick={() => {
+            addsymptom();
+          }}
+        >
+          Predict
+        </button>
+      </div>
+      <div className="bg-black p-10 rounded-3xl text-white text-xl">
+        Predicted Disease is
+        <div className="text-3xl text-white font-bold">
+          {disease?.data?.disease?.toUpperCase()}
+        </div>
+      </div>
     </div>
   );
 }

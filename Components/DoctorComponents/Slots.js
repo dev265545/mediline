@@ -139,7 +139,7 @@ const deleteSlot = (index,slot,day)=>{
     }
 
   return (
-    <div class="p-4 w-full  bg-white  rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div className="p-4 w-full  bg-white  rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
       <div className=" p-1 flex justify-end">
         {" "}
         <CgAdd

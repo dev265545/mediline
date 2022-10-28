@@ -11,13 +11,12 @@ import TimePicker from "@mui/lab/TimePicker";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import MobileDatePicker from "@mui/lab/MobileDatePicker";
+import axios from 'axios';
 
 function AddEditSlot({handleoff,doctor}) {
-     const [value, setValue] = useState("10:00");
+     const [value, setValue] = useState("00:00 AM");
 
-     const onChange = (timeValue) => {
-       setValue(timeValue);
-     };
+     
      let days = [];
      const daysRequired  =7
       const [timeoptions, settimeoptions] = useState();
@@ -35,8 +34,9 @@ function AddEditSlot({handleoff,doctor}) {
      { value: "day6", label: days[5] },
      { value: "day7", label: days[6] },
    ];
+   const[dayselected,setdaySelected]=useState()
    const handleChange = (selectedOption) => {
-     console.log(selectedOption.value);
+     setdaySelected(selectedOption.value);
       if (selectedOption.value === "day1") {
         settimeoptions(doctor?.Availableslotsfornext7days?.day1);
 
@@ -70,8 +70,64 @@ function AddEditSlot({handleoff,doctor}) {
             console.log(timeoptions);
            
    };
+   let day1,day2,day3,day4,day5,day6,day7;
     const submit = () => {
-      console.log(timeoptions + value);
+      timeoptions.push(value)
+      console.log(timeoptions);
+       if (dayselected === "day1") {
+        day1 = (timeoptions)
+  
+      }
+      else{
+      day1=(doctor?.Availableslotsfornext7days?.day1);
+      }
+        if (dayselected === "day2") {
+          day2 = timeoptions;
+        } else {
+          day2 = doctor?.Availableslotsfornext7days?.day2;
+        }
+          if (dayselected === "day3") {
+            day3 = timeoptions;
+          } else {
+            day4 = doctor?.Availableslotsfornext7days?.day3;
+          }  if (dayselected === "day4") {
+            day4 = timeoptions;
+          } else {
+            day4 = doctor?.Availableslotsfornext7days?.day4;
+          }  if (dayselected === "day5") {
+            day5 = timeoptions;
+          } else {
+            day5 = doctor?.Availableslotsfornext7days?.day5;
+          }  if (dayselected === "day6") {
+            day6 = timeoptions;
+          } else {
+            day6 = doctor?.Availableslotsfornext7days?.day6;
+          }  if (dayselected === "day1") {
+            day7 = timeoptions;
+          } else {
+            day7 = doctor?.Availableslotsfornext7days?.day7;
+          }
+      
+           
+   
+ 
+        const databody = {
+          day1: day1,
+          day2: day2,
+          day3: day3,
+          day4: day4,
+          day5: day5,
+          day6: day6,
+          day7: day7,
+        };
+        axios
+          .post(
+            ` http://localhost:3000/api/doctors/updateslot?uid=${doctor?.uid}`,
+            databody
+          )
+          .then(function (response) {
+            console.log(response);
+          });
     };
 
   return (
@@ -126,7 +182,14 @@ function AddEditSlot({handleoff,doctor}) {
             </p>
 
             <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              <TimePicker onChange={onChange} value={value} />
+              <input
+                onChange={(e) => setValue(e.target.value)}
+                type="text"
+              
+                placeholder="00:00 AM/PM"
+                className="px-2 text-center appearance-none outline-none  rounded text-gray-800 w-1/3 bg-transparent"
+                value={value}
+              />
             </p>
           </div>
           {/* <!-- Modal footer --> */}

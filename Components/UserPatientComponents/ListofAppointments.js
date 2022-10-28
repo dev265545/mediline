@@ -3,65 +3,66 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
 
-function AppoinmentList({ doctor }) {
+function ListofAppointments({ user }) {
   const [theArray, setTheArray] = useState([]);
+
 
   const [list, setList] = useState([]);
 
   let AMRAS = [];
-  useEffect(() => {
+  useEffect(()=>{
+     axios
+       .get(
+         `http://localhost:3000/api/appointments/forpatient?id=${user?.uid}`
+       )
+       .then((resp) => {
+         setList(resp.data.data);
+       });
+       setTheArray([])
+  },[user?.uid])
+  console.log(list)
+
+    useEffect(()=>{
+     setTheArray([]);
+  for (let i = 0; i < list?.length; i++) {
+    const x = list[i]?.patient_id;
     axios
-      .get(`http://localhost:3000/api/appointments?id=${doctor?.uid}`)
-      .then((resp) => {
-        setList(resp.data.data);
-      });
-    setTheArray([]);
-  }, [doctor?.uid]);
-  console.log(list);
-
-  useEffect(() => {
-    setTheArray([]);
-    for (let i = 0; i < list?.length; i++) {
-      const x = list[i]?.patient_id;
-      axios
-        .get(`http://localhost:3000/api/patients_users?uid=${x}`)
-        .then((resp) =>
-          setTheArray((prevArray) => [...prevArray, resp.data.data])
-        );
-    }
-  }, [list]);
-  console.log(theArray);
-  let days = [];
-  const daysRequired = 7;
-
-  for (let i = 0; i < daysRequired; i++) {
-    days.push(moment().add(i, "days").format("dddd  Do MMM"));
+      .get(`http://localhost:3000/api/doctors?uid=${x}`)
+      .then((resp) => setTheArray((prevArray) => [...prevArray, resp.data.data]));
   }
-  let c = [];
-  for (let i = 0; i < list.length; i++) {
-    if (list[i]?.time === "day1") {
-      c[i] = days[0];
-    }
-    if (list[i]?.time === "day2") {
-      c[i] = days[1];
-    }
-    if (list[i]?.time === "day3") {
-      c[i] = days[2];
-    }
-    if (list[i]?.time === "day4") {
-      c[i] = days[3];
-    }
-    if (list[i]?.time === "day5") {
-      c[i] = days[4];
-    }
-    if (list[i]?.time === "day6") {
-      c[i] = days[5];
-    }
-    if (list[i]?.time === "day7") {
-      c[i] = days[6];
-    }
-  }
-  console.log(c);
+    },[list])
+    console.log(theArray)
+     let days = [];
+     const daysRequired = 7;
+     
+     for (let i = 0; i < daysRequired; i++) {
+       days.push(moment().add(i, "days").format("dddd  Do MMM"));
+     }
+     let c= [];
+      for (let i = 0; i < list.length; i++) {
+       if(list[i]?.time==="day1"){
+        c[i]= days[0];
+       }
+        if(list[i]?.time==="day2"){
+        c[i] = days[1];
+       }
+       if (list[i]?.time === "day3") {
+         c[i] = days[2];
+       }
+       if (list[i]?.time === "day4") {
+         c[i] = days[3];
+       }
+         if (list[i]?.time === "day5") {
+           c[i] = days[4];
+         }
+         if (list[i]?.time === "day6") {
+           c[i] = days[5];
+         }if (list[i]?.time === "day7") {
+           c[i] = days[6];
+         }
+
+      }
+console.log(c)
 
   return (
     <div className="p-4 w-full max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -117,4 +118,4 @@ function AppoinmentList({ doctor }) {
   );
 }
 
-export default AppoinmentList;
+export default ListofAppointments;

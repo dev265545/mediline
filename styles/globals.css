@@ -8,6 +8,9 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+.display-linebreak {
+  white-space: pre-line;
+}
 .wavy{
   background-color: #000000;
 opacity: 1;

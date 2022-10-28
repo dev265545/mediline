@@ -65,14 +65,8 @@ export default function ImageUploader
   }
 
   return (
-    <div >
-   
-
-      <main >
-        <h1 >Image Uploader</h1>
-
-        <p>Upload your image to Cloudinary!</p>
-
+    <div>
+      <main>
         <form
           className=""
           method="post"
@@ -83,17 +77,15 @@ export default function ImageUploader
             <input type="file" name="file" />
           </p>
 
-          
           {imageSrc && !uploadData && (
-            <p>
-              <button>Upload Files</button>
+            <p className="mt-3">
+              <button className="rounded-lg text-white bg-blue-500 p-3 mt-4  ">
+                Upload Files
+              </button>
             </p>
           )}
-
         </form>
       </main>
-
-    
     </div>
   );
 }

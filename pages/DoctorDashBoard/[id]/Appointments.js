@@ -43,10 +43,10 @@ function Appointments() {
             </p>
           </div>
           <div className="flex flex-col gap-4 mt-10 ">
-            <NewAppointment />
+          {!(doctor===undefined) &&  <NewAppointment doctor={doctor} />}
             <div className='flex  lg:flex-row flex-col '>
               <div className="flex-1">
-                <AppointmentList doctor={doctor} />
+                {!(doctor === undefined) &&<AppointmentList doctor={doctor} />}
               </div>
 
               <div className=" flex-1  ">

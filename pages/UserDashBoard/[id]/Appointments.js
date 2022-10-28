@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import NewAppointment from "../../../Components/DoctorComponents/NewAppointment.js";
 import SideNavbar from "../../../Components/UserPatientComponents/Sidebar.js";
+import ListofAppointments from "../../../Components/UserPatientComponents/ListofAppointments.js";
 
 function Appointments() {
   const router = useRouter();
@@ -44,7 +45,7 @@ function Appointments() {
             <NewAppointment />
             <div className="flex  lg:flex-row flex-col ">
               <div className="flex-1">
-       
+      {!(user===undefined)&& <ListofAppointments user = {user} />}
               </div>
 
               <div className=" flex-1  ">

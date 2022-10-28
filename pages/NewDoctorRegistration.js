@@ -3,41 +3,64 @@ import { useSession } from "next-auth/react";
 import { Router, useRouter } from "next/router";
 import axios from "axios";
 import { sub } from "date-fns";
+import { info } from "autoprefixer";
 function NewDoctorRegistration() {
   const router = useRouter();
   const { data: session } = useSession();
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-   const [country, setCountry] = useState("India");
+  const [country, setCountry] = useState("India");
   const [phone, setphone] = useState("");
   const [name, setName] = useState(session?.user?.name);
-   const [hospitalname, setHospitalName] = useState("");
-   const [hospitaladdress,setHospitalAddress] = useState("")
-  const [hospitalcity,setHospitalCity] = useState("")
+  const [hospitalname, setHospitalName] = useState("");
+  const [hospitaladdress, setHospitalAddress] = useState("");
+  const [hospitalcity, setHospitalCity] = useState("");
   const [email, setEmail] = useState(session?.user?.email);
-    const [hosptialemail, setHospitalEmail] = useState("");
+  const [hosptialemail, setHospitalEmail] = useState("");
   const [user, setUser] = useState("");
   const [pincode, setPincode] = useState("");
   const [state, setState] = useState("");
-    const [hospitalpincode, setHospitalPincode] = useState("");
-     const [hospitalphone, setHospitalphone] = useState("");
-    const [hospitalstate, setHospitalState] = useState("");
+  const [info, setInfo] = useState("");
+  const [hospitalpincode, setHospitalPincode] = useState("");
+  const [hospitalphone, setHospitalphone] = useState("");
+  const [hospitalstate, setHospitalState] = useState("");
   const [specialization, setSpecialization] = useState("");
   const [qualification, setQualification] = useState("");
+  const [registrationnumber, setRegNumber] = useState("");
+  const [timings, setTimings] = useState("");
+    const [services, setServices] = useState("");
+const  [ dayofweek,setdayofweek] = useState("")
 
+
+
+  const [fees, setFees] = useState("");
 
   const addTodoHandler = async () => {
     let databody = {
-      uid: session?.user?.id,
-      name: session?.user?.name,
-      email: session?.user?.email,
-     
-      address: address,
-      city: city,
-      pincode : pincode,
-      specialization : specialization,
-      qualification : qualification,
-      photo_url: session?.user?.image,
+      uid: session?.user?.id, //--
+      name: session?.user?.name, //--
+      email: session?.user?.email, //--
+      hospitaladdress: hospitaladdress, //--
+      hospitalcity: hospitalcity, //--
+      hospitalname: hospitalname, //--
+      state: state, //--
+      registrationnumber :registrationnumber,
+      hospitalstate: hospitalstate, //--
+      hospitalphone: hospitalphone, //--
+      hospitalpincode: hospitalpincode, //--
+services : services,
+fees : fees,
+timings  : timings,
+dayofweek : dayofweek,
+      hosptialemail: hosptialemail, //--
+      address: address, //--
+      city: city, //--
+      pincode: pincode, //--
+      Specialization: specialization, //---
+      Qualification: qualification, //---
+      info: info,
+      photo_url: session?.user?.image, //------
+
       slotsfornext7days: {
         day1: [
           "8:00 AM",
@@ -145,28 +168,15 @@ function NewDoctorRegistration() {
           "8:00PM",
         ],
       },
+
       Bookedlotsfornext7days: {
-        day1: [
-         
-        ],
-        day2: [
-          
-        ],
-        day3: [
-        
-        ],
-        day4: [
-          
-        ],
-        day5: [
-         
-        ],
-        day6: [
-          
-        ],
-        day7: [
-          
-        ],
+        day1: [],
+        day2: [],
+        day3: [],
+        day4: [],
+        day5: [],
+        day6: [],
+        day7: [],
       },
       Availableslotsfornext7days: {
         day1: [
@@ -281,7 +291,7 @@ function NewDoctorRegistration() {
     });
     router.push("/DoctorDashBoard");
   };
-const [click,SetClick] = useState(1);
+  const [click, SetClick] = useState(1);
   return (
     <div>
       <div className="min-h-screen p-6 bg-gray-900 flex items-center justify-center">
@@ -607,110 +617,99 @@ const [click,SetClick] = useState(1);
                         <input
                           onChange={(e) => setQualification(e.target.value)}
                           type="text"
-                          
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                           value={qualification}
                           placeholder=""
                         />
                       </div>
 
-                      <div className="md:col-span-3">
-                        <label for="address">Address / Street</label>
+                      <div className="md:col-span-5">
+                        <label for="address">
+                          Services Provided at this Clinic/Hospital
+                        </label>
                         <input
-                          onChange={(e) => setHospitalAddress(e.target.value)}
+                          onChange={(e) => setServices(e.target.value)}
                           type="text"
                           name="address"
                           id="address"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          value={hospitaladdress}
+                          value={services}
                           placeholder=""
                         />
                       </div>
 
                       <div className="md:col-span-2">
-                        <label for="city">City</label>
-                        <input
-                          onChange={(e) => setHospitalCity(e.target.value)}
-                          type="text"
-                          name="city"
-                          id="city"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          value={hospitalcity}
-                          placeholder=""
-                        />
-                      </div>
-
-                      <div className="md:col-span-2">
-                        <label for="country">Country / region</label>
+                        <label for="country">Medical Registration Number</label>
                         <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
                           <input
-                            onChange={(e) => setCountry(e.target.value)}
+                            onChange={(e) => setRegNumber(e.target.value)}
                             name="country"
                             id="country"
-                            placeholder="Country"
+                            placeholder="Required"
                             className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
-                            value={country}
+                            value={registrationnumber}
                           />
-                          <button
-                            tabIndex="-1"
-                            className="cursor-pointer outline-none focus:outline-none transition-all text-gray-300 hover:text-red-600"
-                          ></button>
-                          <button
-                            tabIndex="-1"
-                            for="show_more"
-                            className="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-blue-600"
-                          ></button>
                         </div>
                       </div>
 
                       <div className="md:col-span-2">
-                        <label for="state">State / province</label>
+                        <label for="state">Estimated Timings</label>
                         <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
                           <input
-                            onChange={(e) => setHospitalState(e.target.value)}
+                            onChange={(e) => setTimings(e.target.value)}
                             name="state"
                             id="state"
-                            placeholder="State"
+                            placeholder="Timings "
                             className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
-                            value={hospitalstate}
+                            value={timings}
                           />
-                          <button
-                            tabIndex="-1"
-                            className="cursor-pointer outline-none focus:outline-none transition-all text-gray-300 hover:text-red-600"
-                          ></button>
-                          <button
-                            tabIndex="-1"
-                            for="show_more"
-                            className="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-blue-600"
-                          ></button>
+                        </div>
+                      </div>
+                      <div className="md:col-span-2">
+                        <label for="state">Days in The Week </label>
+
+                        <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
+                          <input
+                            onChange={(e) => setdayofweek(e.target.value)}
+                            name="state"
+                            id="state"
+                            placeholder="Ex - Mon-Sat "
+                            className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
+                            value={dayofweek}
+                          />
                         </div>
                       </div>
 
-                      <div className="md:col-span-1">
-                        <label for="zipcode">Zipcode</label>
+                      <div className="md:col-span-2">
+                        <label for="zipcode">
+                          Estimated Avg Consultation Fees
+                        </label>
                         <input
-                          onChange={(e) => setHospitalPincode(e.target.value)}
+                          onChange={(e) => setFees(e.target.value)}
                           type="text"
                           name="zipcode"
                           id="zipcode"
                           className="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                           placeholder=""
-                          value={hospitalpincode}
+                          value={fees}
                         />
                       </div>
 
-                      <div className="md:col-span-1">
-                        <label for="soda"> Hospital Contact</label>
-
-                        <input
-                          onChange={(e) => setHospitalphone(e.target.value)}
-                          type="string"
-                          name="soda"
-                          id="soda"
-                          placeholder="."
-                          className="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          value={hospitalphone}
-                        />
+                      <div className="md:col-span-5">
+                        <label
+                          for="message"
+                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                        >
+                          Information about you
+                        </label>
+                        <textarea
+                          onChange={(e) => setInfo(e.target.value)}
+                          id="message"
+                          rows="4"
+                          value={info}
+                          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 ]"
+                          placeholder="Your message..."
+                        ></textarea>
                       </div>
 
                       <div className="md:col-span-5 text-right">
