@@ -16,14 +16,14 @@ function App() {
           <a class="logo-nav" href="">
             MEDI<span>LINE</span>
           </a>
-          <img
+          <image
             id="mobile-cta"
             class="mobile-menu"
             src={menu}
             alt="navigation"
           />
           <nav>
-            <img
+            <image
               id="mobile-exit"
               class="mobile-menu-exit"
               src={close}
@@ -69,7 +69,7 @@ function App() {
             </div>
           </div>
 
-          <img src={illustration} alt="Illustration" class="hero-img" />
+          <image src={illustration} alt="Illustration" class="hero-img" />
         </div>
       </section>
       <section class="features-section">
@@ -84,27 +84,27 @@ function App() {
             <li>Signup now</li>
           </ul>
         </div>
-        <img src={interfaces} alt="phone" />
+        <image src={interfaces} alt="phone" />
       </section>
       <section class="test-monials-section">
         <div class="container">
           <ul>
             <li>
-              <img src={doctor} alt="doctor.png" />
+              <image src={doctor} alt="doctor.png" />
               <blockquote>
                 We provide the best in class doctors verified by us. Every
                 doctor who signed up can be available for a meet.
               </blockquote>
             </li>
             <li>
-              <img src={patient} alt="patient.png" />
+              <image src={patient} alt="patient.png" />
               <blockquote>
                 Interactive Design and accessible to all just from a few clicks
                 on the browser
               </blockquote>
             </li>
             <li>
-              <img src={pills} alt="pills.png" />
+              <image src={pills} alt="pills.png" />
               <blockquote>
                 The machine learning model deployed is very accurate and has
                 been tested for various diseases and can help the doctor in
