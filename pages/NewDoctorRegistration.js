@@ -31,7 +31,7 @@ function NewDoctorRegistration() {
       uid: session?.user?.id,
       name: session?.user?.name,
       email: session?.user?.email,
-      age: age,
+     
       address: address,
       city: city,
       pincode : pincode,
