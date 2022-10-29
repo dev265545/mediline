@@ -51,7 +51,9 @@ export default function MyModal({isOpen,openModal,closeModal}) {
                 </Dialog.Title>
                 <div className="mt-2">
                   <p className="text-sm text-gray-500 border-t pt-2">
-                    This is a dialog box
+                    <label className="px-4">Patient uid</label>
+                   <input className="rounded-lg" type="text">
+                   </input>
                   </p>
                 </div>
 

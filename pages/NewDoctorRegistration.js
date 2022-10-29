@@ -60,6 +60,7 @@ dayofweek : dayofweek,
       Qualification: qualification, //---
       info: info,
       photo_url: session?.user?.image, //------
+      phone : phone,
 
       slotsfornext7days: {
         day1: [

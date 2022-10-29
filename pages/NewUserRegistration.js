@@ -11,6 +11,7 @@ function NewUserRegistration() {
   const [age, setAge] = useState("");
   //Archit - -- - ---------------------------------
   const [blood_group,setBloodGroup] = useState("");
+  const [state, setState] = useState("");
   const [phone_no,setPhoneNo] = useState();
   const [diabetic,setDiabetic] = useState("");
   //Archit---------------------------------------------
@@ -25,6 +26,8 @@ function NewUserRegistration() {
       phone_no: phone_no,
       address: address,
       city: city,
+      country : "India",
+      state :state,
       photo_url: session?.user?.image,
       documents : [],
   
@@ -109,7 +112,7 @@ function NewUserRegistration() {
                           id="country"
                           placeholder="Country"
                           className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
-                          value=""
+                          value="India"
                         />
                        
                         
@@ -120,16 +123,17 @@ function NewUserRegistration() {
                       <label htmlFor="state">State / province</label>
                       <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
                         <input
+                        onChange={(e)=>setState(e.target.value)}
                           name="state"
                           id="state"
                           placeholder="State"
                           className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
-                          value=""
+                          value={state}
                         />
                         
                       </div>
                     </div>
-
+{/* 
                     <div className="md:col-span-1">
                       <label htmlFor="zipcode">Zipcode</label>
                       <input
@@ -140,7 +144,7 @@ function NewUserRegistration() {
                         placeholder=""
                         value=""
                       />
-                    </div>
+                    </div> */}
 
                     <div className="md:col-span-5">
                       <div className="inline-flex items-center">
@@ -154,7 +158,7 @@ function NewUserRegistration() {
                     </div>
 
                   
-                      <div className="md:col-span-3">
+                      <div className="md:col-span-2">
                         <label htmlFor="soda">Age</label>
                         <div className="h-10 w-20 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
                           <input
@@ -171,7 +175,7 @@ function NewUserRegistration() {
 
                       {/* //Archit-------------------------------------------------- */}
 
-                      <div className="md:col-span-2">
+                      <div className="md:col-span-3">
                         <label htmlFor="pnum">Phone No.</label>
                         <div className="h-10 w-30 bg-gray-50 flex border border-gray-200   items-center mt-1">
                           <input

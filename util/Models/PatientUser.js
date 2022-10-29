@@ -16,7 +16,7 @@ const PatientUserSchema = new Schema({
   photo_url: {
     type: String,
   },
-  documents: [{type : String}],
+  documents: [{ type: String }],
   city: {
     type: String,
   },
@@ -41,6 +41,12 @@ const PatientUserSchema = new Schema({
     type: Boolean,
   },
   dobirth: {
+    type: String,
+  },
+  country: {
+    type: String,
+  },
+  state: {
     type: String,
   },
   bp_pateint: {
