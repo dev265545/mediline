@@ -92,7 +92,7 @@ console.log(c)
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                    Dr. {doctor?.name}
+                     {doctor?.name}
                   </p>
                   <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                     {doctor?.email}
