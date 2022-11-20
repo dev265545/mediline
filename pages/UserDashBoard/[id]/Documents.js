@@ -26,13 +26,11 @@ function Documents() {
 
    const [user, setUser] = useState([]);
 
-        axios
-        .get(
-          `/api/patients_users?uid=${id}`
-        )
-        .then((resp) => {
-          setUser(resp.data);
-        })
+      useEffect(()=>{
+ axios.get(`/api/patients_users?uid=${id}`).then((resp) => {
+   setUser(resp.data);
+ });
+      },[id]) 
   const date = new Date();
   const currentTime = date.getHours();
 const [onClick,setonClick] = useState(false)
@@ -96,7 +94,7 @@ const [onClick,setonClick] = useState(false)
               {onClick && (
                 <div
                   id="small-modal"
-                  tabindex="-1"
+                  tabIndex="-1"
                   className="  overflow-y-auto overflow-x-hidden backdrop-blur-lg flex items-center justify-center fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full"
                 >
                   <div className="relative p-4 w-full max-w-md h-full md:h-auto">

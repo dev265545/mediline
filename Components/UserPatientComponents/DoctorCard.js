@@ -7,6 +7,7 @@ import { MdEmail } from "react-icons/md";
 import Modal from "./Modal";
 
 function DoctorCard({ doctor }) {
+  console.log(doctor)
   const [modal, setmodal] = useState(false)
   const onclickmodal =()=>{
     setmodal(!modal)
@@ -19,7 +20,7 @@ function DoctorCard({ doctor }) {
       >
         <img
           className=" h-20 rounded-full md:h-auto md:w-48 md:rounded-full "
-          src={doctor.photo_url}
+          src={doctor?.photo_url}
           alt=""
         />
         <div className="flex flex-col justify-between p-4 leading-normal">

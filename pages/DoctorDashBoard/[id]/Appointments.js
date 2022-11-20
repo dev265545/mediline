@@ -32,7 +32,7 @@ function Appointments() {
     <div>
       <main className="bg-white min-h-screen flex max-w-[1500px] mx-auto">
         <DoctorSidebar />
-        <div className="flex-grow px-3 w-full sm:ml-[73px] md:ml-[250px] xl:ml-[250px]">
+        <div className="py-3 flex-grow md:ml-[250px] xl:ml-[250px]">
           <div className="text-3xl pt-6 pb-4   border-b text-gray-800 font-thin ">
             {greeting}{" "}
             <p className=" text-gray-900 font-bold inline-block">
@@ -49,9 +49,11 @@ function Appointments() {
                 {!(doctor === undefined) &&<AppointmentList doctor={doctor} />}
               </div>
 
-              <div className=" flex-1  ">
+              <div className="  w-full h-full ">
                 <SlotGenerator id={id} />
+                
               </div>
+              
             </div>
           </div>
         </div>

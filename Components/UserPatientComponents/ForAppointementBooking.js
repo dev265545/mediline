@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { uuid } from "uuidv4";
+import { format, startOfToday } from "date-fns";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -14,10 +15,22 @@ function ForAppointementBooking({ handleonoff, doctor }) {
   const { data: session } = useSession();
 
   let days = [];
+  let arrayforfns = [];
   let daysRequired = 7;
+const today = format(startOfToday(),"dddd,MMM,yyyy");
+  console.log(today)
   for (let i = 0; i < daysRequired; i++) {
-    days.push(moment().add(i, "days").format("dddd  Do MMM"));
+    days.push(moment().add(i, "days").format("dddd Do MMM"));
+    arrayforfns.push(
+      new Date(
+        moment().add(i, "days").format("yyyy"),
+        moment().add(i, "days").format("MM")-1,
+        moment().add(i, "days").format("D")
+      )
+    );
   }
+  console.log(days)
+  console.log(arrayforfns);
   const options = [
     { value: "day1", label: days[0] },
     { value: "day2", label: days[1] },
@@ -36,43 +49,53 @@ function ForAppointementBooking({ handleonoff, doctor }) {
     console.log(selectedOption.value)
     SetSelectedDay(selectedOption.value)
 
+
   }
+const [dateFNS,setdatefns]=useState();
  const handleChange = (selectedOption) => {
   console.log(selectedOption.value)
    SetSelectedTime(selectedOption.value)
    if (selectedOption.value === "day1") {
+    
      settimeoptions(doctor?.Availableslotsfornext7days?.day1);
      console.log(timeoptions);
+     setdatefns(arrayforfns[0])
      
    }
    if (selectedOption.value === "day2") {
      settimeoptions(doctor?.Availableslotsfornext7days?.day2);
      console.log(timeoptions);
+     setdatefns(arrayforfns[1]);
      
    }
    if (selectedOption.value === "day3") {
      settimeoptions(doctor?.Availableslotsfornext7days?.day3);
      console.log(timeoptions);
+     setdatefns(arrayforfns[2]);
      
    }
    if (selectedOption.value === "day4") {
      settimeoptions(doctor?.Availableslotsfornext7days?.day4);
      console.log(timeoptions);
+     setdatefns(arrayforfns[3]);
      
    }
    if (selectedOption.value === "day5") {
      settimeoptions(doctor?.Availableslotsfornext7days?.day5);
      console.log(timeoptions);
+      setdatefns(arrayforfns[4]);
      
    }
     if (selectedOption.value === "day6") {
       settimeoptions(doctor?.Availableslotsfornext7days?.day7);
       console.log(timeoptions);
+       setdatefns(arrayforfns[5]);
       
     }
     if (selectedOption.value === "day7") {
       settimeoptions(doctor?.Availableslotsfornext7days?.day7);
       console.log(timeoptions);
+       setdatefns(arrayforfns[6]);
       
     }
 
@@ -91,6 +114,7 @@ let databody = {
   typeofmeeting : "Consultation",
   time : selectedtime,
   date : selectedday,
+  fnsdate : dateFNS,
   verifiedbydoctor:false,
   verifiedbypatient:true
 };

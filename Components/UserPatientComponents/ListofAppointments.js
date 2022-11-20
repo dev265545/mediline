@@ -18,18 +18,20 @@ function ListofAppointments({ user }) {
        .then((resp) => {
          setList(resp.data.data);
        });
-       setTheArray([])
+  
   },[user?.uid])
   console.log(list)
 
     useEffect(()=>{
-     setTheArray([]);
+      setTheArray([])
+    
   for (let i = 0; i < list?.length; i++) {
-    const x = list[i]?.patient_id;
+    const x = list[i]?.doctor_id;
     axios
       .get(`http://localhost:3000/api/doctors?uid=${x}`)
       .then((resp) => setTheArray((prevArray) => [...prevArray, resp.data.data]));
   }
+  
     },[list])
     console.log(theArray)
      let days = [];
@@ -63,6 +65,7 @@ function ListofAppointments({ user }) {
 
       }
 console.log(c)
+console.log(theArray)
 
   return (
     <div className="p-4 w-full max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">

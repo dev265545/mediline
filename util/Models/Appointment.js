@@ -23,10 +23,14 @@ const AppointmentSchema = new Schema({
   date: {
     type: String,
   },
-  verfiedbydoctor: {
+  fnsdate:{
+    type : String,
+  },
+  verifiedbydoctor: {
     type: Boolean,
   },
-  verfiedbypatient: {
+
+  verifiedbypatient: {
     type: Boolean,
   },
  

@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DoctorCard from "../Components/UserPatientComponents/DoctorCard";
+import asset from "../public/Flat Healthcare Character Vector Illustration-04.jpg";
+
+import Image from "next/image";
 import SideNavbar from "../Components/UserPatientComponents/Sidebar";
 
 function Search() {
@@ -26,14 +29,17 @@ function Search() {
     setQuery("")
   }
   return (
-    <div className="grid grid-rows-1 bg-green-50 ">
+    <div className="grid grid-rows-1 bg-purple-50 ">
       <div className="  flex   justify-center  ">
         <SideNavbar />
         <div className="flex flex-col">
           <div className="flex justify-center p-5 flex-col">
             <p className="pt-6 text-3xl font-extrabold">Search</p>
-            <p className="pb-5 text-md font-thin ">Try searching for a city, practice, practitioner or procedure</p>
+            <p className="pb-5 text-md font-thin ">
+              Try searching for a city, practice, practitioner or procedure
+            </p>
           </div>
+
           <form>
             <div className="flex flex-auto">
               <label
@@ -116,17 +122,18 @@ function Search() {
               </div>
               <div className=" w-full relative">
                 <input
-                onChange={(e)=>setQuery(e.target.value)}
-                value={Query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  value={Query}
                   type="search"
                   id="search-dropdown"
                   className=" p-4 w-96 z-50 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
              dark:focus:border-blue-500"
                   placeholder="Search by name,location,address,city,specialization ....."
-                 
                 />
                 <button
-                onClick={(e)=>{HandleSearch(e)}}
+                  onClick={(e) => {
+                    HandleSearch(e);
+                  }}
                   type="submit"
                   className="absolute top-0 right-0 p-4 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
@@ -152,13 +159,15 @@ function Search() {
           </form>
         </div>
       </div>
-      <div className=" p-2 mt-2  gap-4 flex items-center flex-col">
-        {listdoctors.map((doctor, index) => (
-          <DoctorCard key={index} doctor={doctor} />
-        ))}
+     
+        <div className=" p-2 mt-2  gap-4 flex items-center flex-col">
+          {listdoctors.map((doctor, index) => (
+            <DoctorCard key={index} doctor={doctor} />
+          ))}
+        </div>
+        
       </div>
-      
-    </div>
+
   );
 }
 
