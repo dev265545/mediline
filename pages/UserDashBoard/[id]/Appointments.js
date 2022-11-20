@@ -11,7 +11,7 @@ function Appointments() {
   const { id } = router.query;
   const [user, setUser] = useState();
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/patients_users?uid=${id}`).then((resp) => {
+    axios.get(`https://mediline.vercel.app/api/patients_users?uid=${id}`).then((resp) => {
       setUser(resp.data.data);
     });
   }, [id]);

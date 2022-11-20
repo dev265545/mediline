@@ -122,7 +122,7 @@ function AddEditSlot({handleoff,doctor}) {
         };
         axios
           .post(
-            ` http://localhost:3000/api/doctors/updateslot?uid=${doctor?.uid}`,
+            ` https://mediline.vercel.app/api/doctors/updateslot?uid=${doctor?.uid}`,
             databody
           )
           .then(function (response) {
