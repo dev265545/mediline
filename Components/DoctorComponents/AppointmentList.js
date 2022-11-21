@@ -15,12 +15,12 @@ function AppoinmentList({ doctor }) {
 
   useEffect(() => {
     axios
-      .get(`https://mediline.vercel.app/api/appointments?id=${doctor?.uid}`)
+      .get(`http://localhost:3000/api/appointments?id=${doctor?.uid}`)
       .then((resp) => {
         setList(resp.data.data);
       });
 
-  }, [doctor?.uid,list]);
+  }, [doctor?.uid]);
   const [appointmentlist,setal] = useState([])
   const [modalinfo, setmodalinfo] = useState();
   console.log(list);
@@ -30,7 +30,7 @@ function AppoinmentList({ doctor }) {
        for (i; i < list?.length; i++) {
          const x = list[i]?.patient_id;
          const response = await axios.get(
-           `https://mediline.vercel.app/api/patients_users?uid=${x}`
+           `http://localhost:3000/api/patients_users?uid=${x}`
          );
          console.log(response);
 
@@ -44,7 +44,7 @@ function AppoinmentList({ doctor }) {
  getdata()
   
     
-  }, [list,appointmentlist]);
+  }, [list]);
  
   let days = [];
   const daysRequired = 7;
@@ -137,7 +137,7 @@ function AppoinmentList({ doctor }) {
                   {(list[index]?.verifiedbydoctor) &&<button
                     type="button"
                     class="text-white hover:text-green-700 border border-green-700 bg-green-700 focus:ring-1 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900"
-                  >
+                  > 
                     Confirmed
                   </button>}
                 </div>

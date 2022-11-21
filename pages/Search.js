@@ -11,7 +11,7 @@ function Search() {
   const [searchdoctors, setsearchdoctors] = useState([]);
    const [Query, setQuery] = useState("");
   useEffect(() => {
-    axios.get(`https://mediline.vercel.app/api/doctors/alldoctors`).then((resp) => {
+    axios.get(`http://localhost:3000/api/doctors/alldoctors`).then((resp) => {
       setlistdoctors(resp.data.data);
     });
   }, []);
@@ -19,11 +19,11 @@ function Search() {
   const HandleSearch =(e)=>{
     e.preventDefault()
     if(Query===""){
-      axios.get(`https://mediline.vercel.app/api/doctors/alldoctors`).then((resp) => {
+      axios.get(`http://localhost:3000/api/doctors/alldoctors`).then((resp) => {
         setlistdoctors(resp.data.data);
       });
     }else{
-    axios.get(`https://mediline.vercel.app/api/doctors/searchdoctors?query=${Query}`).then((resp) => {
+    axios.get(`http://localhost:3000/api/doctors/searchdoctors?query=${Query}`).then((resp) => {
       setlistdoctors(resp.data.data);
     });}
     setQuery("")

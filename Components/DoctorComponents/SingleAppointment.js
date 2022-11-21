@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 
 import moment from "moment";
 import emailjs from "@emailjs/browser"
@@ -18,8 +20,7 @@ import { CgProfile } from "react-icons/cg";
 import {TiTick} from "react-icons/ti"
 import {ImCross} from "react-icons/im"
 import { MdApproval, MdCalendarToday, MdEmail, MdOutlineLockClock, MdPerson, MdPhone, MdTimer } from "react-icons/md";
-import { BiRightArrow } from "react-icons/bi";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { BiRightArrow } from "react-icons/bi"
 import { FaArrowCircleRight } from "react-icons/fa";
 import { format, parseISO } from "date-fns";
 
@@ -58,7 +59,7 @@ const confirmation = ()=>{
   };
   axios
     .post(
-      ` https://mediline.vercel.app/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
+      ` http://localhost:3000/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
       databody
     )
     .then(function (response) {
@@ -80,6 +81,7 @@ const confirmation = ()=>{
     });
 
   }
+   const router = useRouter();
   const rejection = ()=>{
 
   let databody = {
@@ -95,7 +97,7 @@ const confirmation = ()=>{
   };
   axios
     .delete(
-      ` https://mediline.vercel.app/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
+      ` http://localhost:3000/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
       databody
     )
     .then(function (response) {
@@ -123,11 +125,11 @@ const confirmation = ()=>{
     <div
       id="small-modal"
       tabindex="-1"
-      className=" overflow-y-auto overflow-x-hidden backdrop-blur-lg flex items-center justify-center fixed top-0 right-0 left-0 z-50 p-4 w-full md:inset-0 h-modal md:h-full"
+      className=" overflow-y-auto overflow-x-hidden backdrop-blur-lg  flex items-center justify-center fixed top-0 right-0 left-0 z-50 p-4 w-full md:inset-0 h-modal md:h-full"
     >
-      <div className="relative w-full max-w-4xl h-full md:h-auto">
+      <div className="relative w-full max-w-4xl  h-full md:h-auto">
         {/* <!-- Modal content --> */}
-        <div className="relative bg-gray-100 rounded-lg shadow dark:bg-gray-700">
+        <div className="relative  bg-rose-100 rounded-lg shadow dark:bg-gray-700">
           {/* <!-- Modal header --> */}
           <div className="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -158,9 +160,9 @@ const confirmation = ()=>{
             </button>
           </div>
           {/* <!-- Modal body --> */}
-          <div className="p-6 grid grid-cols-2 ">
+          <div className="p-6 ml-10 grid grid-cols-2 ">
             <img
-              className=" p-6 rounded-full  "
+              className=" p-8 ml-10 rounded-full  "
               src={doctor[index]?.photo_url}
             ></img>
             <div className="p-6 ">
@@ -217,7 +219,7 @@ const confirmation = ()=>{
               {!list[index]?.verifiedbydoctor && (
                 <div className="flex  flex-row justify-center items-center  gap-4">
                   <div className="font-bold text-gray-700">
-                    Choose to Confirm the Appointment
+                    Choose to Confirm the Appointmentss
                   </div>
                   <button
                     onClick={() => confirmation()}
@@ -243,6 +245,14 @@ const confirmation = ()=>{
                   <p className="flex items-center justify-center">
                     By the Doctor
                   </p>
+                  <button
+                    onClick={() =>
+                      router.push(`/DoctorDashBoard/${session?.user?.id}/Appointment/${list[index]?.patient_doctor_id}`)
+                    }
+                    className="text-white hover:text-white border w-full  bg-purple-800 border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900"
+                  >
+                    Patient Page
+                  </button>
                 </div>
               )}
             </div>

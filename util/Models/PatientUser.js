@@ -16,7 +16,23 @@ const PatientUserSchema = new Schema({
   photo_url: {
     type: String,
   },
-  documents: [{ type: String }],
+  temp: {
+    temp: { type: String },
+    lastchecked: { type: Date },
+  },
+  weight: {
+    temp: { type: String },
+    lastchecked: { type: Date },
+  },
+  height: {
+    temp: { type: String },
+    lastchecked: { type: Date },
+  },
+  pressure: {
+    temp: { type: String },
+    lastchecked: { type: Date },
+  },
+  documents: [{ name: { type: String }, link: { type: String } }],
   city: {
     type: String,
   },

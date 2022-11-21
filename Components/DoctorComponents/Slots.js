@@ -16,7 +16,7 @@ function classNames(...classes) {
 function SlotGenerator({id}) {
   const [doctor, setdoctor] = useState();
   useEffect(() => {
-    axios.get(`https://mediline.vercel.app/api/doctors?uid=${id}`).then((resp) => {
+    axios.get(`http://localhost:3000/api/doctors?uid=${id}`).then((resp) => {
       setdoctor(resp.data.data);
     });
   }, [doctor,id]);
@@ -125,7 +125,7 @@ const deleteSlot = (index,slot,day)=>{
       day7:day7 
     };
      axios
-       .post(` https://mediline.vercel.app/api/doctors/updateslot?uid=${doctor?.uid}`, databody)
+       .post(` http://localhost:3000/api/doctors/updateslot?uid=${doctor?.uid}`, databody)
        .then(function (response) {
          console.log(response);
        });

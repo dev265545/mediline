@@ -11,13 +11,13 @@ export default function Home() {
   const [patient, setpatient] = useState();
   useEffect(() => {
      axios
-       .get(`https://mediline.vercel.app/api/doctors?uid=${session?.user?.id}`)
+       .get(`http://localhost:3000/api/doctors?uid=${session?.user?.id}`)
        .then((resp) => {
          setdoctor(resp.data.data);
        });
 
         axios
-          .get(`https://mediline.vercel.app/api/patients_users?uid=${session?.user?.id}`)
+          .get(`http://localhost:3000/api/patients_users?uid=${session?.user?.id}`)
           .then((resp) => {
             setpatient(resp.data.data);
           });

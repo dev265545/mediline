@@ -11,7 +11,7 @@ function DoctorDashBoard() {
   useEffect(() => {
     if (session?.user?.id != undefined) {
       axios
-        .get(`https://mediline.vercel.app/api/doctors?uid=${session?.user?.id}`)
+        .get(`http://localhost:3000/api/doctors?uid=${session?.user?.id}`)
         .then((resp) => {
           setUser(resp.data);
         });
@@ -27,7 +27,7 @@ function DoctorDashBoard() {
     }
   }, [router, user?.data?.uid]);
 
-  // axios(`https://mediline.vercel.app/api/doctors?uid=${session?.user?.id}`)
+  // axios(`http://localhost:3000/api/doctors?uid=${session?.user?.id}`)
   //   .then((response) => {
   //     setUser(response.data.data);
   //   })

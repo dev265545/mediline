@@ -12,7 +12,7 @@ export default function ProfileDoctorDashBoard() {
 const [doctor,setdoctor]= useState()
    useEffect(() => {
      axios
-       .get(`https://mediline.vercel.app/api/doctors?uid=${id}`)
+       .get(`http://localhost:3000/api/doctors?uid=${id}`)
        .then((resp) => {
          setdoctor(resp.data.data);
        });},[id])
