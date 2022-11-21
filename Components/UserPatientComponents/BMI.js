@@ -53,7 +53,7 @@ function BMI() {
 
           <hr class=" mx-auto w-full h-2 bg-purple-300  border-0  dark:bg-gray-700 rounded-r-full opacity-60 "></hr>
         </div>
-        <div className=" flex flex-row items-center justify-center gap-24 pb-5 mb-4 ">
+        <div className=" flex flex-row items-center justify-center gap-10 lg:gap-24 pb-5 mb-4 ">
           <div className="items-start  font-thin text-purple-600">UnderWeight</div>
           <div className=" items-center text-purple-600 ">Normal</div>
           <div className="items-end justify-end font-thin text-purple-600">
