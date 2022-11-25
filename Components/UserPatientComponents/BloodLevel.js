@@ -26,7 +26,7 @@ function BloodLevel({user}) {
           <div className="p-4 px-10 ">
             <div className="text-gray-400">Last Date</div>
             <div className="text-lg font-semibold text-purple-900">
-              {moment(user?.hemoglobin?.lastchecked).format("mm MMM YY ")}{" "}
+              {moment(user?.hemoglobin?.lastchecked).format("D MMM YY ")}{" "}
             </div>
           </div>
         </div>

@@ -68,7 +68,14 @@ function SideNavbar() {
                   Search for Doctors
                 </h3>
               </div>
-              <div className="flex   mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
+              <div
+                onClick={() =>
+                  router.push(
+                    `/UserDashBoard/${session?.user?.id}/Chat`
+                  )
+                }
+                className="flex   mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
+              >
                 <MdChat className="text-2xl text-purple-600 group-hover:text-white " />
                 <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
                   Chat

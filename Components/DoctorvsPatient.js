@@ -6,10 +6,10 @@ import asset2 from "../public/4990224.jpg";
 
 function DoctorvsPatient({ handleClick }) {
   return (
-    <div className="flex flex-row items-center justify-center min-h-screen bg-white">
+    <div className="flex flex-row items-center justify-center min-h-screen bg-slate-50">
       <div className="p-10">
         <Image
-          className=" invisible lg:visible md:visible "
+          className=" invisible lg:visible md:visible rounded-full "
           height={800}
           width={600}
           src={asset}
@@ -45,7 +45,7 @@ function DoctorvsPatient({ handleClick }) {
       <div></div>
       <div className="p-10">
         <Image
-          className=" invisible lg:visible md:visible  "
+          className=" invisible lg:visible md:visible  rounded-full "
           height={600}
           width={600}
           src={asset2}

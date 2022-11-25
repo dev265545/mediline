@@ -11,6 +11,7 @@ import {
   MdOutlineSettings,
   MdOutlineLogout,
   MdOutlineExplore,
+  MdChat,
 } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { FaPills, FaRegComments } from "react-icons/fa";
@@ -65,10 +66,17 @@ function DoctorSidebar() {
                   Patients
                 </h3>
               </div>
-              <div className="flex   mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
-                <FaPills className="text-2xl text-purple-600 group-hover:text-white " />
+              <div
+                onClick={() =>
+                  router.push(
+                    `/DoctorDashBoard/${session?.user?.id}/Chat`
+                  )
+                }
+                className="flex   mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
+              >
+                <MdChat className="text-2xl text-purple-600 group-hover:text-white " />
                 <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
-                  Prescription
+                  Chat
                 </h3>
               </div>
               <div
@@ -84,10 +92,15 @@ function DoctorSidebar() {
                   Appointments
                 </h3>
               </div>
-              <div className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
+              <div
+                onClick={() =>
+                  router.push(`/DoctorDashBoard/${session?.user?.id}/Reviews`)
+                }
+                className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
+              >
                 <MdOutlineIntegrationInstructions className="text-2xl text-purple-600 group-hover:text-white " />
                 <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
-                  Integration
+                  Reviews
                 </h3>
               </div>
             </div>

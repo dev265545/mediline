@@ -52,6 +52,16 @@ export default function DoctorAppointment() {
   const currentTime = date.getHours();
 
   let greeting;
+  const [olderappointment, setolderappointment] = useState();
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:3000/api/appointments/olderappointment?id=${appointment?.doctor_id}&id2=${appointment?.patient_id}`
+      )
+      .then((resp) => {
+        setolderappointment(resp.data.data);
+      });
+  }, [appointment]);
 
   if (currentTime >= 0 && currentTime <= 12) {
     greeting = "Good Morning";
@@ -498,6 +508,64 @@ const [onClick, setonClick] = useState(false);
                             >
                               Go to Doc
                             </a>
+                          </td>
+
+                          <td class="py-4 px-6">
+                            <MdDelete onClick={() => deletedoc(index)} />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="flex flex-row p-2">
+                  <div className="flex flex-1 text-lg font-semibold text-purple-900 ">
+                    Other Appointments
+                  </div>
+                  {/* <div className="px-1 py-1">
+                    <button
+                      onClick={() => setonClick(true)}
+                      type="submit"
+                      class="inline-flex items-center py-2.5 px-4 text-md font-medium text-center text-white bg-purple-700 rounded-lg focus:ring-4 focus:ring-purple-200 dark:focus:ring-purple-900 hover:bg-purple-800"
+                    >
+                      <MdAddCircleOutline /> Upload
+                    </button>
+                  </div> */}
+                </div>
+
+                <div class="overflow-x-auto relative shadow-lg rouned-full shadow-purple-200">
+                  <table class="w-full text-sm text-left text-gray-500 rounded-lg dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 rounded-2xl dark:text-gray-400">
+                      <tr>
+                        <th scope="col" class="py-3 px-6">
+                          Appointment ID
+                        </th>
+
+                        <th scope="col" class="py-3 px-6">
+                          Date
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                          Type of Meeting
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {olderappointment?.map((presc, index) => (
+                        <tr
+                          key={index}
+                          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                        >
+                          <th
+                            scope="row"
+                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                          >
+                            {presc?.patient_doctor_id}
+                          </th>
+                          <td class="py-4 px-6">
+                            {moment(presc?.fnsdate).format("dd mm MMM YY ")}{" "}
                           </td>
 
                           <td class="py-4 px-6">

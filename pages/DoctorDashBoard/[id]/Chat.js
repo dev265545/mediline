@@ -1,92 +1,100 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
-import { Router, useRouter } from "next/router";
+
 import {
   MdClose,
   MdInvertColors,
   MdPerson,
   MdPhotoAlbum,
 } from "react-icons/md";
+import {useRouter} from "next/router"
 import { set } from "date-fns";
 
 const Chat = () => {
-  const router = useRouter();
-  const { id } = router.query;
-  const [doctor, setdoctor] = useState();
-  useEffect(() => {
-    axios.get(`http://localhost:3000/api/patients_users?uid=${id}`).then((resp) => {
-      setdoctor(resp.data.data);
-    });
-  }, [id]);
+      const router = useRouter();
+      const { id } = router.query;
+      const [doctor, setdoctor] = useState();
+      useEffect(() => {
+        axios
+          .get(`http://localhost:3000/api/doctors?uid=${id}`)
+          .then((resp) => {
+            setdoctor(resp.data.data);
+          });
+      }, [id]);
+      
+      const [list, setList] = useState([]);
+       const [patientlist, setpatientlist] = useState([]);
+       const [uniquepatients,setuniquepatients] = useState([]);
+      const key = "patient_id";
 
-  const [list, setList] = useState([]);
-  const [patientlist, setpatientlist] = useState([]);
-  const [uniquepatients, setuniquepatients] = useState([]);
-  const key = "patient_id";
+     
+useEffect(() => {
+  axios.get(`http://localhost:3000/api/appointments?id=${id}`).then((resp) => {
+    setList(resp.data.data);
+    
+  });
+}, [id]);
+useEffect(() => {
+ let x = [...new Map(list.map((item) => [item[key], item])).values()];
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3000/api/appointments/forpatient?id=${id}`)
-      .then((resp) => {
-        setList(resp.data.data);
-      });
-  }, [id]);
-  useEffect(() => {
-    let x = [...new Map(list.map((item) => [item[key], item])).values()];
-   
-    setuniquepatients(x);
-  }, [list]);
-  const getdata = async () => {
-    let i = 0;
-    let urllist = [];
-    for (i; i < uniquepatients?.length; i++) {
-      const x = uniquepatients[i]?.doctor_id;
-      const response = await axios.get(
-        `http://localhost:3000/api/doctors?uid=${x}`
-      );
+ setuniquepatients(x);
+}, [list]);
+ const getdata = async () => {
+   let i = 0;
+   let urllist = [];
+   for (i; i < uniquepatients?.length; i++) {
+     const x = uniquepatients[i]?.patient_id;
+     const response = await axios.get(
+       `http://localhost:3000/api/patients_users?uid=${x}`
+     );
+     console.log(response);
 
-      urllist.push(response.data.data);
-    }
-    setpatientlist(urllist);
-  };
+     urllist.push(response.data.data);
+   }
+   setpatientlist(urllist);
+ };
+    
+      useEffect(()=>{
+       getdata()
+       
+      },[uniquepatients])
+     
+const [showchatofpatient,setshowchatofpatient] =useState([])
 
-  useEffect(() => {
-    getdata();
-  }, [uniquepatients]);
-
-  const [showchatofpatient, setshowchatofpatient] = useState([]);
-
-
+      
   const [input, setInput] = useState();
   const [posts, setPosts] = useState([]);
-  const sendmsg = () => {
+const sendmsg =()=>{
     let databody = {
-      patient_id: doctor?.uid,
-      doctor_id: showchatofpatient?.uid,
-      message: {
-        message: input,
-        sender: 1,
-      },
-    };
-    axios
-      .post(` http://localhost:3000/api/chats`, databody)
-      .then(function (response) {
-        console.log(response);
-        setInput("");
-      });
-  };
-  const [chatmsg, setchatmsg] = useState();
-  useEffect(() => {
-    axios
-      .get(
-        `http://localhost:3000/api/chats?id=${showchatofpatient?.uid}&id2=${doctor?.uid}`
-      )
-      .then((resp) => {
-        setchatmsg(resp.data.data);
-      });
-  }, [showchatofpatient, doctor?.uid,chatmsg]);
- 
+        patient_id : showchatofpatient?.uid,
+        doctor_id : doctor?.uid,
+        message : {
+            message : input,
+            sender : 0
+        }
+    }
+     axios
+       .post(
+         ` http://localhost:3000/api/chats`,
+         databody
+       )
+       .then(function (response) {
+         console.log(response);
+         setInput("");
+        
+       });
+}
+ const [chatmsg, setchatmsg] = useState();
+ useEffect(() => {
+   axios
+     .get(
+       `http://localhost:3000/api/chats?id=${doctor?.uid}&id2=${showchatofpatient?.uid}`
+     )
+     .then((resp) => {
+       setchatmsg(resp.data.data);
+     });
+ }, [showchatofpatient,doctor?.uid,chatmsg]);
 
   return (
     <div class="flex h-screen antialiased text-gray-800">
@@ -112,10 +120,10 @@ const Chat = () => {
             <div class="ml-2 font-bold text-2xl">ChatWithDoc</div>
           </div>
           <button
-            onClick={() => router.push(`/UserDashBoard/${doctor?.uid}`)}
+            onClick={() => router.push(`/DoctorDashBoard/${doctor?.uid}`)}
             class="flex flex-col items-center bg-indigo-100 border border-gray-200 mt-4 w-full py-6 px-4 rounded-lg"
           >
-            Go back To Dashboard
+            Go back to DashBoard
           </button>
           <div class="flex flex-col mt-8">
             <div class="flex flex-row items-center justify-between text-xs">
@@ -146,7 +154,7 @@ const Chat = () => {
               <div class="flex flex-col h-full">
                 <div class="grid grid-cols-12 gap-y-2">
                   {chatmsg?.map((chat, index) =>
-                    chat?.message?.sender == 1 ? (
+                    chat?.message?.sender == 0 ? (
                       <div
                         key={index}
                         class="col-start-6 col-end-13 p-3 rounded-lg"
