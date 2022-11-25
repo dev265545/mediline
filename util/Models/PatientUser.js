@@ -16,20 +16,24 @@ const PatientUserSchema = new Schema({
   photo_url: {
     type: String,
   },
-  temp: {
-    temp: { type: String },
+  temperature: {
+    temperature: { type: String },
     lastchecked: { type: Date },
   },
   weight: {
-    temp: { type: String },
+    weight: { type: String },
     lastchecked: { type: Date },
   },
+  hemoglobin : {
+    hemoglobin : {type :String},
+    lastchecked : {type : Date}
+  },
   height: {
-    temp: { type: String },
+    height: { type: String },
     lastchecked: { type: Date },
   },
   pressure: {
-    temp: { type: String },
+    pressure: { type: String },
     lastchecked: { type: Date },
   },
   documents: [{ name: { type: String }, link: { type: String } }],
@@ -42,23 +46,33 @@ const PatientUserSchema = new Schema({
   age: {
     type: Number,
   },
+  geneder : {
+    type : String
+  },
   //Archit--------------------------------
   blood_group: {
     type: String,
   },
-
+ 
   phone_no: {
     type: Number,
   },
   allergies: {
     type: String,
   },
+  diseases : {
+    type :String
+  },
   diabetic: {
     type: Boolean,
   },
-  dobirth: {
+  medication: {
     type: String,
   },
+  information: {
+    type: String,
+  },
+
   country: {
     type: String,
   },

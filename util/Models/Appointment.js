@@ -45,7 +45,7 @@ const AppointmentSchema = new Schema({
   documents: [
     {
       name: { type: String },
-      link: { type: Number },
+      link: { type: String },
     },
   ],
   test: [

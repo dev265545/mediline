@@ -1,69 +1,73 @@
-import { Dialog, Transition } from '@headlessui/react';
-import axios from 'axios';
-import React, { Fragment, useEffect, useState } from 'react'
+import { Dialog, Transition } from "@headlessui/react";
+import axios from "axios";
+import React, { Fragment, useEffect, useState } from "react";
 
-function Prescreption({isOpen,closeModal,openModal,appointment}) {
-     const getdata = async () => {
-      setprescription(appointment?.prescription)
-     
-       let urllist =prescreption;
-         let x = {
-           medicinename: medname,
-           nofdays: noofdays,
-           dosage: dosage,
-           quantity: quantity,
-         };
-            urllist.push(x)
-       
-       setprescription(urllist);
-     };
+function LabTest({ isOpen, closeModal, openModal, appointment }) {
+  const getdata = async () => {
+    setprescription(appointment?.test);
 
-    
-  
-  const [prescreption,setprescription] =useState();
-  useEffect(()=>{
-    setprescription(appointment?.prescription)
-  },[appointment?.prescription])
-  console.log(prescreption)
-  const [medname,setname] = useState("")
-  const [dosage, setdosage] = useState("");
-  const [noofdays, setnoofdays] = useState(0);
-    const [quantity, setquantity] = useState(0);
-const confirmation = () => {
+    let urllist = prescreption;
+    let x = {
+      testname: medname,
+      category: dosage,
+      Duedate: noofdays,
+      reason: quantity,
+      instructiontopatient: instructiontopatient,
+      labinfo : labinfo
+    };
+    urllist.push(x);
 
-getdata()
-console.log(prescreption)
-  let databody = {
-    patient_doctor_id: appointment?.patient_doctor_id,
-    patient_id: appointment?.patient_id,
-    doctor_id: appointment?.doctor_id,
-    typeofmeeting: "Consultation",
-    time: appointment?.date,
-    date: appointment?.time,
-    fnsdate: appointment?.fnsdate,
-    verifiedbydoctor: appointment?.verifiedbydoctor,
-    verifiedbypatient: appointment?.verifiedbypatient,
-    advice: appointment?.advice,
-    notes: appointment?.notes,
-    documents: appointment?.documents,
-    test: appointment?.test,
-    reasonforappointment: appointment?.reasonforappointment,
-    prescription: prescreption,
+    setprescription(urllist);
   };
-  axios
-    .post(
-      ` http://localhost:3000/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
-      databody
-    )
-    .then(function (response) {
-      console.log(response);
-      setname("")
-      setdosage("")
-      setquantity(0)
-      setnoofdays(0)
-      closeModal();
-    });
-};
+
+  const [prescreption, setprescription] = useState();
+  useEffect(() => {
+    setprescription(appointment?.test);
+  }, [appointment?.test]);
+  console.log(prescreption);
+  const [medname, setname] = useState("");
+  const [dosage, setdosage] = useState("");
+  const [noofdays, setnoofdays] = useState("");
+  const [quantity, setquantity] = useState("");
+   const [labinfo, setlabinfo] = useState("");
+const [instructiontopatient, setinstructiontopatient] = useState("");
+  const confirmation = () => {
+    getdata();
+    console.log(prescreption);
+    let databody = {
+      patient_doctor_id: appointment?.patient_doctor_id,
+      patient_id: appointment?.patient_id,
+      doctor_id: appointment?.doctor_id,
+      typeofmeeting: "Consultation",
+      time: appointment?.date,
+      date: appointment?.time,
+      fnsdate: appointment?.fnsdate,
+      verifiedbydoctor: appointment?.verifiedbydoctor,
+      verifiedbypatient: appointment?.verifiedbypatient,
+      advice: appointment?.advice,
+      notes: appointment?.notes,
+      documents:appointment?.documents ,
+      test: prescreption,
+      reasonforappointment: appointment?.reasonforappointment,
+      prescription: appointment?.prescreption,
+    };
+    axios
+      .post(
+        ` http://localhost:3000/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
+        databody
+      )
+      .then(function (response) {
+        console.log(response);
+        setname("");
+        setdosage("");
+        setquantity("");
+        setnoofdays("");
+        setlabinfo("")
+        setinstructiontopatient("")
+        
+        closeModal();
+      });
+  };
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -106,41 +110,57 @@ console.log(prescreption)
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900"
                 >
-                  Add a New Medication
+                  Add a Lab Test
                 </Dialog.Title>
                 <div className="mt-2">
                   <p className="text-sm text-gray-500 border-t pt-2">
-                    Medication Name
+                    Lab Name
                   </p>
                   <input
                     onChange={(e) => setname(e.target.value)}
                     value={medname}
                   ></input>
-                  <p className="text-sm text-gray-500 border-t pt-2">Dosage</p>
+                  <p className="text-sm text-gray-500 border-t pt-2">
+                    Category
+                  </p>
                   <input
                     onChange={(e) => setdosage(e.target.value)}
                     value={dosage}
                   ></input>
                   <p className="text-sm text-gray-500 border-t pt-2">
-                    No of days
+                    Due Date
                   </p>
                   <input
                     onChange={(e) => setnoofdays(e.target.value)}
                     value={noofdays}
                   ></input>
-                  <p className="text-sm text-gray-500 border-t pt-2">
-                    Quantity
-                  </p>
-                  <input
+                  <p className="text-sm text-gray-500 border-t pt-2">Reason</p>
+                  <textarea
+                    className="rounded-2xl"
                     onChange={(e) => setquantity(e.target.value)}
                     value={quantity}
-                  ></input>
+                  />
+                  <p className="text-sm text-gray-500 border-t pt-2">
+                    Lab Info
+                  </p>
+                  <textarea
+                    className="rounded-2xl"
+                    onChange={(e) => setlabinfo(e.target.value)}
+                    value={labinfo}
+                  />
+                  <p className="text-sm text-gray-500 border-t pt-2">
+                    Instructions to patient if any
+                  </p>
+                  <textarea
+                    className="rounded-2xl"
+                    onChange={(e) => setinstructiontopatient(e.target.value)}
+                    value={instructiontopatient}
+                  />
                 </div>
 
                 <div className="flex flex-row gap-56 mt-4">
                   <button
                     type="button"
-
                     className="inline-flex justify-center px-4 py-2 text-sm text-green-900 bg-green-100 border border-transparent rounded-md hover:bg-green-200 duration-300"
                     onClick={confirmation}
                   >
@@ -163,4 +183,4 @@ console.log(prescreption)
   );
 }
 
-export default Prescreption
+export default LabTest;

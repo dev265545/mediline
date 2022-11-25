@@ -11,6 +11,22 @@ body {
 .display-linebreak {
   white-space: pre-line;
 }
+.blob { 
+  width: 400px;
+  height: 350px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;utf8, %3Csvg width=%22100%25%22 height=%22100%25%22 viewBox=%220 0 1000 1000%22 xmlns=%22http:%2F%2Fwww.w3.org%2F2000%2Fsvg%22 %3E %3Cdefs%3E %3Cfilter id=%22grain%22 x=%22-50vw%22 y=%22-50vh%22 width=%22100vw%22 height=%22100vh%22%3E %3CfeFlood flood-color=%22%23ffffff%22 result=%22neutral-gray%22 %2F%3E %3CfeTurbulence in=%22neutral-gray%22 type=%22fractalNoise%22 baseFrequency=%222.5%22 numOctaves=%22100%22 stitchTiles=%22stitch%22 result=%22noise%22 %2F%3E %3CfeColorMatrix in=%22noise%22 type=%22saturate%22 values=%220%22 result=%22destaturatedNoise%22 %3E%3C%2FfeColorMatrix%3E %3CfeComponentTransfer in=%22desaturatedNoise%22 result=%22theNoise%22%3E %3CfeFuncA type=%22table%22 tableValues=%220 0 0.25 0%22%3E%3C%2FfeFuncA%3E %3C%2FfeComponentTransfer%3E %3CfeBlend in=%22SourceGraphic%22 in2=%22theNoise%22 mode=%22soft-light%22 result=%22noisy-image%22 %2F%3E %3C%2Ffilter%3E %3ClinearGradient id=%22linearGradientId%22 gradientTransform=%22rotate(-45 0.5 0.5)%22%3E %3Cstop offset=%220%25%22 stop-color=%22%23FBAB7E%22 %2F%3E %3Cstop offset=%22100%25%22 stop-color=%22%23F7CE68%22 %2F%3E %3C%2FlinearGradient%3E %3CclipPath id=%22shape%22%3E %3Cpath fill=%22currentColor%22 d=%22M872.5%2C640.5Q781%2C781%2C640.5%2C847Q500%2C913%2C374%2C832.5Q248%2C752%2C187%2C626Q126%2C500%2C139.5%2C326.5Q153%2C153%2C326.5%2C131Q500%2C109%2C657%2C147.5Q814%2C186%2C889%2C343Q964%2C500%2C872.5%2C640.5Z%22%3E%3C%2Fpath%3E %3C%2FclipPath%3E %3C%2Fdefs%3E %3Cg filter=%22url(%23grain)%22 clip-path=%22url(%23shape)%22%3E %3Cpath fill=%22url(%23linearGradientId)%22 d=%22M872.5%2C640.5Q781%2C781%2C640.5%2C847Q500%2C913%2C374%2C832.5Q248%2C752%2C187%2C626Q126%2C500%2C139.5%2C326.5Q153%2C153%2C326.5%2C131Q500%2C109%2C657%2C147.5Q814%2C186%2C889%2C343Q964%2C500%2C872.5%2C640.5Z%22 %2F%3E %3C%2Fg%3E %3C%2Fsvg%3E");
+}
+.blob2 { 
+  width: 400px;
+  height: 400px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;utf8, %3Csvg width=%22100%25%22 height=%22100%25%22 viewBox=%220 0 1000 1000%22 xmlns=%22http:%2F%2Fwww.w3.org%2F2000%2Fsvg%22 %3E %3Cdefs%3E %3Cfilter id=%22grain%22 x=%22-50vw%22 y=%22-50vh%22 width=%22100vw%22 height=%22100vh%22%3E %3CfeFlood flood-color=%22%23ffffff%22 result=%22neutral-gray%22 %2F%3E %3CfeTurbulence in=%22neutral-gray%22 type=%22fractalNoise%22 baseFrequency=%222.5%22 numOctaves=%22100%22 stitchTiles=%22stitch%22 result=%22noise%22 %2F%3E %3CfeColorMatrix in=%22noise%22 type=%22saturate%22 values=%220%22 result=%22destaturatedNoise%22 %3E%3C%2FfeColorMatrix%3E %3CfeComponentTransfer in=%22desaturatedNoise%22 result=%22theNoise%22%3E %3CfeFuncA type=%22table%22 tableValues=%220 0 0.5 0%22%3E%3C%2FfeFuncA%3E %3C%2FfeComponentTransfer%3E %3CfeBlend in=%22SourceGraphic%22 in2=%22theNoise%22 mode=%22soft-light%22 result=%22noisy-image%22 %2F%3E %3C%2Ffilter%3E %3ClinearGradient id=%22linearGradientId%22 gradientTransform=%22rotate(-45 0.5 0.5)%22%3E %3Cstop offset=%220%25%22 stop-color=%22%23FAACA8%22 %2F%3E %3Cstop offset=%22100%25%22 stop-color=%22%23DDD6F3%22 %2F%3E %3C%2FlinearGradient%3E %3CclipPath id=%22shape%22%3E %3Cpath fill=%22currentColor%22 d=%22M787%2C586Q705%2C672%2C643%2C814.5Q581%2C957%2C435%2C911Q289%2C865%2C210.5%2C749.5Q132%2C634%2C82.5%2C482Q33%2C330%2C161.5%2C233Q290%2C136%2C420%2C176Q550%2C216%2C649.5%2C253.5Q749%2C291%2C809%2C395.5Q869%2C500%2C787%2C586Z%22%3E%3C%2Fpath%3E %3C%2FclipPath%3E %3C%2Fdefs%3E %3Cg filter=%22url(%23grain)%22 clip-path=%22url(%23shape)%22%3E %3Cpath fill=%22url(%23linearGradientId)%22 d=%22M787%2C586Q705%2C672%2C643%2C814.5Q581%2C957%2C435%2C911Q289%2C865%2C210.5%2C749.5Q132%2C634%2C82.5%2C482Q33%2C330%2C161.5%2C233Q290%2C136%2C420%2C176Q550%2C216%2C649.5%2C253.5Q749%2C291%2C809%2C395.5Q869%2C500%2C787%2C586Z%22 %2F%3E %3C%2Fg%3E %3C%2Fsvg%3E");
+}
+
+
 .wavy{
   background-color: #000000;
 opacity: 1;

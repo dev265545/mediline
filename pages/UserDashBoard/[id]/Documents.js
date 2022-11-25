@@ -71,22 +71,32 @@ const [onClick,setonClick] = useState(false)
                 </div>
               )}
               {user?.data?.documents.map((link, index) => (
-                <div key={index} className="">
-                  <a href={link} target="_blank" rel="noreferrer">
-                    {checkValidUrl(link) ? (
+                <div
+                  key={index}
+                  className="bg-white p-2 flex flex-row rounded-2xl shadow-2xl"
+                >
+                  <a href={link.link} target="_blank" rel="noreferrer">
+                    {checkValidUrl(link.link) ? (
                       <img
                         src="https://res.cloudinary.com/dfx9p6tpc/image/upload/v1666953849/mediline-uploads/download_sap3qb.png"
                         className="md:w-1/2  border shadow-lg rounded-lg md:rounded-lg "
                       />
                     ) : (
                       <img
-                        src={link}
+                        src={link.link}
                         className="md:w-1/2 border shadow-lg rounded-lg md:rounded-lg "
                       />
                     )}
                   </a>
 
                   {/* shine box */}
+                  <div>
+                    <p className="text-lg font-semibold flex flex-1 ">
+                      DocName : {"    "}
+                    </p>
+                    <p>{link?.name}</p>
+                  </div>
+
                   <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-40 group-hover:animate-shine" />
                 </div>
               ))}

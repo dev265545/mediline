@@ -26,6 +26,7 @@ const today = format(startOfToday(),"dddd,MMM,yyyy");
         moment().add(i, "days").format("yyyy"),
         moment().add(i, "days").format("MM")-1,
         moment().add(i, "days").format("D")
+        
       )
     );
   }
@@ -104,19 +105,26 @@ const [dateFNS,setdatefns]=useState();
 
  console.log(selectedday)
  const unique_id = uuid();
-
+const [reasonforappointment,setforappointment]=useState("");
  const small_id = unique_id.slice(0, 8);
  const handleconfirm = ()=>{
 let databody = {
-  patient_doctor_id : small_id,
-  patient_id : session?.user?.id,
-  doctor_id  : doctor?.uid,
-  typeofmeeting : "Consultation",
-  time : selectedtime,
-  date : selectedday,
-  fnsdate : dateFNS,
-  verifiedbydoctor:false,
-  verifiedbypatient:true
+  patient_doctor_id: small_id,
+  patient_id: session?.user?.id,
+  doctor_id: doctor?.uid,
+  typeofmeeting: "Consultation",
+  time: selectedtime,
+  date: selectedday,
+  fnsdate: dateFNS,
+  verifiedbydoctor: false,
+  verifiedbypatient: true,
+  advice: "",
+  notes: "",
+  documents: [],
+  test: [],
+  reasonforappointment: reasonforappointment,
+  prescription : [],
+
 };
  axios
    .post(`/api/appointments`, databody)
@@ -195,6 +203,22 @@ console.log(optionsslots);
                 requirement
               </p>
             </p>
+            <div>
+            <label
+                  for="message"
+                  class="block text-lg mb-2  font-medium text-gray-900"
+                >
+                  Reason for Appointment
+                </label>
+                <textarea
+                onChange={(e)=>{setforappointment(e.target.value)}}
+                value={reasonforappointment}
+                  id="message"
+                  rows="4"
+                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500"
+                  placeholder="Write down the reasons for appointment"
+                ></textarea>
+            </div>
 
             <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400"></p>
           </div>

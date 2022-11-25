@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { BiPlusCircle } from 'react-icons/bi';
-import MyModal from './NewAppointmentModal';
+import NewAppointmentModal from './NewAppointmentModal';
+
 
 function NewAppointment({doctor}) {
 
@@ -33,7 +34,7 @@ function NewAppointment({doctor}) {
          Make a New Clinic Appointment
         </p>
       </div>
-<MyModal doctor={doctor} isOpen= {isOpen} closeModal={closeModal} openModal={openModal} />
+{isOpen && <NewAppointmentModal doctor={doctor} isOpen= {isOpen} closeModal={closeModal} openModal={openModal} />}
     </div>
   );
 }

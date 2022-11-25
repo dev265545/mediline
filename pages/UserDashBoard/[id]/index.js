@@ -19,16 +19,16 @@ import { BiArrowToTop, BiCloudDownload, BiDownload } from "react-icons/bi";
 import { MdDownload, MdFileDownload, MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
 export default function UserProfileDashBoard() {
-  const {data:session} =useSession()
+   const router = useRouter();
+   const { id } = router.query;
    const [user, setUser] = useState([]);
 const [value, onChange] = useState(new Date());
 
 useEffect(()=>{
-  console.log(session)
- axios.get(`/api/patients_users?uid=${session?.user?.id}`).then((resp) => {
+ axios.get(`/api/patients_users?uid=${id}`).then((resp) => {
    setUser(resp.data.data);
  });
-},[session?.user?.id])
+},[id])
   
    const date = new Date();
    const currentTime = date.getHours();
@@ -70,7 +70,7 @@ console.log(user)
 
           <div className=" flex flex-col gap-5 mt-24 pt-10 shadow-3xl shadow-rose-800 ">
             <div className="flex flex-col md:flex-row  md:gap-36">
-              <BMI className=" border border-black flex-1 " />
+              <BMI user ={user} className=" border border-black flex-1 " />
               <div className="">
                 <div className=" p-2 font-extrabold text-blue-900 text-2xl  font-mono">
                   Upcoming Appointment
@@ -109,7 +109,7 @@ console.log(user)
             </div>
 
             <div className="flex flex-col md:flex-col lg:flex-row gap-36 ">
-              <BloodLevel className=" border border-black" />
+              <BloodLevel user= {user} className=" border border-black" />
               <div className="">
                 <div className=" p-2 font-extrabold text-blue-900 text-2xl  font-mono">
                   Certificates and Reports

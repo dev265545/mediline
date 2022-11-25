@@ -50,6 +50,26 @@ const DoctorSchema = new Schema({
   fees: {
     type: String,
   },
+  country: {
+    type: String,
+  },
+  hospitalcountry: {
+    type: String,
+  },
+  reviews: [
+    {
+      rating: {
+        type: Number,
+      },
+      review: {
+        type: String,
+      },
+      name: {
+        type: String,
+      },
+      reviewDate: { type: Date },
+    },
+  ],
   registrationnumber: {
     type: String,
   },
@@ -87,6 +107,7 @@ const DoctorSchema = new Schema({
     day6: [{ type: String }],
     day7: [{ type: String }],
   },
+  daysinweek: { type: String },
   Bookedslotsfornext7days: {
     day1: [{ type: String }],
     day2: [{ type: String }],

@@ -3,7 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import moment from "moment";
-import emailjs from "@emailjs/browser"
+import emailjs from "@emailjs/browser";
 import Select from "react-select";
 
 import Stack from "@mui/material/Stack";
@@ -17,26 +17,34 @@ import MobileDatePicker from "@mui/lab/MobileDatePicker";
 import axios from "axios";
 import { GiPerson, GiTick } from "react-icons/gi";
 import { CgProfile } from "react-icons/cg";
-import {TiTick} from "react-icons/ti"
-import {ImCross, ImPointRight} from "react-icons/im"
-import { MdApproval, MdCalendarToday, MdEmail, MdOutlineLockClock, MdPerson, MdPhone, MdTimer } from "react-icons/md";
-import { BiRightArrow } from "react-icons/bi"
+import { TiTick } from "react-icons/ti";
+import { ImCross, ImPointRight } from "react-icons/im";
+import {
+  MdApproval,
+  MdCalendarToday,
+  MdEmail,
+  MdOutlineLockClock,
+  MdPerson,
+  MdPhone,
+  MdTimer,
+} from "react-icons/md";
+import { BiRightArrow } from "react-icons/bi";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { format, parseISO } from "date-fns";
 
-function SingleAppointment({ patient_id,index,handleoff, doctor ,list,c}) {
-  const {data:session} = useSession();
-console.log(doctor)
-console.log(list)
-console.log(index)
-console.log(patient_id)
-let startDateTime = parseISO(list[index]?.fnsdate);
-let msg =
-  "This is to inform you that your Appointment on" +
-  format(startDateTime, "do MMMM yyyy") +
-  " at " +
-  list[index]?.date +
-  " is confirmed. Hoping that you be on time and maintaing your health with the best of your ability. I hope i will helpful to you";
+function SingleAppointment({ patient_id, index, handleoff, doctor, list, c }) {
+  const { data: session } = useSession();
+  console.log(doctor);
+  console.log(list);
+  console.log(index);
+  console.log(patient_id);
+  let startDateTime = parseISO(list[index]?.fnsdate);
+  let msg =
+    "This is to inform you that your Appointment on" +
+    format(startDateTime, "do MMMM yyyy") +
+    " at " +
+    list[index]?.date +
+    " is confirmed. Hoping that you be on time and maintaing your health with the best of your ability. I hope i will helpful to you";
   let reject =
     "This is to inform you that your Appointment on" +
     format(startDateTime, "do MMMM yyyy") +
@@ -44,83 +52,77 @@ let msg =
     list[index]?.date +
     " is being unfortunatelly being removed as I am not available at that time. You can go back and make another appointment at other available slots. Sorry for the inconvience";
 
-const confirmation = ()=>{
-
-  let databody = {
-    patient_doctor_id: list[index]?.patient_doctor_id,
-    patient_id: list[index]?.patient_id,
-    doctor_id: list[index]?.doctor_id,
-    typeofmeeting: list[index]?.typeofmeeting,
-    time: list[index]?.time,
-    date: list[index]?.date,
-    fnsdate: list[index]?.fnsdate,
-    verifiedbydoctor: true,
-    verifiedbypatient: true,
+  const confirmation = () => {
+    let databody = {
+      patient_doctor_id: list[index]?.patient_doctor_id,
+      patient_id: list[index]?.patient_id,
+      doctor_id: list[index]?.doctor_id,
+      typeofmeeting: list[index]?.typeofmeeting,
+      time: list[index]?.time,
+      date: list[index]?.date,
+      fnsdate: list[index]?.fnsdate,
+      verifiedbydoctor: true,
+      verifiedbypatient: true,
+    };
+    axios
+      .post(
+        ` http://localhost:3000/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
+        databody
+      )
+      .then(function (response) {
+        console.log(response);
+        let emailparams = {
+          from_name: session?.user?.name,
+          to_name: doctor[index]?.name,
+          email: doctor[index]?.email,
+          email2: doctor[index]?.email,
+          message: msg,
+        };
+        emailjs.send(
+          "service_tgxtil9",
+          "template_wu8slia",
+          emailparams,
+          "45iOpl98A5fWuxhEd"
+        );
+      });
   };
-  axios
-    .post(
-      ` http://localhost:3000/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
-      databody
-    )
-    .then(function (response) {
-      console.log(response);
-      let emailparams = {
-        from_name : session?.user?.name,
-        to_name : doctor[index]?.name,
-        email : doctor[index]?.email,
-        email2 : doctor[index]?.email,
-        message : msg
-      }
-      emailjs.send(
-        "service_tgxtil9",
-        "template_wu8slia",
-        emailparams,
-        "45iOpl98A5fWuxhEd"
-      );
-      
-    });
+  const router = useRouter();
+  const rejection = () => {
+    let databody = {
+      patient_doctor_id: list[index]?.patient_doctor_id,
+      patient_id: list[index]?.patient_id,
+      doctor_id: list[index]?.doctor_id,
+      typeofmeeting: list[index]?.typeofmeeting,
+      time: list[index]?.time,
+      date: list[index]?.date,
+      fnsdate: list[index]?.fnsdate,
+      verifiedbydoctor: false,
+      verifiedbypatient: true,
+    };
+    axios
+      .delete(
+        ` http://localhost:3000/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
+        databody
+      )
+      .then(function (response) {
+        console.log(response);
+        let emailparams = {
+          from_name: session?.user?.name,
+          to_name: doctor[index]?.name,
+          email: doctor[index]?.email,
+          email2: doctor[index]?.email,
+          message: reject,
+        };
+        emailjs.send(
+          "service_tgxtil9",
+          "template_wu8slia",
+          emailparams,
+          "45iOpl98A5fWuxhEd"
+        );
 
-  }
-   const router = useRouter();
-  const rejection = ()=>{
-
-  let databody = {
-    patient_doctor_id: list[index]?.patient_doctor_id,
-    patient_id: list[index]?.patient_id,
-    doctor_id: list[index]?.doctor_id,
-    typeofmeeting: list[index]?.typeofmeeting,
-    time: list[index]?.time,
-    date: list[index]?.date,
-    fnsdate: list[index]?.fnsdate,
-    verifiedbydoctor: false,
-    verifiedbypatient: true,
+        handleoff();
+      });
   };
-  axios
-    .delete(
-      ` http://localhost:3000/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
-      databody
-    )
-    .then(function (response) {
-      console.log(response);
-      let emailparams = {
-        from_name: session?.user?.name,
-        to_name: doctor[index]?.name,
-        email: doctor[index]?.email,
-        email2: doctor[index]?.email,
-        message: reject,
-      };
-      emailjs.send(
-        "service_tgxtil9",
-        "template_wu8slia",
-        emailparams,
-        "45iOpl98A5fWuxhEd"
-      );
-      
-         handleoff();
-
-    });
-
-  }
   return (
     <div
       id="small-modal"
@@ -224,7 +226,8 @@ const confirmation = ()=>{
               </div>
             </div>
             <div className=" flex  flex-row justify-center items-center  gap-4">
-              {!list[index]?.verifiedbydoctor && (
+              Waiting for Confirmation from the Doctor
+              {/* {!list[index]?.verifiedbydoctor && (
                 <div className="flex  flex-row justify-center items-center  gap-4">
                   <div className="font-bold text-gray-700">
                     Choose to Confirm the Appointmentss
@@ -244,7 +247,7 @@ const confirmation = ()=>{
                     <ImCross className=" bg-white p-1 rounded-full " />
                   </button>
                 </div>
-              )}
+              )} */}
               {list[index]?.verifiedbydoctor && (
                 <div className="flex flex-col w-2/3">
                   <div class="text-white hover:text-white border w-full  bg-green-800 border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900">
@@ -256,12 +259,12 @@ const confirmation = ()=>{
                   <button
                     onClick={() =>
                       router.push(
-                        `/DoctorDashBoard/${session?.user?.id}/Appointment/${list[index]?.patient_doctor_id}`
+                        `/UserDashBoard/${session?.user?.id}/Appointment/${list[index]?.patient_doctor_id}`
                       )
                     }
                     className="text-white hover:text-white border w-full  bg-purple-800 border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900"
                   >
-                    Patient Page
+                    Appointment Page
                   </button>
                 </div>
               )}
@@ -277,5 +280,3 @@ const confirmation = ()=>{
 }
 
 export default SingleAppointment;
-
-

@@ -21,17 +21,14 @@ function AppointmentInformation({appointment}) {
           <div className="font-semibold"> Information</div>
           <div className=" p-1 flex flex-col items-center justify-center">
             <div className="font-semibold ">Day and Date </div>
-            <p>
-             {appointment?.fnsdate}
-            </p>
+            <p>{appointment?.fnsdate}</p>
           </div>
           <div className="  flex flex-col items-center justify-center">
             <div className="font-semibold ">Time </div>
             <p>{appointment?.date}</p>
+            <div className="font-semibold ">Reason for Appointment </div>
+            <p>{appointment?.reasonforappointment}</p>
           </div>
-         
-          
-          
         </div>
       </div>
     </div>

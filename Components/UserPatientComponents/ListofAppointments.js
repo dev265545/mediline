@@ -2,38 +2,49 @@ import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 import moment from "moment";
+import { BiArrowFromLeft } from "react-icons/bi";
+import SingleAppointment from "../UserPatientComponents/SingleAppointment";
 
-function ListofAppointments({ user }) {
+function ListofAppointments({user }) {
+    const [EditModal, SetEditModal] = useState(false);
+    const handleoff = () => {
+      SetEditModal(!EditModal);
+    };
+
   const [theArray, setTheArray] = useState([]);
 
-
   const [list, setList] = useState([]);
+  var now = moment().format("h:mm a");
 
-  let AMRAS = [];
-  useEffect(()=>{
-     axios
-       .get(
-         `http://localhost:3000/api/appointments/forpatient?id=${user?.uid}`
-       )
-       .then((resp) => {
-         setList(resp.data.data);
-       });
-  
-  },[user?.uid])
-  console.log(list)
-
-    useEffect(()=>{
-      setTheArray([])
-    
-  for (let i = 0; i < list?.length; i++) {
-    const x = list[i]?.doctor_id;
+  useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/doctors?uid=${x}`)
-      .then((resp) => setTheArray((prevArray) => [...prevArray, resp.data.data]));
-  }
-  
-    },[list])
-    console.log(theArray)
+      .get(`http://localhost:3000/api/appointments/forpatient?id=${user?.uid}`)
+      .then((resp) => {
+        setList(resp.data.data);
+      });
+  }, [user?.uid]);
+  const [appointmentlist, setal] = useState([]);
+  const [modalinfo, setmodalinfo] = useState();
+  console.log(list);
+  const getdata = async () => {
+    let i = 0;
+    let urllist = [];
+    for (i; i < list?.length; i++) {
+      const x = list[i]?.doctor_id;
+      const response = await axios.get(
+        `http://localhost:3000/api/doctors?uid=${x}`
+      );
+      console.log(response);
+
+      urllist.push(response.data.data);
+    }
+    setal(urllist);
+  };
+
+  useEffect(() => {
+    getdata();
+  }, [list]);
+ 
      let days = [];
      const daysRequired = 7;
      
@@ -83,7 +94,7 @@ console.log(theArray)
           role="list"
           className="divide-y divide-gray-200 dark:divide-gray-700"
         >
-          {theArray.map((doctor, index) => (
+          {appointmentlist.map((doctor, index) => (
             <li key={index} className="py-3 sm:py-4">
               <div className="flex items-center space-x-4">
                 <div className="flex-shrink-0">
@@ -95,7 +106,7 @@ console.log(theArray)
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                     {doctor?.name}
+                    {doctor?.name}
                   </p>
                   <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                     {doctor?.email}
@@ -111,6 +122,41 @@ console.log(theArray)
                   <p className="text-sm font-semibold text-gray-500 truncate dark:text-gray-400">
                     {c[index]}
                   </p>
+                  {!list[index]?.verifiedbydoctor && (
+                    <button
+                      type="button"
+                      class="text-white hover:text-red-700 border border-red-700 bg-red-700 focus:ring-1 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                    >
+                      Unconfirmed
+                    </button>
+                  )}
+                  {list[index]?.verifiedbydoctor && (
+                    <button
+                      type="button"
+                      class="text-white hover:text-green-700 border border-green-700 bg-green-700 focus:ring-1 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900"
+                    >
+                      Confirmed
+                    </button>
+                  )}
+                  <BiArrowFromLeft
+                    onClick={() => {
+                      setmodalinfo(index);
+                      SetEditModal(!EditModal);
+                    }}
+                    className="text-3xl hover:bg-gradient-to-tr text-purple-900  "
+                  ></BiArrowFromLeft>
+
+                  {EditModal && (
+                    <SingleAppointment
+                      patient_id={list[index]?.patient_id}
+                      index={modalinfo}
+                      key={index}
+                      c={c}
+                      handleoff={handleoff}
+                      doctor={appointmentlist}
+                      list={list}
+                    />
+                  )}
                 </div>
               </div>
             </li>

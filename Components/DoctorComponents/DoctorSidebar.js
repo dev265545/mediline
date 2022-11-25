@@ -35,7 +35,6 @@ function DoctorSidebar() {
             </h1>
             <div className=" my-4 border-b border-gray-100 pb-4">
               <div
-                on
                 onClick={() =>
                   router.push(`/DoctorDashBoard/${session?.user?.id}`)
                 }
@@ -46,7 +45,12 @@ function DoctorSidebar() {
                   Dashboard
                 </h3>
               </div>
-              <div className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
+              <div
+                onClick={() =>
+                  router.push(`/DoctorDashBoard/${session?.user?.id}/Profile`)
+                }
+                className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
+              >
                 <CgProfile className="text-2xl text-purple-600 group-hover:text-white " />
                 <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
                   Profile
@@ -67,7 +71,14 @@ function DoctorSidebar() {
                   Prescription
                 </h3>
               </div>
-              <div onClick={()=>router.push(`/DoctorDashBoard/${session?.user?.id}/Appointments`)} className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
+              <div
+                onClick={() =>
+                  router.push(
+                    `/DoctorDashBoard/${session?.user?.id}/Appointments`
+                  )
+                }
+                className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
+              >
                 <BiCalendarEvent className="text-2xl text-purple-600 group-hover:text-white " />
                 <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
                   Appointments

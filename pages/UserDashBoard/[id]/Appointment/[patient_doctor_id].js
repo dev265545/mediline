@@ -9,18 +9,18 @@ import { MdAddCircleOutline, MdDelete } from "react-icons/md";
 import moment from "moment";
 import LabTest from "../../../../Components/DoctorComponents/Labtest";
 import DocumentUploader from "../../../../Components/DoctorComponents/DocumentUplaoder";
-import NewAppointment from "../../../../Components/DoctorComponents/NewAppointment";
+import SideNavbar from "../../../../Components/UserPatientComponents/Sidebar";
 // import NewAppointment from "../../../Components/DoctorComponents/NewAppointment";
 // import Example from "../../../Components/DoctorComponents/calender";
 
-export default function DoctorAppointment() {
+export default function PatientAppointment() {
   const router = useRouter();
-  const [refresh ,setrefresh] = useState(0)
+  const [refresh, setrefresh] = useState(0);
   const { patient_doctor_id } = router.query;
-   console.log({patient_doctor_id})
+  console.log({ patient_doctor_id });
   const [appointment, setappointment] = useState([]);
-   const [doctor, setdoctor] = useState([]);
-      const [patient, setpatient] = useState([]);
+  const [doctor, setdoctor] = useState([]);
+  const [patient, setpatient] = useState([]);
   useEffect(() => {
     axios
       .get(
@@ -29,23 +29,34 @@ export default function DoctorAppointment() {
       .then((resp) => {
         setappointment(resp.data.data[0]);
       });
-  }, [patient_doctor_id,refresh]);
-  console.log(doctor)
-    console.log(appointment?.advice);
-      console.log(patient);
+  }, [patient_doctor_id, refresh]);
+  const [ olderappointment,setolderappointment]=useState()
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:3000/api/appointments/olderappointment?id=${appointment?.doctor_id}&id2=${appointment?.patient_id}`
+      )
+      .then((resp) => {
+        setolderappointment(resp.data.data);
+      });
+  }, [appointment]);
+  console.log(doctor);
+  console.log(appointment?.advice);
+  console.log(patient);
+  console.log("old",olderappointment)
   useEffect(() => {
     axios
       .get(`http://localhost:3000/api/doctors?uid=${appointment?.doctor_id}`)
       .then((resp) => {
         setdoctor(resp.data.data);
       });
-       axios
-         .get(
-           `http://localhost:3000/api/patients_users?uid=${appointment?.patient_id}`
-         )
-         .then((resp) => {
-           setpatient(resp.data.data);
-         });
+    axios
+      .get(
+        `http://localhost:3000/api/patients_users?uid=${appointment?.patient_id}`
+      )
+      .then((resp) => {
+        setpatient(resp.data.data);
+      });
   }, [appointment]);
 
   const date = new Date();
@@ -60,85 +71,82 @@ export default function DoctorAppointment() {
   } else {
     greeting = "Good Evening";
   }
-   let [isOpen, setIsOpen] = useState(false);
+  let [isOpen, setIsOpen] = useState(false);
 
-   function closeModal() {
-     setIsOpen(false);
-   }
+  function closeModal() {
+    setIsOpen(false);
+  }
 
-   function openModal() {
-     setIsOpen(true);
-   }
-   let [isOpenL, setIsOpenL] = useState(false);
+  function openModal() {
+    setIsOpen(true);
+  }
+  let [isOpenL, setIsOpenL] = useState(false);
 
-   function closeModalL() {
-     setIsOpenL(false);
-   }
+  function closeModalL() {
+    setIsOpenL(false);
+  }
 
-   function openModalL() {
-     setIsOpenL(true);
-   }
-   
-   const [advice, setadvice] = useState("");
-   const [notes, setnotes] = useState(appointment?.notes);
-   
+  function openModalL() {
+    setIsOpenL(true);
+  }
+
+  const [advice, setadvice] = useState("");
+  const [notes, setnotes] = useState(appointment?.notes);
+
   const [val, setval] = useState();
-  const [test,settest]=useState()
-    const [documents, setdocuments] = useState();
-    const [val1, setval1] = useState();
-    const [val3, setval3] = useState();
-   useEffect(()=>{
-   setadvice(appointment?.advice);
-   setnotes(appointment?.notes);
-setval(appointment?.prescription);
-setval1(appointment?.test);
-setval3(appointment?.documents);
-setdocuments(appointment?.documents);
-settest(appointment?.test);
-   },[appointment?.advice,appointment?.notes,appointment])
+  const [test, settest] = useState();
+  const [documents, setdocuments] = useState();
+  const [val1, setval1] = useState();
+  const [val3, setval3] = useState();
+  useEffect(() => {
+    setadvice(appointment?.advice);
+    setnotes(appointment?.notes);
+    setval(appointment?.prescription);
+    setval1(appointment?.test);
+    setval3(appointment?.documents);
+    setdocuments(appointment?.documents);
+    settest(appointment?.test);
+  }, [appointment?.advice, appointment?.notes, appointment]);
 
-   console.log(advice)
-   
-const [onClick, setonClick] = useState(false);
-   const delteitem = async (index,) => {
-     
+  console.log(advice);
 
-     let urllist = prescreption;
+  const [onClick, setonClick] = useState(false);
+  const delteitem = async (index) => {
+    let urllist = prescreption;
     if (index > -1) {
       // only splice array when item is found
       urllist.splice(index, 1); // 2nd parameter means remove one item only
     }
 
-     setprescription(urllist);
-   };
-    const delteitemtest = async (index) => {
-      let urllist = test;
-      if (index > -1) {
-        // only splice array when item is found
-        urllist.splice(index, 1); // 2nd parameter means remove one item only
-      }
+    setprescription(urllist);
+  };
+  const delteitemtest = async (index) => {
+    let urllist = test;
+    if (index > -1) {
+      // only splice array when item is found
+      urllist.splice(index, 1); // 2nd parameter means remove one item only
+    }
 
-      settest(urllist);
-    };
-     const delteitemdoc = async (index) => {
-       let urllist = documents;
-       if (index > -1) {
-         // only splice array when item is found
-         urllist.splice(index, 1); // 2nd parameter means remove one item only
-       }
+    settest(urllist);
+  };
+  const delteitemdoc = async (index) => {
+    let urllist = documents;
+    if (index > -1) {
+      // only splice array when item is found
+      urllist.splice(index, 1); // 2nd parameter means remove one item only
+    }
 
-       setdocuments(urllist);
-     };
+    setdocuments(urllist);
+  };
 
-   const [prescreption, setprescription] = useState();
-   const[links,setlinks] = useState()
-   useEffect(() => {
-     setprescription(appointment?.prescription);
-     setprescription(appointment?.documents);
-   }, [appointment?.prescription,appointment]);
-   console.log(prescreption);
-   const deletemedicine = (index)=>{
-
+  const [prescreption, setprescription] = useState();
+  const [links, setlinks] = useState();
+  useEffect(() => {
+    setprescription(appointment?.prescription);
+    setprescription(appointment?.documents);
+  }, [appointment?.prescription, appointment]);
+  console.log(prescreption);
+  const deletemedicine = (index) => {
     delteitem(index);
     let databody = {
       patient_doctor_id: appointment?.patient_doctor_id,
@@ -163,109 +171,107 @@ const [onClick, setonClick] = useState(false);
         databody
       )
       .then(function (response) {
-        console.log("delete item",index)
+        console.log("delete item", index);
         console.log(response);
-        setrefresh(refresh+1)
+        setrefresh(refresh + 1);
       });
-
-
-   }
-    const deletedoc = (index) => {
-      delteitemdoc(index);
-      let databody = {
-        patient_doctor_id: appointment?.patient_doctor_id,
-        patient_id: appointment?.patient_id,
-        doctor_id: appointment?.doctor_id,
-        typeofmeeting: "Consultation",
-        time: appointment?.date,
-        date: appointment?.time,
-        fnsdate: appointment?.fnsdate,
-        verifiedbydoctor: appointment?.verifiedbydoctor,
-        verifiedbypatient: appointment?.verifiedbypatient,
-        advice: appointment?.advice,
-        notes: appointment?.notes,
-        documents:documents,
-        test: appointment?.test,
-        reasonforappointment: appointment?.reasonforappointment,
-        prescription: appointment?.prescription,
-      };
-      axios
-        .post(
-          ` http://localhost:3000/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
-          databody
-        )
-        .then(function (response) {
-          console.log("delete item", index);
-          console.log(response);
-          setrefresh(refresh + 1);
-        });
+  };
+  const deletedoc = (index) => {
+    delteitemdoc(index);
+    let databody = {
+      patient_doctor_id: appointment?.patient_doctor_id,
+      patient_id: appointment?.patient_id,
+      doctor_id: appointment?.doctor_id,
+      typeofmeeting: "Consultation",
+      time: appointment?.date,
+      date: appointment?.time,
+      fnsdate: appointment?.fnsdate,
+      verifiedbydoctor: appointment?.verifiedbydoctor,
+      verifiedbypatient: appointment?.verifiedbypatient,
+      advice: appointment?.advice,
+      notes: appointment?.notes,
+      documents: documents,
+      test: appointment?.test,
+      reasonforappointment: appointment?.reasonforappointment,
+      prescription: appointment?.prescription,
     };
-   const deletetest = (index) => {
-     delteitemtest(index);
-     let databody = {
-       patient_doctor_id: appointment?.patient_doctor_id,
-       patient_id: appointment?.patient_id,
-       doctor_id: appointment?.doctor_id,
-       typeofmeeting: "Consultation",
-       time: appointment?.date,
-       date: appointment?.time,
-       fnsdate: appointment?.fnsdate,
-       verifiedbydoctor: appointment?.verifiedbydoctor,
-       verifiedbypatient: appointment?.verifiedbypatient,
-       advice: appointment?.advice,
-       notes: appointment?.notes,
-       documents: appointment?.documents,
-       test: test,
-       reasonforappointment: appointment?.reasonforappointment,
-       prescription: appointment?.prescription,
-     };
-     axios
-       .post(
-         ` http://localhost:3000/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
-         databody
-       )
-       .then(function (response) {
-         console.log("delete item", index);
-         console.log(response);
-         setrefresh(refresh + 1);
-       });
-   };
-   const confirmation = () => {
-     let databody = {
-       patient_doctor_id: appointment?.patient_doctor_id,
-       patient_id: appointment?.patient_id,
-       doctor_id: appointment?.doctor_id,
-       typeofmeeting: "Consultation",
-       time: appointment?.date,
-       date: appointment?.time,
-       fnsdate: appointment?.fnsdate,
-       verifiedbydoctor: appointment?.verifiedbydoctor,
-       verifiedbypatient: appointment?.verifiedbypatient,
-       advice: advice,
-       notes: notes,
-       documents: appointment?.documents,
-       test: appointment?.test,
-       reasonforappointment: appointment?.reasonforappointment,
-       prescription: appointment?.prescription,
-     };
-     axios
-       .post(
-         ` http://localhost:3000/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
-         databody
-       )
-       .then(function (response) {
-         console.log(response);
-       });
-   };
+    axios
+      .post(
+        ` http://localhost:3000/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
+        databody
+      )
+      .then(function (response) {
+        console.log("delete item", index);
+        console.log(response);
+        setrefresh(refresh + 1);
+      });
+  };
+  const deletetest = (index) => {
+    delteitemtest(index);
+    let databody = {
+      patient_doctor_id: appointment?.patient_doctor_id,
+      patient_id: appointment?.patient_id,
+      doctor_id: appointment?.doctor_id,
+      typeofmeeting: "Consultation",
+      time: appointment?.date,
+      date: appointment?.time,
+      fnsdate: appointment?.fnsdate,
+      verifiedbydoctor: appointment?.verifiedbydoctor,
+      verifiedbypatient: appointment?.verifiedbypatient,
+      advice: appointment?.advice,
+      notes: appointment?.notes,
+      documents: appointment?.documents,
+      test: test,
+      reasonforappointment: appointment?.reasonforappointment,
+      prescription: appointment?.prescription,
+    };
+    axios
+      .post(
+        ` http://localhost:3000/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
+        databody
+      )
+      .then(function (response) {
+        console.log("delete item", index);
+        console.log(response);
+        setrefresh(refresh + 1);
+      });
+  };
+  const confirmation = () => {
+    let databody = {
+      patient_doctor_id: appointment?.patient_doctor_id,
+      patient_id: appointment?.patient_id,
+      doctor_id: appointment?.doctor_id,
+      typeofmeeting: "Consultation",
+      time: appointment?.date,
+      date: appointment?.time,
+      fnsdate: appointment?.fnsdate,
+      verifiedbydoctor: appointment?.verifiedbydoctor,
+      verifiedbypatient: appointment?.verifiedbypatient,
+      advice: advice,
+      notes: notes,
+      documents: appointment?.documents,
+      test: appointment?.test,
+      reasonforappointment: appointment?.reasonforappointment,
+      prescription: appointment?.prescription,
+    };
+    axios
+      .post(
+        ` http://localhost:3000/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
+        databody
+      )
+      .then(function (response) {
+        console.log(response);
+      });
+  };
   return (
     <div>
       <main className="bg-gray-50 min-h-screen flex max-w-[1500px] mx-auto">
-        <DoctorSidebar />
+        <SideNavbar />
         <div className="flex-grow px-3 w-full sm:ml-[73px] md:ml-[250px] xl:ml-[250px]">
           <div className="text-3xl pt-6 pb-4   border-b text-gray-800 font-thin ">
             {greeting}{" "}
             <p className=" text-gray-900 font-bold inline-block">
-              Dr. {doctor?.name}
+              {patient?.name}
             </p>
             <p className="py-1 text-xl text-gray-600">
               Happiness is the highest form of health.
@@ -278,7 +284,7 @@ const [onClick, setonClick] = useState(false);
             </div>
             <div className=" flex-col flex-1">
               <div className="flex-1 p-3">
-                <label
+                {/* <label
                   for="message"
                   class="block text-lg mb-2  font-medium text-gray-900"
                 >
@@ -293,15 +299,15 @@ const [onClick, setonClick] = useState(false);
                   rows="4"
                   class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500"
                   placeholder="Notes"
-                ></textarea>
+                ></textarea> */}
                 <div className=" py-4 ">
-                  <button
+                  {/* <button
                     onClick={() => confirmation()}
                     type="submit"
                     class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-purple-700 rounded-lg focus:ring-4 focus:ring-purple-200 dark:focus:ring-purple-900 hover:bg-purple-800"
                   >
                     Save Notes
-                  </button>
+                  </button> */}
                 </div>
               </div>
               <div className="flex-1">
@@ -322,13 +328,13 @@ const [onClick, setonClick] = useState(false);
                   placeholder="Instructions"
                 ></textarea>
                 <div className=" py-4 ">
-                  <button
+                  {/* <button
                     onClick={() => confirmation()}
                     type="submit"
                     class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-purple-700 rounded-lg focus:ring-4 focus:ring-purple-200 dark:focus:ring-purple-900 hover:bg-purple-800"
                   >
-                    Save Instrictions
-                  </button>
+                    Save Instructions
+                  </button> */}
                 </div>
               </div>
               <div>
@@ -337,13 +343,13 @@ const [onClick, setonClick] = useState(false);
                     Prescreption
                   </div>
                   <div className="px-1 py-1">
-                    <button
+                    {/* <button
                       onClick={openModal}
                       type="submit"
                       class="inline-flex items-center py-2.5 px-4 text-md font-medium text-center text-white bg-purple-700 rounded-lg focus:ring-4 focus:ring-purple-200 dark:focus:ring-purple-900 hover:bg-purple-800"
                     >
                       <MdAddCircleOutline /> Add
-                    </button>
+                    </button> */}
                   </div>
                 </div>
 
@@ -396,13 +402,13 @@ const [onClick, setonClick] = useState(false);
                     Lab Test
                   </div>
                   <div className="px-1 py-1">
-                    <button
+                    {/* <button
                       onClick={openModalL}
                       type="submit"
                       class="inline-flex items-center py-2.5 px-4 text-md font-medium text-center text-white bg-purple-700 rounded-lg focus:ring-4 focus:ring-purple-200 dark:focus:ring-purple-900 hover:bg-purple-800"
                     >
                       <MdAddCircleOutline /> Add Test
-                    </button>
+                    </button> */}
                   </div>
                 </div>
 
@@ -508,9 +514,65 @@ const [onClick, setonClick] = useState(false);
                     </tbody>
                   </table>
                 </div>
+                <div className="flex flex-row p-2">
+                  <div className="flex flex-1 text-lg font-semibold text-purple-900 ">
+                    Other Appointments
+                  </div>
+                  {/* <div className="px-1 py-1">
+                    <button
+                      onClick={() => setonClick(true)}
+                      type="submit"
+                      class="inline-flex items-center py-2.5 px-4 text-md font-medium text-center text-white bg-purple-700 rounded-lg focus:ring-4 focus:ring-purple-200 dark:focus:ring-purple-900 hover:bg-purple-800"
+                    >
+                      <MdAddCircleOutline /> Upload
+                    </button>
+                  </div> */}
+                </div>
 
-                <div className="pt-3 ">
-                  <NewAppointment doctor={doctor} />
+                <div class="overflow-x-auto relative shadow-lg rouned-full shadow-purple-200">
+                  <table class="w-full text-sm text-left text-gray-500 rounded-lg dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 rounded-2xl dark:text-gray-400">
+                      <tr>
+                        <th scope="col" class="py-3 px-6">
+                          Appointment ID
+                        </th>
+
+                        <th scope="col" class="py-3 px-6">
+                          Date
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                          Type of Meeting
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {olderappointment?.map((presc, index) => (
+                        <tr
+                          key={index}
+                          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                        >
+                          <th
+                            scope="row"
+                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                          >
+                            {presc?.patient_doctor_id}
+                          </th>
+                          <td class="py-4 px-6">
+                            {moment(presc?.fnsdate).format(
+                              "dd mm MMM YY "
+                            )}{" "}
+                          </td>
+
+                          <td class="py-4 px-6">
+                            <MdDelete onClick={() => deletedoc(index)} />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
@@ -575,7 +637,6 @@ const [onClick, setonClick] = useState(false);
                   links={links}
                 />
               </div>
-
               {/* <!-- Modal footer --> */}
               <div className="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600"></div>
             </div>

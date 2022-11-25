@@ -1,49 +1,81 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { Router, useRouter } from "next/router";
-function NewUserRegistration() {
-    const { data: session } = useSession();
+function Profile() {
   const router = useRouter();
-  const [name,setName] = useState(session?.user?.name)
+  const { id } = router.query;
+  const { data: session } = useSession();
+
+  const [user, setuser] = useState();
+  useEffect(() => {
+    axios.get(`http://localhost:3000/api/patients_users?uid=${id}`).then((resp) => {
+      setuser(resp.data.data);
+    });
+  }, [id]);
+  const [name, setName] = useState(session?.user?.name);
 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [allergies,setallergies] = useState("")
+  const [allergies, setallergies] = useState("");
   const [diseases, setdiseases] = useState("");
   const [weight, setweight] = useState("");
-   const [bp, setbloodpressure] = useState("");
-    const [medication, setmedication] = useState("");
+  const [bp, setbloodpressure] = useState("");
+  const [medication, setmedication] = useState("");
   const [height, setheight] = useState("");
-   const [temperature, settemperature] = useState("");
+  const [temperature, settemperature] = useState("");
   const [click, SetClick] = useState(1);
-   const [pincode, setPincode] = useState("");
-   const [gender,setgender] = useState("")
+  const [pincode, setPincode] = useState("");
+  const [gender, setgender] = useState("");
   const [age, setAge] = useState("");
+  console.log(user)
   const [isCheckedbp, setIsCheckedbp] = useState(false);
-    const handleOnChange = () => {
-      setIsChecked(!isChecked);
-      setDiabetic(isChecked);
-    };
-    const handleOnChangebp = () => {
-      setIsCheckedbp(!isCheckedbp);
-      sethighbp(isCheckedbp);
-    };
-const [isChecked, setIsChecked] = useState(false);
-const [information,setInfo] = useState("")
+  useEffect(() => {
+    setAddress(user?.address)
+    setName(user?.name)
+    setCity(user?.city)
+    setAge(user?.age)
+    setPhoneNo(user?.phone_no)
+    setState(user?.state)
+    setallergies(user?.allergies)
+    setdiseases(user?.diseases)
+    setweight(user?.weight?.weight)
+    setheight(user?.height?.height)
+    setbloodpressure(user?.pressure?.pressure)
+    settemperature(user?.temperature?.temperature)
+    sethemoglobin(user?.hemoglobin?.hemoglobin)
+    setmedication(user?.medication)
+    setDiabetic(user?.diabetic)
+    sethighbp(user?.bp_patient)
+    setgender(user?.gender)
+    setInfo(user?.information)
+    setBloodGroup(user?.blood_group)
+    
+  }, [user])
+  
+  const handleOnChange = () => {
+    setIsChecked(!isChecked);
+    setDiabetic(isChecked)
+  };
+  const handleOnChangebp = () => {
+    setIsCheckedbp(!isCheckedbp);
+    sethighbp(isCheckedbp)
+  };
+  const [isChecked, setIsChecked] = useState(false);
+  const [information, setInfo] = useState("");
 
   //Archit - -- - ---------------------------------
-  const [blood_group,setBloodGroup] = useState("");
+  const [blood_group, setBloodGroup] = useState("");
   const [state, setState] = useState("");
   const [hemoglobin, sethemoglobin] = useState("");
-  const [ highbp,sethighbp] = useState(isCheckedbp)
+  const [highbp, sethighbp] = useState(isCheckedbp);
 
-  const [phone_no,setPhoneNo] = useState();
+  const [phone_no, setPhoneNo] = useState();
   const [diabetic, setDiabetic] = useState(isChecked);
   //Archit---------------------------------------------
   const d = new Date();
-  console.log(d+ " dev");
-  
+  console.log(d + " dev");
+
   const addTodoHandler = async () => {
     let databody = {
       uid: session?.user?.id,
@@ -57,23 +89,22 @@ const [information,setInfo] = useState("")
       country: "India",
       state: state,
       photo_url: session?.user?.image,
-      gender : gender, 
-      documents: [],
+      documents: user?.documents,
+      diabetic : diabetic,
       medication: medication,
       allergies: allergies,
       bp_patient: highbp,
-      hemoglobin : {
-        hemoglobin : hemoglobin,
-        lastchecked : new Date()
+      hemoglobin: {
+        hemoglobin: hemoglobin,
+        lastchecked: new Date(),
       },
       pressure: { pressure: bp, lastchecked: new Date() },
       information: information,
       weight: { weight: weight, lastchecked: new Date() },
       height: { height: height, lastchecked: new Date() },
-      temperature : {temperature: temperature,
-      last_checked: new Date(),}
+      temperature: { temperature: temperature, last_checked: new Date() },
     };
-    axios.post("/api/patients_users", databody).then(function (response) {
+    axios.post(`/api/patients_users/updateprofile?uid=${id}`, databody).then(function (response) {
       console.log(response);
     });
     router.push(`/UserDashBoard/${session?.user?.id}`);
@@ -573,4 +604,4 @@ const [information,setInfo] = useState("")
   );
 }
 
-export default NewUserRegistration;
+export default Profile;

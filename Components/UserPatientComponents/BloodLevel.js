@@ -2,8 +2,9 @@ import React from 'react'
 import { AiFillCaretDown } from 'react-icons/ai';
 import asset from "../../public/blood-donation.png"
 import Image from "next/image"
+import moment from 'moment';
 
-function BloodLevel() {
+function BloodLevel({user}) {
   return (
     <div className="p-1">
       <div className="p-2 font-extrabold text-purple-900 text-2xl  font-mono">
@@ -17,13 +18,15 @@ function BloodLevel() {
             </div>
             <div className="text-gray-400">
               Blood Type
-              <div className="font-bold text-2xl text-purple-900">A+</div>
+              <div className="font-bold text-2xl text-purple-900">
+                {user?.blood_group}
+              </div>
             </div>
           </div>
           <div className="p-4 px-10 ">
             <div className="text-gray-400">Last Date</div>
             <div className="text-lg font-semibold text-purple-900">
-              10.11.2022
+              {moment(user?.hemoglobin?.lastchecked).format("mm MMM YY ")}{" "}
             </div>
           </div>
         </div>
@@ -42,8 +45,10 @@ function BloodLevel() {
           </div>
           <div className="items-end justify-end font-thin text-purple-600"></div>
         </div>
-        <div className='p-3 '>
-          <div className=" hover:bg-purple-200 p-1 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">Details</div>
+        <div className="p-3 ">
+          <div className=" hover:bg-purple-200 p-1 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+            Details
+          </div>
         </div>
       </div>
     </div>

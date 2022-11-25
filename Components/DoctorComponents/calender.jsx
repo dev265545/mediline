@@ -1,6 +1,7 @@
 import { Menu, Transition } from "@headlessui/react";
 import { DotsVerticalIcon } from "@heroicons/react/outline";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
+import Image from  "next/image"
 import axios from "axios";
 import {
   add,
@@ -240,8 +241,10 @@ function Meeting({ meeting,index,patient }) {
 
   return (
     <li className="flex items-center px-4 py-2 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
-      <img
+      <Image
         src={patient[index]?.photo_url}
+        width={40}
+        height={40}
         alt=""
         className="flex-none w-10 h-10 rounded-full"
       />
@@ -266,8 +269,6 @@ function Meeting({ meeting,index,patient }) {
             <DotsVerticalIcon className="w-6 h-6" aria-hidden="true" />
           </Menu.Button>
         </div>
-
-        
       </Menu>
     </li>
   );

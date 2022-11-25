@@ -42,6 +42,7 @@ function DoctorCard({ doctor }) {
                   {doctor?.phone}
                 </p>
               </div>
+              
             </div>
             <div className=" flex flex-row gap-1 pt-3 ">
               <FaHospital className=" text-base inline-block " />

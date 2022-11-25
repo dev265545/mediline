@@ -15,7 +15,7 @@ function Choice() {
     setDoctorPatient(false);
   };
   return (
-    <div className="p-3 grid grid-cols-2 gap-3">
+    <div className=" min-h-screen">
       {DoctorPatient && <DoctorvsPatient handleClick={handleClick} />}
 
       {Patient && <MLvsPatient />}

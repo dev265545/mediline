@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import axios from "axios";
-export default function ImageUploader
-({uid,links}) {
+export default function DocumentUploader({ uid, links,appointment }) {
+const [documents,setdocuments] = useState()
+useEffect(()=>{
+    setdocuments(appointment?.documents)
+},[appointment])
+console.log(documents)
   const [imageSrc, setImageSrc] = useState();
+  const [docname,setdocname] = useState("");
   const [uploadData, setUploadData] = useState();
-  const [docname, setdocname] = useState("");
-  
 
   /**
    * handleOnChange
@@ -55,26 +58,49 @@ export default function ImageUploader
 
     setImageSrc(data.secure_url);
     setUploadData(data);
-  
+    let links = documents
     let x = {
-      name: docname,
-      link: data.secure_url,
-    };
+        name : docname,
+        link : data.secure_url
+    }
     links.push(x);
-    let databody = links
-    console.log(databody)
-      axios
-        .post(` http://localhost:3000/api/patients_users/upload?uid=${uid}`, databody)
-        .then(function (response) {
-          console.log(response);
-        });
+    setdocuments(links)
+    console.log(documents)
+    let databody = {
+      patient_doctor_id: appointment?.patient_doctor_id,
+      patient_id: appointment?.patient_id,
+      doctor_id: appointment?.doctor_id,
+      typeofmeeting: "Consultation",
+      time: appointment?.date,
+      date: appointment?.time,
+      fnsdate: appointment?.fnsdate,
+      verifiedbydoctor: appointment?.verifiedbydoctor,
+      verifiedbypatient: appointment?.verifiedbypatient,
+      advice: appointment?.advice,
+      notes: appointment?.notes,
+      documents: documents,
+      test: appointment?.test,
+      reasonforappointment: appointment?.reasonforappointment,
+      prescription: appointment?.prescreption,
+    };
+    axios
+      .post(
+        ` http://localhost:3000/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
+        databody
+      )
+      .then(function (response) {
+        console.log(response);
+        setdocname("");
+        setImageSrc();
+        setUploadData();
+      });
   }
 
   return (
     <div>
       <main>
-        <p className="text-sm text-gray-500 border-t pt-2 p-2 py-4">
-          <label className="p-2">Document Name</label>
+        <p className="text-sm text-gray-500 border-t pt-2">
+          <label className="">Document Name</label>
           <input
             onChange={(e) => setdocname(e.target.value)}
             value={docname}
@@ -89,7 +115,7 @@ export default function ImageUploader
           onChange={handleOnChange}
           onSubmit={handleOnSubmit}
         >
-          <p>
+          <p className="p-3">
             <input type="file" name="file" />
           </p>
 
