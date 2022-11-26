@@ -58,6 +58,9 @@ const DoctorSchema = new Schema({
   },
   reviews: [
     {
+      heading : {
+        type : String
+      },
       rating: {
         type: Number,
       },

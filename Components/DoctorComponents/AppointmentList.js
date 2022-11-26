@@ -81,6 +81,7 @@ function AppoinmentList({ doctor }) {
   const handleoff = () => {
     SetEditModal(!EditModal);
   };
+  
 
   return (
     <div className="p-4 w-full max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -98,7 +99,7 @@ function AppoinmentList({ doctor }) {
           role="list"
           className="divide-y divide-gray-200 dark:divide-gray-700"
         >
-          {appointmentlist.map((doctor, index) => (
+          {appointmentlist.slice(0, 4).map((doctor, index) => (
             <li key={index} className="py-3 sm:py-4 ">
               <div className="flex items-center space-x-4">
                 <div className="flex-shrink-0">

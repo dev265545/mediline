@@ -57,15 +57,7 @@ function DoctorSidebar() {
                   Profile
                 </h3>
               </div>
-              <div
-                // onClick={() => router.push("")}
-                className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
-              >
-                <MdOutlineExplore className="text-2xl text-purple-600 group-hover:text-white  " />
-                <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
-                  Patients
-                </h3>
-              </div>
+             
               <div
                 onClick={() =>
                   router.push(
@@ -106,18 +98,8 @@ function DoctorSidebar() {
             </div>
             {/* setting  */}
             <div className=" my-4 border-b border-gray-100 pb-4">
-              <div className="flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
-                <MdOutlineSettings className="text-2xl text-purple-600 group-hover:text-white " />
-                <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
-                  Settings
-                </h3>
-              </div>
-              <div className="flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-gradient-radial  p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
-                <MdOutlineMoreHoriz className="text-2xl text-purple-600 group-hover:text-white " />
-                <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
-                  More
-                </h3>
-              </div>
+             
+              
             </div>
             {/* logout */}
             <div className=" my-4">

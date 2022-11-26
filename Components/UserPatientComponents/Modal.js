@@ -5,6 +5,7 @@ import { GiBullets, GiPointing } from 'react-icons/gi'
 import { MdEmail, MdPhoneAndroid } from 'react-icons/md'
 import ForAppointementBooking from './ForAppointementBooking'
 import { useSession, signIn, signOut } from "next-auth/react";
+import { CgProfile } from 'react-icons/cg'
 
 function Modal({modalhandle, doctor}) {
    const [query, setQuery] = useState("");
@@ -21,11 +22,13 @@ const handleonoff = ()=>{
 const [rating,setrating]=useState(0)
 
 const [review,setreview]=useState("")
+const [ heading,setheading] = useState("")
   const { data: session } = useSession();
 const handleconfirm = async () => {
   let x = {
     review : review,
     rating : rating,
+    heading : heading,
     name : session.user?.name,
     lastchecked : new Date()
     
@@ -101,7 +104,7 @@ const handleconfirm = async () => {
     <div
       id="extralarge-modal"
       tabindex="-1"
-      className=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full"
+      className=" overflow-y-auto backdrop-blur-3xl overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full"
     >
       <div className="relative p-4 w-full max-w-7xl h-full md:h-auto">
         {/* <!-- Modal content --> */}
@@ -244,6 +247,14 @@ const handleconfirm = async () => {
                     <label for="comment" class="sr-only">
                       Your Review
                     </label>
+                    <input
+                      id="comment"
+                      onChange={(e) => setheading(e.target.value)}
+                      rows="4"
+                      class="w-full px-0 p-4 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                      placeholder="Heading ..."
+                      value={heading}
+                    ></input>
                     <textarea
                       id="comment"
                       onChange={(e) => setreview(e.target.value)}
@@ -251,6 +262,7 @@ const handleconfirm = async () => {
                       class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                       placeholder="Write a Review..."
                       required
+                      value={review}
                     ></textarea>
                   </div>
                   <div class="px-4 py-2 pt-4 border-black  shadow-2xl  dark:bg-gray-800 ">
@@ -283,23 +295,41 @@ const handleconfirm = async () => {
                 </div>
               </form>
             </div>
-            <div>
-              Reviews
+            <div className="gap-4">
+              <div className="text-3xl font-bold">
+                Reviews ({doctor?.reviews?.length})
+              </div>
               {doctor?.reviews?.map((review, index) => (
-                <div key={index} className="bg-slate-100 rounded-2xl p-4">
-                  <div className="bg-white rounded-3xl">
-                    <div className="text-lg text-gray-900 p-3">
-                      Review : <p className='te'>{review?.review}</p>
+                <div
+                  key={index}
+                  class="w-full flex gap-5 justify-start items-start shadow-2xl rounded-3xl flex-col bg-gray-50 dark:bg-gray-800 p-8"
+                >
+                  <div class="flex flex-col md:flex-row justify-between w-full">
+                    <div class="flex flex-row justify-between items-start">
+                      <p class="text-xl md:text-2xl font-medium leading-normal text-gray-800 dark:text-white">
+                        {review?.heading}
+                      </p>
                     </div>
+                    <div class="cursor-pointer mt-2 md:mt-0 text-3xl rounded-full p-4 text-semibold text-white bg-purple-700">
+                      {review.rating}/5
+                    </div>
+                  </div>
+                  <div id="menu" class="md:block">
+                    <p class="mt-3 text-base leading-normal text-gray-600 dark:text-white w-full md:w-9/12 xl:w-5/6">
+                     {review?.review}
+                    </p>
+                    <div class="hidden md:flex mt-6 flex-row justify-start items-start space-x-4"></div>
 
-                    <div className="text-lg text-gray-900 font-semibold p-3">
-                      Rating : {review?.rating}
+                    <div class="mt-6 flex justify-start items-center flex-row space-x-2.5">
+                      <div>
+                        <CgProfile className="text-4xl text-purple-800" />
+                      </div>
+                      <div class="flex flex-col justify-start items-start space-y-2">
+                        <p class="text-base font-medium leading-none text-gray-800 dark:text-white">
+                          {review?.name}
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-lg text-gray-900 p-3">
-                      {review?.name}
-                    </div>
-
-                    <hr></hr>
                   </div>
                 </div>
               ))}

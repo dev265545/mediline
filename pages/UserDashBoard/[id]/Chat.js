@@ -12,6 +12,8 @@ import { set } from "date-fns";
 
 const Chat = () => {
   const router = useRouter();
+  const bottomRef = useRef(null);
+
   const { id } = router.query;
   const [doctor, setdoctor] = useState();
   useEffect(() => {
@@ -86,14 +88,19 @@ const Chat = () => {
         setchatmsg(resp.data.data);
       });
   }, [showchatofpatient, doctor?.uid,chatmsg]);
+  useEffect(() => {
+    // 👇️ scroll to bottom every time messages change
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chatmsg]);
+
  
 
   return (
     <div class="flex h-screen antialiased text-gray-800">
       <div class="flex flex-row h-full w-full overflow-x-hidden">
-        <div class="flex flex-col py-8 pl-6 pr-2 w-64 bg-white flex-shrink-0">
-          <div class="flex flex-row items-center justify-center h-12 w-full">
-            <div class="flex items-center justify-center rounded-2xl text-indigo-700 bg-indigo-100 h-10 w-10">
+        <div class="md:flex md:flex-col md:py-8 md:pl-6 md:pr-2 md:w-64 md:bg-white md:flex-shrink-0 hidden ">
+          <div class= " flex flex-row items-center justify-center h-12 w-full ">
+            <div class=" flex items-center justify-center rounded-2xl text-indigo-700 bg-indigo-100 h-10 w-10">
               <svg
                 class="w-6 h-6"
                 fill="none"
@@ -109,7 +116,7 @@ const Chat = () => {
                 ></path>
               </svg>
             </div>
-            <div class="ml-2 font-bold text-2xl">ChatWithDoc</div>
+          <div class="ml-2 font-bold text-2xl">ChatWithDoc</div>
           </div>
           <button
             onClick={() => router.push(`/UserDashBoard/${doctor?.uid}`)}
@@ -145,6 +152,7 @@ const Chat = () => {
             <div class="flex flex-col h-full overflow-x-auto mb-4">
               <div class="flex flex-col h-full">
                 <div class="grid grid-cols-12 gap-y-2">
+            
                   {chatmsg?.map((chat, index) =>
                     chat?.message?.sender == 1 ? (
                       <div
@@ -164,7 +172,7 @@ const Chat = () => {
                         </div>
                       </div>
                     ) : (
-                      <div class="col-start-1 col-end-8 p-3 rounded-lg">
+                      <div key={index} class="col-start-1 col-end-8 p-3 rounded-lg">
                         <div class="flex flex-row items-center">
                           <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
                             <img
@@ -182,6 +190,7 @@ const Chat = () => {
                     )
                   )}
                 </div>
+                <div ref={bottomRef} />
               </div>
             </div>
           </div>

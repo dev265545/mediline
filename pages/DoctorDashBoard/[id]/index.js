@@ -84,7 +84,7 @@ const [doctor,setdoctor]= useState()
               ></Image>
             </div>
           </div>
-          <div className="grid grid-cols-4 gap-5 ">
+          <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 ">
             <div className="bg-purple-200 rounded-lg shadow-md shadow-purple-200 p-2 grid grid-cols-2 ">
               <div className="bg-purple-800 rounded-full w-16 h-16  flex items-center justify-center">
                 <BiCalendar className="text-4xl text-white " />

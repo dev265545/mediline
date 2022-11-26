@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import axios from "axios";
-export default function ProfilePhotoUploader({ uid, link,appointment }) {
+export default function ProfilePhotoUploader({ uid, link,appointment ,photo_url
+,setphoto}) {
   const [documents, setID] = useState();
   useEffect(() => {
     setID(appointment?.uid);
@@ -58,6 +59,7 @@ export default function ProfilePhotoUploader({ uid, link,appointment }) {
 
     setImageSrc(data.secure_url);
     setUploadData(data);
+    setphoto(data.secure_url)
   
     let databody = {
       photo_url : imageSrc

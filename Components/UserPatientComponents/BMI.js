@@ -5,6 +5,20 @@ import {BsThreeDotsVertical} from "react-icons/bs"
 
 function BMI({user}) {
   console.log(user)
+  const bmi = parseInt(user?.weight?.weight)/(parseInt(user?.height?.height)*parseInt(user?.height?.height))*100*100
+  let category ;
+  if( bmi >18.5 && bmi < 25){
+      category = "Normal"
+  }
+   if (bmi > 25) {
+     category = "OverWeight";
+   }
+      if (bmi < 18.5) {
+        category = "UnderWeight";
+      }
+
+
+
   return (
     <div className="p-1">
       <div className="p-2 font-extrabold text-purple-900 text-2xl  font-mono">
@@ -78,15 +92,30 @@ function BMI({user}) {
           <hr class=" mx-auto w-full h-2 bg-purple-300  border-0  dark:bg-gray-700 rounded-r-full opacity-60 "></hr>
         </div>
         <div className=" flex flex-row items-center justify-center gap-10 lg:gap-24 pb-5 mb-4 ">
-          <div className="items-start  font-thin text-purple-600">
-            UnderWeight
-          </div>
-          <div className=" items-center text-purple-600 ">Normal</div>
-          <div className="items-end justify-end font-thin text-purple-600">
-            OverWeight
-          </div>
+          {category === "UnderWeight" && (
+            <div className="items-start  font-thin text-purple-600">
+              UnderWeight
+            </div>
+          )}
+          {category === "Normal" && (
+            <div className=" items-center text-purple-600 ">
+              Within Normal Limits
+            </div>
+          )}
+          {category === "OverWeight" && (
+            <div className="items-end justify-end font-thin text-purple-600">
+              OverWeight
+            </div>
+          )}
         </div>
-        <div className='text-purple-600 p-1  mt-1 flex items-center justify-center'> Last Updated :{user?.weight?.lastchecked.substring(0, 10)}</div>
+        <div className="text-purple-600 p-1  mt-1 flex items-center justify-center">
+          {" "}
+          BMI : {bmi.toFixed(3)}
+        </div>
+        <div className="text-purple-600 p-1  mt-1 flex items-center justify-center">
+          {" "}
+          Last Updated :{user?.weight?.lastchecked.substring(0, 10)}
+        </div>
       </div>
     </div>
   );

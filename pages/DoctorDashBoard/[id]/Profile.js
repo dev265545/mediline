@@ -41,6 +41,7 @@ function Profile() {
   const [services, setServices] = useState("");
   const [dayofweek, setdayofweek] = useState("");
   const [onClick,setonClick]= useState(false)
+  const [photo_url,setphoto] = useState("")
 
   const [fees, setFees] = useState("");
 useEffect(()=>{
@@ -60,6 +61,7 @@ useEffect(()=>{
   setHospitalEmail(doctor?.hospitalemail)
   setHospitalName(doctor?.hospitalname)
   setQualification(doctor?.Qualification)
+  setphoto(doctor?.photo_url)
   
   setServices(doctor?.services)
   setSpecialization(doctor?.Specialization)
@@ -95,7 +97,7 @@ useEffect(()=>{
       Specialization: specialization, //---
       Qualification: qualification, //---
       info: info,
-      photo_url: doctor?.photo_url, //------
+      photo_url: photo_url, //------
       phone: phone,
 
       slotsfornext7days: {
@@ -624,6 +626,8 @@ useEffect(()=>{
                   <ProfilePhotoUploader
                     uid={doctor?.uid}
                     appointment={doctor}
+                    setphoto = {setphoto}
+                    photo_url = {photo_url}
               
                   />
                 </div>

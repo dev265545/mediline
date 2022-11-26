@@ -47,7 +47,7 @@ function BloodLevel({user}) {
         </div>
         <div className="p-3 ">
           <div className=" hover:bg-purple-200 p-1 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
-            Details
+           Hemoglobin :{user?.hemoglobin?.hemoglobin}
           </div>
         </div>
       </div>

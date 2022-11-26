@@ -70,7 +70,7 @@ console.log(user)
 
           <div className=" flex flex-col gap-5 mt-24 pt-10 shadow-3xl shadow-rose-800 ">
             <div className="flex flex-col md:flex-row  md:gap-36">
-              <BMI user ={user} className=" border border-black flex-1 " />
+              <BMI user={user} className=" border border-black flex-1 " />
               <div className="">
                 <div className=" p-2 font-extrabold text-blue-900 text-2xl  font-mono">
                   Upcoming Appointment
@@ -109,50 +109,45 @@ console.log(user)
             </div>
 
             <div className="flex flex-col md:flex-col lg:flex-row gap-36 ">
-              <BloodLevel user= {user} className=" border border-black" />
+              <BloodLevel user={user} className=" border border-black" />
               <div className="">
                 <div className=" p-2 font-extrabold text-blue-900 text-2xl  font-mono">
                   Certificates and Reports
                 </div>
-                <div className=" shadow-2xl rounded-3xl bg-white mt-1 mb-2">
-                  <div className="p-3 grid grid-cols-1 gap-7  ">
-                    <div className="rounded-md">
-                      <div className="grid grid-cols-2 gap-28">
-                        <div className="text-xl text-gray-500    ">
-                          Covid-19 Vaccination
-                        </div>
-                        <div className="flex flex-row gap-4 text-xl  items-end justify-end">
-                          Download
-                          <div className="rounded-full border border-blue-900">
-                            <BiCloudDownload className="text-3xl font-bold " />
+                {user?.documents?.map((document, index) => (
+                  <div
+                    key={index}
+                    className=" shadow-2xl rounded-3xl bg-white mt-1 mb-2"
+                  >
+                    <div className="p-3 grid grid-cols-1 gap-7  ">
+                      <div className="rounded-md">
+                        <div className="grid grid-cols-2 gap-28">
+                          <div className="text-xl text-gray-500    ">
+                            {document?.name}
+                          </div>
+                          <div className="flex flex-row gap-4 text-xl  items-end justify-end">
+                            Download
+                            <div className="rounded-full border border-blue-900">
+                              <a href={document?.link} target="_blank" rel="noreferrer">
+                                <BiCloudDownload
+                               
+                                  className="text-3xl font-bold "
+                                />
+                              </a>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className=" shadow-2xl rounded-3xl bg-white mt-1 mb-2">
-                  <div className="p-3 grid grid-cols-1 gap-7  ">
-                    <div className="rounded-md">
-                      <div className="grid grid-cols-2 gap-28">
-                        <div className="text-xl text-gray-500    ">
-                          Covid-19 Vaccination
-                        </div>
-                        <div className="flex flex-row gap-4 text-xl  items-end justify-end">
-                          Download
-                          <div className="rounded-full border border-blue-900">
-                            <BiCloudDownload className="text-3xl font-bold " />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
           <div className=" mt-24 pt-10 shadow-3xl shadow-rose-800 ">
-            <Example user = {user} className=" border border-black" />
+            {!(user === undefined) && (
+              <Example user={user} className=" border border-black" />
+            )}
           </div>
         </div>
       </main>
