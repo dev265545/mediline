@@ -12,7 +12,7 @@ function UserDashBoard() {
     if (session?.user?.id != undefined) {
       axios
         .get(
-          `http://localhost:3000/api/patients_users?uid=${session?.user?.id}`
+          `https://mediline.vercel.app/api/patients_users?uid=${session?.user?.id}`
         )
         .then((resp) => {
           setUser(resp.data);

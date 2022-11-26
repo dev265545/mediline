@@ -66,7 +66,7 @@ export default function ProfilePhotoUploader({ uid, link,appointment ,photo_url
     };
     axios
       .post(
-        ` http://localhost:3000/api/doctors/updatephoto?uid=${documents}`,
+        ` https://mediline.vercel.app/api/doctors/updatephoto?uid=${documents}`,
         databody
       )
       .then(function (response) {

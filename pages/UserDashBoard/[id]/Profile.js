@@ -9,7 +9,7 @@ function Profile() {
 
   const [user, setuser] = useState();
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/patients_users?uid=${id}`).then((resp) => {
+    axios.get(`https://mediline.vercel.app/api/patients_users?uid=${id}`).then((resp) => {
       setuser(resp.data.data);
     });
   }, [id]);

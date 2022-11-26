@@ -24,7 +24,7 @@ export default function DoctorAppointment() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:3000/api/appointments/patient_doctor_id?id=${patient_doctor_id}`
+        `https://mediline.vercel.app/api/appointments/patient_doctor_id?id=${patient_doctor_id}`
       )
       .then((resp) => {
         setappointment(resp.data.data[0]);
@@ -35,13 +35,13 @@ export default function DoctorAppointment() {
       console.log(patient);
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/doctors?uid=${appointment?.doctor_id}`)
+      .get(`https://mediline.vercel.app/api/doctors?uid=${appointment?.doctor_id}`)
       .then((resp) => {
         setdoctor(resp.data.data);
       });
        axios
          .get(
-           `http://localhost:3000/api/patients_users?uid=${appointment?.patient_id}`
+           `https://mediline.vercel.app/api/patients_users?uid=${appointment?.patient_id}`
          )
          .then((resp) => {
            setpatient(resp.data.data);
@@ -56,7 +56,7 @@ export default function DoctorAppointment() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:3000/api/appointments/olderappointment?id=${appointment?.doctor_id}&id2=${appointment?.patient_id}`
+        `https://mediline.vercel.app/api/appointments/olderappointment?id=${appointment?.doctor_id}&id2=${appointment?.patient_id}`
       )
       .then((resp) => {
         setolderappointment(resp.data.data);
@@ -169,7 +169,7 @@ const [onClick, setonClick] = useState(false);
     };
     axios
       .post(
-        ` http://localhost:3000/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
+        ` https://mediline.vercel.app/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
         databody
       )
       .then(function (response) {
@@ -201,7 +201,7 @@ const [onClick, setonClick] = useState(false);
       };
       axios
         .post(
-          ` http://localhost:3000/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
+          ` https://mediline.vercel.app/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
           databody
         )
         .then(function (response) {
@@ -231,7 +231,7 @@ const [onClick, setonClick] = useState(false);
      };
      axios
        .post(
-         ` http://localhost:3000/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
+         ` https://mediline.vercel.app/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
          databody
        )
        .then(function (response) {
@@ -260,7 +260,7 @@ const [onClick, setonClick] = useState(false);
      };
      axios
        .post(
-         ` http://localhost:3000/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
+         ` https://mediline.vercel.app/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
          databody
        )
        .then(function (response) {

@@ -18,7 +18,7 @@ function ListofAppointments({user }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/appointments/forpatient?id=${user?.uid}`)
+      .get(`https://mediline.vercel.app/api/appointments/forpatient?id=${user?.uid}`)
       .then((resp) => {
         setList(resp.data.data);
       });
@@ -32,7 +32,7 @@ function ListofAppointments({user }) {
     for (i; i < list?.length; i++) {
       const x = list[i]?.doctor_id;
       const response = await axios.get(
-        `http://localhost:3000/api/doctors?uid=${x}`
+        `https://mediline.vercel.app/api/doctors?uid=${x}`
       );
       console.log(response);
 

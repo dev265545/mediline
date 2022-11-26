@@ -17,7 +17,7 @@ const Chat = () => {
       const [doctor, setdoctor] = useState();
       useEffect(() => {
         axios
-          .get(`http://localhost:3000/api/doctors?uid=${id}`)
+          .get(`https://mediline.vercel.app/api/doctors?uid=${id}`)
           .then((resp) => {
             setdoctor(resp.data.data);
           });
@@ -30,7 +30,7 @@ const Chat = () => {
 
      
 useEffect(() => {
-  axios.get(`http://localhost:3000/api/appointments?id=${id}`).then((resp) => {
+  axios.get(`https://mediline.vercel.app/api/appointments?id=${id}`).then((resp) => {
     setList(resp.data.data);
     
   });
@@ -46,7 +46,7 @@ useEffect(() => {
    for (i; i < uniquepatients?.length; i++) {
      const x = uniquepatients[i]?.patient_id;
      const response = await axios.get(
-       `http://localhost:3000/api/patients_users?uid=${x}`
+       `https://mediline.vercel.app/api/patients_users?uid=${x}`
      );
      console.log(response);
 
@@ -76,7 +76,7 @@ const sendmsg =()=>{
     }
      axios
        .post(
-         ` http://localhost:3000/api/chats`,
+         ` https://mediline.vercel.app/api/chats`,
          databody
        )
        .then(function (response) {
@@ -89,7 +89,7 @@ const sendmsg =()=>{
  useEffect(() => {
    axios
      .get(
-       `http://localhost:3000/api/chats?id=${doctor?.uid}&id2=${showchatofpatient?.uid}`
+       `https://mediline.vercel.app/api/chats?id=${doctor?.uid}&id2=${showchatofpatient?.uid}`
      )
      .then((resp) => {
        setchatmsg(resp.data.data);
