@@ -59,7 +59,7 @@ const confirmation = ()=>{
   };
   axios
     .post(
-      ` https:mediline.vercel.app/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
+      ` https://mediline.vercel.app/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
       databody
     )
     .then(function (response) {
@@ -97,7 +97,7 @@ const confirmation = ()=>{
   };
   axios
     .delete(
-      ` https:mediline.vercel.app/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
+      ` https://mediline.vercel.app/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
       databody
     )
     .then(function (response) {

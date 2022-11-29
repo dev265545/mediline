@@ -34,7 +34,7 @@ useEffect(()=>{
 const [appointment,setappointment] =useState([])
  useEffect(() => {
    axios
-     .get(`https:mediline.vercel.app/api/appointments/forpatient?id=${user?.uid}`)
+     .get(`https://mediline.vercel.app/api/appointments/forpatient?id=${user?.uid}`)
      .then((resp) => {
        setappointment(resp.data.data);
      });

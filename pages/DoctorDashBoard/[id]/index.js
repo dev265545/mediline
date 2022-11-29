@@ -23,7 +23,7 @@ export default function ProfileDoctorDashBoard() {
 const [doctor,setdoctor]= useState()
    useEffect(() => {
      axios
-       .get(`https:mediline.vercel.app/api/doctors?uid=${id}`)
+       .get(`https://mediline.vercel.app/api/doctors?uid=${id}`)
        .then((resp) => {
          setdoctor(resp.data.data);
        });},[id])
@@ -43,7 +43,7 @@ const [doctor,setdoctor]= useState()
 
     useEffect(() => {
       axios
-        .get(`https:mediline.vercel.app/api/appointments?id=${doctor?.uid}`)
+        .get(`https://mediline.vercel.app/api/appointments?id=${doctor?.uid}`)
         .then((resp) => {
           setList(resp.data.data);
         });

@@ -10,7 +10,7 @@ import { CgProfile } from 'react-icons/cg'
 function Modal({modalhandle, doctor}) {
    const [query, setQuery] = useState("");
    useEffect(() => {
-     axios.get(`https:mediline.vercel.app/api/doctors?uid=${doctor?.uid}`).then((resp) => {
+     axios.get(`https://mediline.vercel.app/api/doctors?uid=${doctor?.uid}`).then((resp) => {
        setQuery(resp.data.data);
      });
      doctor = query

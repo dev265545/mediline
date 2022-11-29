@@ -77,7 +77,7 @@ export default function Example({doctor}) {
 
   useEffect(() => {
     axios
-      .get(`https:mediline.vercel.app/api/appointments?id=${doctor?.uid}`)
+      .get(`https://mediline.vercel.app/api/appointments?id=${doctor?.uid}`)
       .then((resp) => {
         setList(resp.data.data);
       });
@@ -91,7 +91,7 @@ export default function Example({doctor}) {
      for (i; i < selectedDayMeetings?.length; i++) {
        const x = selectedDayMeetings[i]?.patient_id;
        const response = await axios.get(
-         `https:mediline.vercel.app/api/patients_users?uid=${x}`
+         `https://mediline.vercel.app/api/patients_users?uid=${x}`
        );
        console.log(response)
 
