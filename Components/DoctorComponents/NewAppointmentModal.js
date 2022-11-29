@@ -91,6 +91,7 @@ function NewAppointmentModal({ isOpen ,openModal,closeModal, doctor }) {
   };
 
   console.log(selectedday);
+  console.log(optionsslots)
   const unique_id = uuid();
   const [reasonforappointment, setforappointment] = useState("");
   const small_id = unique_id.slice(0, 8);

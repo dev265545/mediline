@@ -11,7 +11,7 @@ function Profile() {
    const { id } = router.query;
    const [doctor, setdoctor] = useState();
    useEffect(() => {
-     axios.get(`https://mediline.vercel.app/api/doctors?uid=${id}`).then((resp) => {
+     axios.get(`https:mediline.vercel.app/api/doctors?uid=${id}`).then((resp) => {
        setdoctor(resp.data.data);
      });
    }, [id]);

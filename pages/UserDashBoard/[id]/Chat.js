@@ -17,7 +17,7 @@ const Chat = () => {
   const { id } = router.query;
   const [doctor, setdoctor] = useState();
   useEffect(() => {
-    axios.get(`https://mediline.vercel.app/api/patients_users?uid=${id}`).then((resp) => {
+    axios.get(`https:mediline.vercel.app/api/patients_users?uid=${id}`).then((resp) => {
       setdoctor(resp.data.data);
     });
   }, [id]);
@@ -29,7 +29,7 @@ const Chat = () => {
 
   useEffect(() => {
     axios
-      .get(`https://mediline.vercel.app/api/appointments/forpatient?id=${id}`)
+      .get(`https:mediline.vercel.app/api/appointments/forpatient?id=${id}`)
       .then((resp) => {
         setList(resp.data.data);
       });
@@ -45,7 +45,7 @@ const Chat = () => {
     for (i; i < uniquepatients?.length; i++) {
       const x = uniquepatients[i]?.doctor_id;
       const response = await axios.get(
-        `https://mediline.vercel.app/api/doctors?uid=${x}`
+        `https:mediline.vercel.app/api/doctors?uid=${x}`
       );
 
       urllist.push(response.data.data);
@@ -72,7 +72,7 @@ const Chat = () => {
       },
     };
     axios
-      .post(` https://mediline.vercel.app/api/chats`, databody)
+      .post(` https:mediline.vercel.app/api/chats`, databody)
       .then(function (response) {
         console.log(response);
         setInput("");
@@ -82,7 +82,7 @@ const Chat = () => {
   useEffect(() => {
     axios
       .get(
-        `https://mediline.vercel.app/api/chats?id=${showchatofpatient?.uid}&id2=${doctor?.uid}`
+        `https:mediline.vercel.app/api/chats?id=${showchatofpatient?.uid}&id2=${doctor?.uid}`
       )
       .then((resp) => {
         setchatmsg(resp.data.data);

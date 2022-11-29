@@ -9,7 +9,7 @@ function Reviews() {
   const { id } = router.query;
   const [doctor, setdoctor] = useState("");
   useEffect(() => {
-    axios.get(`https://mediline.vercel.app/api/doctors?uid=${id}`).then((resp) => {
+    axios.get(`https:mediline.vercel.app/api/doctors?uid=${id}`).then((resp) => {
       setdoctor(resp.data.data);
     });
   }, [id]);
@@ -111,7 +111,7 @@ function Reviews() {
                     <div class="flex flex-col md:flex-row justify-between w-full">
                       <div class="flex flex-row justify-between items-start">
                         <p class="text-xl md:text-2xl font-medium leading-normal text-gray-800 dark:text-white">
-                          {review.review}
+                          {review?.heading}
                         </p>
                       </div>
                       <div class="cursor-pointer mt-2 md:mt-0 text-3xl rounded-full p-4 text-semibold text-white bg-purple-700">
@@ -120,10 +120,7 @@ function Reviews() {
                     </div>
                     <div id="menu" class="md:block">
                       <p class="mt-3 text-base leading-normal text-gray-600 dark:text-white w-full md:w-9/12 xl:w-5/6">
-                        When you want to decorate your home, the idea of
-                        choosing a decorative theme can seem daunting. Some
-                        themes seem to have an endless amount of pieces, while
-                        others can feel hard to accomplish
+                        {review?.review}
                       </p>
                       <div class="hidden md:flex mt-6 flex-row justify-start items-start space-x-4"></div>
 

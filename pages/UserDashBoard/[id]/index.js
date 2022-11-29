@@ -17,6 +17,8 @@ import { ArrowCircleDownIcon, ArrowCircleRightIcon, ArrowCircleUpIcon } from "@h
 import { AiFillCaretDown } from "react-icons/ai";
 import { BiArrowToTop, BiCloudDownload, BiDownload } from "react-icons/bi";
 import { MdDownload, MdFileDownload, MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { format, parseISO } from "date-fns";
+import moment from "moment";
 
 export default function UserProfileDashBoard() {
    const router = useRouter();
@@ -29,6 +31,14 @@ useEffect(()=>{
    setUser(resp.data.data);
  });
 },[id])
+const [appointment,setappointment] =useState([])
+ useEffect(() => {
+   axios
+     .get(`https:mediline.vercel.app/api/appointments/forpatient?id=${user?.uid}`)
+     .then((resp) => {
+       setappointment(resp.data.data);
+     });
+ }, [user?.uid]);
   
    const date = new Date();
    const currentTime = date.getHours();
@@ -81,9 +91,9 @@ console.log(user)
                     <div className="rounded-md">
                       <div className="grid grid-cols-2 gap-28">
                         <div className="text-xl text-gray-500  p-1 mt-1 ">
-                          Family Doctor Visit
+                          {appointment[0]?.typeofmeeting}
                           <div className="text-base">
-                            23 November 2022 at 12:30
+                            {moment(appointment[0]?.fnsdate).format(" Do  MMM YY ")}{" "}
                           </div>
                         </div>
                         <div className="flex flex-row gap-4 text-xl p-5  items-end justify-end">
@@ -98,7 +108,7 @@ console.log(user)
 
                       <div className="mb-4 p-1  text-md text-gray-600 "> </div>
                       <div className="p-3">
-                        <div className="p-1 flex items-center justify-center bg-purple-700 text-white rounded-lg">
+                        <div  className="p-1 flex items-center justify-center bg-purple-700 text-white rounded-lg">
                           Details
                         </div>
                       </div>
@@ -128,11 +138,12 @@ console.log(user)
                           <div className="flex flex-row gap-4 text-xl  items-end justify-end">
                             Download
                             <div className="rounded-full border border-blue-900">
-                              <a href={document?.link} target="_blank" rel="noreferrer">
-                                <BiCloudDownload
-                               
-                                  className="text-3xl font-bold "
-                                />
+                              <a
+                                href={document?.link}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                <BiCloudDownload className="text-3xl font-bold " />
                               </a>
                             </div>
                           </div>

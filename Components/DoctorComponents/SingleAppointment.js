@@ -33,13 +33,13 @@ console.log(patient_id)
 let startDateTime = parseISO(list[index]?.fnsdate);
 let msg =
   "This is to inform you that your Appointment on" +
-  format(startDateTime, "D MMMM yyyy") +
+  format(startDateTime, " Do MMMM yyyy") +
   " at " +
   list[index]?.date +
   " is confirmed. Hoping that you be on time and maintaing your health with the best of your ability. I hope i will helpful to you";
   let reject =
     "This is to inform you that your Appointment on" +
-    format(startDateTime, "D MMMM yyyy") +
+    format(startDateTime, "Do MMMM yyyy") +
     " at " +
     list[index]?.date +
     " is being unfortunatelly being removed as I am not available at that time. You can go back and make another appointment at other available slots. Sorry for the inconvience";
@@ -59,7 +59,7 @@ const confirmation = ()=>{
   };
   axios
     .post(
-      ` https://mediline.vercel.app/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
+      ` https:mediline.vercel.app/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
       databody
     )
     .then(function (response) {
@@ -97,7 +97,7 @@ const confirmation = ()=>{
   };
   axios
     .delete(
-      ` https://mediline.vercel.app/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
+      ` https:mediline.vercel.app/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
       databody
     )
     .then(function (response) {

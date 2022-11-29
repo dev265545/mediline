@@ -66,7 +66,7 @@ function SingleAppointment({ patient_id, index, handleoff, doctor, list, c }) {
     };
     axios
       .post(
-        ` https://mediline.vercel.app/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
+        ` https:mediline.vercel.app/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
         databody
       )
       .then(function (response) {
@@ -101,7 +101,7 @@ function SingleAppointment({ patient_id, index, handleoff, doctor, list, c }) {
     };
     axios
       .delete(
-        ` https://mediline.vercel.app/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
+        ` https:mediline.vercel.app/api/appointments/updatebydoctor?id=${list[index]?.patient_doctor_id}`,
         databody
       )
       .then(function (response) {

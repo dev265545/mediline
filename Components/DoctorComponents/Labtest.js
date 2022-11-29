@@ -53,7 +53,7 @@ const [instructiontopatient, setinstructiontopatient] = useState("");
     };
     axios
       .post(
-        ` https://mediline.vercel.app/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
+        ` https:mediline.vercel.app/api/appointments/updatebydoctor?id=${appointment.patient_doctor_id}`,
         databody
       )
       .then(function (response) {
