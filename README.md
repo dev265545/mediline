@@ -3,13 +3,23 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Getting Started
 
 First, run the development server:
-
+for running locally
+1. Open the folder
+2. In the root directory add .env.local file
+   and add the following environment variables -
+   MONGODB_URI
+   GOOGLE_CLIENT_ID
+   GOOGLE_CLIENT_SECRET
+   NEXTAUTH_URL
+   JWT_SECRET 
+3. After this, do npm install and then npm run dev
 ```bash
-npm run dev
-# or
-yarn dev
-```
+npm install
 
+npm run dev
+
+```
+-> Otherwise deployed on -
 Open [https://mediline.vercel.app](https://mediline.vercel.app) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
